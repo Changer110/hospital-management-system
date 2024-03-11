@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Accident</title>
+  <link rel="stylesheet" href="static/css/accident.css">
+</head>
+<body>
+  <h1>Add Accident for {{ patient.name }}</h1>
+  <form method="post" action="{% url 'add_accident' patient.employee_id %}">
+    {% csrf_token %}
+
+    <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date">
+
+    <label for="causal_material_element">Causal Material Element:</label>
+    <input type="text" name="causal_material_element" id="causal_material_element">
+
+    <label for="nature_of_lesions">Nature of Lesions:</label>
+    <textarea name="nature_of_lesions" id="nature_of_lesions"></textarea>
+
+    <label for="position">Position:</label>
+    <input type="text" name="position" id="position">
+
+    <label for="numb_of_days_off">Number of Days Off:</label>
+    <input type="number" name="numb_of_days_off" id="numb_of_days_off">
+
+    <label for="partial_permanent_incapacity">Partial Permanent Incapacity:</label>
+    <input type="checkbox" name="partial_permanent_incapacity" id="partial_permanent_incapacity">
+
+    <label for="observation">Observation:</label>
+    <textarea name="observation" id="observation"></textarea>
+
+    <input type="submit" value="Add Accident">
+  </form>
+</body>
+</html>

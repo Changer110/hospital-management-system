@@ -1,0 +1,166 @@
+<!-- patient_information.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Information</title>
+  <!-- <link rel="stylesheet" href="static/css/patient.css"> -->
+  <style>
+    th {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="patient-container">
+    <h1 class="patient-title">Patient Information</h1>
+
+    <div class="button-container" style="display: flex; gap: 20px">
+      <a href="{% url 'add_patient' %}" class="add-patient-button">Add Patient</a>
+      <form action="{% url 'search_patient' %}" style="display: flex; gap: 5px" method="POST">
+        {% csrf_token %}
+        <input type="number" name="employee_id">
+        <input type="submit" value="Search">
+      </form>
+      <a href="{% url 'show_all_patient' %}" class="add-patient-button">Show all Patients</a>
+      <a href="{% url 'show_all_drugs' %}" class="add-patient-button">Show all Drugs</a>
+      <a href="{% url 'show_all_doctors' %}" class="add-patient-button">Show all Doctors</a>
+    </div>
+
+    <!-- <ul class="patient-details"> -->
+      <table>
+        <thead>
+          <th>Employee ID</th>
+          <th>Name</th>
+          <th>Date of Birth</th>
+          <th>Place of Birth</th>
+          <th>Nationality</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Size</th>
+          <th>Blood Group</th>
+          <th>Marital Status</th>
+          <th>Number of Dependent Children</th>
+          <th>Affiliation with INSS</th>
+          <th>Emergency Contact</th>
+          <th>Hiring Date</th>
+          <th>Departure Date</th>
+          <th>Reason for Leaving</th>
+          <th>Qualification</th>
+          <th>Patient Creation Date</th>
+          <th>Enterprise Name</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody>
+          {% for patient in patients %}
+          <tr>
+            <td>{{ patient.employee_id }}</td>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.date_of_birth }}</td>
+            <td>{{ patient.place_of_birth }}</td>
+            <td>{{ patient.nationality }}</td>
+            <td>{{ patient.age }}</td>
+            <td>{{ patient.gender }}</td>
+            <td>{{ patient.phone_number }}</td>
+            <td>{{ patient.email }}</td>
+            <td>{{ patient.address }}</td>
+            <td>{{ patient.size }}</td>
+            <td>{{ patient.blood_group }}</td>
+            <td>{{ patient.marital_status }}</td>
+            <td>{{ patient.num_dependent_children }}</td>
+            <td>{{ patient.affiliation_with_inss }}</td>
+            <td>{{ patient.emergency_contact }}</td>
+            <td>{{ patient.hiring_date }}</td>
+            <td>{{ patient.departure_date }}</td>
+            <td>{{ patient.reason_for_leaving }}</td>
+            <td>{{ patient.qualification }}</td>
+            <td>{{ patient.patient_creation_date }}</td>
+            <td>{{ patient.enterprise_name.name }}</td>
+
+            <td><a href="{% url 'change_patient' patient.employee_id %}" class="patient-button">Change</a></td>
+            <td><a href="{% url 'delete_patient' patient.employee_id %}" class="patient-button">Delete</a></td>
+            <td><a href="{% url 'medical_record' patient.employee_id %}" class="patient-button">Medical record</a></td>
+            <td><a href="{% url 'appointment' patient.employee_id %}" class="patient-button">Appointment</a></td>
+            <td><a href="{% url 'previous_post' patient.employee_id %}" class="patient-button">Previous post</a></td>
+            <td><a href="{% url 'accident' patient.employee_id %}" class="patient-button">Accident</a></td>
+            <td><a href="{% url 'occupational_illness' patient.employee_id %}" class="patient-button">Occupational Illness</a></td>
+            <td><a href="{% url 'background_patient' patient.employee_id %}" class="patient-button">Background Patient</a></td>
+            <td><a href="{% url 'summons_form' patient.employee_id %}" class="patient-button">Summons Form</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="27">No patients found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    <!-- </ul> -->
+  </div>
+  
+  <script>
+    // Dynamically apply styles to the patient.html elements
+    const patientContainer = document.querySelector('.patient-container');
+    patientContainer.style.maxWidth = '800px';
+    patientContainer.style.margin = '0 auto';
+    patientContainer.style.padding = '20px';
+
+    const patientTitle = document.querySelector('.patient-title');
+    patientTitle.style.textAlign = 'center';
+
+    const patientButtons = document.querySelectorAll('.add-patient-button');
+    patientButtons.forEach(button => {
+      button.style.display = 'inline-block';
+      button.style.padding = '8px 16px';
+      button.style.backgroundColor = '#4CAF50';
+      button.style.color = 'white';
+      button.style.textDecoration = 'none';
+      button.style.borderRadius = '4px';
+    });
+
+    const patientDetailsTable = document.querySelector('table');
+    patientDetailsTable.style.width = '100%';
+    patientDetailsTable.style.borderCollapse = 'collapse';
+    patientDetailsTable.style.marginBottom = '20px';
+
+    const tableHeaders = patientDetailsTable.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+      header.style.padding = '8px';
+      header.style.textAlign = 'left';
+      header.style.borderBottom = '1px solid #ddd';
+      header.style.backgroundColor = '#f2f2f2';
+    });
+
+    const tableRows = patientDetailsTable.querySelectorAll('td');
+    tableRows.forEach(row => {
+      row.style.padding = '8px';
+      row.style.textAlign = 'left';
+      row.style.borderBottom = '1px solid #ddd';
+    });
+
+    const patientActionButtons = patientDetailsTable.querySelectorAll('.patient-button');
+    patientActionButtons.forEach(button => {
+      button.style.display = 'inline-block';
+      button.style.padding = '4px 8px';
+      button.style.backgroundColor = '#2196F3';
+      button.style.color = 'white';
+      button.style.textDecoration = 'none';
+     borderRadius = '4px';
+    });
+
+    // Add click event listener to table rows
+    const rows = patientDetailsTable.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        row.classList.toggle('selected');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor List</title>
+  <link rel="stylesheet" href="static/css/doctor_list.css">
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var doctors = document.getElementsByClassName('doctor');
+
+      for (var i = 0; i < doctors.length; i++) {
+        var doctor = doctors[i];
+
+        var doctorId = doctor.querySelector('.doctor-id').innerText;
+        var name = doctor.querySelector('.name').innerText;
+        var specialization = doctor.querySelector('.specialization').innerText;
+        var phoneNumber = doctor.querySelector('.phone-number').innerText;
+        var email = doctor.querySelector('.email').innerText;
+        var address = doctor.querySelector('.address').innerText;
+
+        console.log('Doctor ID: ' + doctorId);
+        console.log('Doctor Name: ' + name);
+        console.log('Specialization: ' + specialization);
+        console.log('Phone Number: ' + phoneNumber);
+        console.log('Email: ' + email);
+        console.log('Address: ' + address);
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Doctor List</h1>
+  <ul>
+    {% for doctor in doctors %}
+    <li class="doctor">
+      <strong>Doctor ID: </strong><span class="doctor-id">{{ doctor.doctor_id }}</span><br>
+      <strong>Name: </strong><span class="name">{{ doctor.name }}</span><br>
+      <strong>Specialization: </strong><span class="specialization">{{ doctor.specialization }}</span><br>
+      <strong>Phone Number: </strong><span class="phone-number">{{ doctor.phone_number }}</span><br>
+      <strong>Email: </strong><span class="email">{{ doctor.email }}</span><br>
+      <strong>Address: </strong><span class="address">{{ doctor.address }}</span><br>
+    </li>
+    {% empty %}
+    <li>No doctors found.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Occupational Illness</title>
+</head>
+<body>
+    <h1>Delete Occupational Illness</h1>
+
+    <p>Are you sure you want to delete the occupational illness (ID: {{ occupational_illness.id }})?</p>
+
+    <form method="post" action="{% url 'delete_occupational_illness' occupational_illness.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

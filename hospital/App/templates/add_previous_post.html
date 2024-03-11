@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Previous Post</title>
+  <link rel="stylesheet" href="static/css/add_previous_post.css">
+</head>
+<body>
+  <h1>Add Previous post for {{ patient.name }}</h1>
+  <form method="post" action="{% url 'add_previous_post' patient.employee_id %}">
+      {% csrf_token %}
+
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+        <label for="denomination">Denomination:</label>
+        <input type="text" name="denomination" id="denomination">
+      
+      
+        <label for="enterprise">Enterprise:</label>
+        <input type="text" name="enterprise" id="enterprise">
+      
+    
+        <label for="period">Period:</label>
+        <input type="text" name="period" id="period">
+      
+      
+        <label for="nuisance_factors">Nuisance Factors:</label>
+        <input type="text" name="nuisance_factors" id="nuisance_factors">
+    
+      <input type="submit"  value="Add previous post">
+    </form>
+</body>
+</html>

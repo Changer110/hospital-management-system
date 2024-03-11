@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vaccination Information</title>
+  <link rel="stylesheet" href="static/css/vaccination.css">
+</head>
+<body>
+  <div class="vaccination-container">
+    <h1 class="vaccination-title">Vaccination Information</h1>
+
+    <div class="button-container">
+        <a href="{% url 'add_vaccination' record %}" class="add-vaccination-button">Add vaccination</a>
+        <a href="{% url 'back_to_medical_record' record %}" class="back-to-medical-record-button">Back to Medical Record</a>
+    </div>
+
+    <ul class="vaccination-details">
+      <table>
+        <thead>
+          <th>Date</th>
+          <th>Vaccine</th>
+          <th>Lot</th>
+          <th>Type</th>
+          <th>Dose</th>
+          <th></th>
+          <th></th>
+        </thead>
+        {% for vaccination in vaccinations %}
+        <tbody>
+          <td>{{ vaccination.date }}</td>
+          <td>{{ vaccination.vaccine }}</td>
+          <td>{{ vaccination.lot }}</td>
+          <td>{{ vaccination.type }}</td>
+          <td>{{ vaccination.dose }}</td>
+          <td><a href="{% url 'delete_vaccination' vaccination.pk %}">Delete</a></td>
+          <td><a href="{% url 'change_vaccination' vaccination.pk %}">Change</a></td>
+        </tbody>
+        {% empty %}
+          <tr>
+            <td colspan="7">No vaccinations found.</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </ul>
+  </div>
+  <script>
+    // Style the "Add vaccination" button
+    const addVaccinationButton = document.querySelector('.add-vaccination-button');
+    addVaccinationButton.style.display = 'inline-block';
+    addVaccinationButton.style.padding = '8px 16px';
+    addVaccinationButton.style.backgroundColor = '#4CAF50';
+    addVaccinationButton.style.color = 'white';
+    addVaccinationButton.style.textDecoration = 'none';
+    addVaccinationButton.style.borderRadius = '4px';
+  
+    // Style the "Delete" and "Change" buttons
+    const deleteButtons = document.querySelectorAll('.vaccination-details a[href*="delete_vaccination"]');
+    deleteButtons.forEach(button => {
+      button.style.display = 'inline-block';
+      button.style.padding = '4px 8px';
+      button.style.backgroundColor = '#f44336';
+      button.style.color = 'white';
+      button.style.textDecoration = 'none';
+      button.style.borderRadius = '4px';
+  
+      // Emphasize "Vaccination" on the button
+      const buttonInnerHTML = button.innerHTML;
+      button.innerHTML = buttonInnerHTML.replace('vaccination', '<strong>vaccination</strong>');
+    });
+  
+    const changeButtons = document.querySelectorAll('.vaccination-details a[href*="change_vaccination"]');
+    changeButtons.forEach(button => {
+      button.style.display = 'inline-block';
+      button.style.padding = '4px 8px';
+      button.style.backgroundColor = '#2196F3';
+      button.style.color = 'white';
+      button.style.textDecoration = 'none';
+      button.style.borderRadius = '4px';
+  
+      // Emphasize "Vaccination" on the button
+      const buttonInnerHTML = button.innerHTML;
+      button.innerHTML = buttonInnerHTML.replace('vaccination', '<strong>vaccination</strong>');
+    });
+  </script>
+</body>
+</html>

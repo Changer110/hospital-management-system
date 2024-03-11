@@ -1,0 +1,41 @@
+<!-- add_background_patient.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Background Patient</title>
+  <link rel="stylesheet" href="static/css/background_patient.css">
+</head>
+<body>
+  <h1>Add Background Patient for  {{ patient.name }}</h1>
+  <form method="post" action="{% url 'add_background_patient' patient.employee_id %}">
+    {% csrf_token %}
+    <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+    <label for="personal_medical">Personal Medical:</label>
+    <input type="text" name="personal_medical" id="personal_medical" rows="4" cols="40">
+
+    <label for="personal_surgical">Personal Surgical:</label>
+    <input type="text" name="personal_surgical" id="personal_surgical" rows="4" cols="40">
+
+    <label for="professional_medical">Professional Medical:</label>
+    <input type="text" name="proffesional_medical" id="proffesional_medical" rows="4" cols="40">
+
+    <label for="professional_surgical">Professional Surgical:</label>
+    <input type="text" name="proffesional_surgical" id="proffesional_surgical" rows="4" cols="40">
+
+    <label for="family_medical">Family Medical:</label>
+    <input type="text" name="family_medical" id="family_medical" rows="4" cols="40">
+
+    <label for="family_surgical">Family Surgical:</label>
+    <input type="text" name="family_surgical" id="family_surgical" rows="4" cols="40">
+
+    <label for="social_personal">Social Personal:</label>
+    <input type="text" name="social_personal" id="social_personal" rows="4" cols="40">
+
+    <label for="social_family">Social Family:</label>
+    <input type="text" name="social_family" id="social_family" rows="4" cols="40">
+
+    <input type="submit" value="Add Background Patient">
+  </form>
+</body>
+</html>

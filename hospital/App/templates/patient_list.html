@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient List</title>
+  <link rel="stylesheet" href="static/css/patient_list.css">
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var patients = document.getElementsByClassName('patient');
+
+      for (var i = 0; i < patients.length; i++) {
+        var patient = patients[i];
+
+        var employeeId = patient.getElementsByClassName('employee-id')[0].innerText; // New field
+        var name = patient.getElementsByClassName('name')[0].innerText;
+        var age = patient.getElementsByClassName('age')[0].innerText;
+        var gender = patient.getElementsByClassName('gender')[0].innerText;
+        var phoneNumber = patient.getElementsByClassName('phone-number')[0].innerText;
+        var email = patient.getElementsByClassName('email')[0].innerText;
+        var address = patient.getElementsByClassName('address')[0].innerText;
+        var dateAdmitted = patient.getElementsByClassName('date-admitted')[0].innerText;
+
+        console.log('Employee ID: ' + employeeId); // New field
+        console.log('Patient Name: ' + name);
+        console.log('Age: ' + age);
+        console.log('Gender: ' + gender);
+        console.log('Phone Number: ' + phoneNumber);
+        console.log('Email: ' + email);
+        console.log('Address: ' + address);
+        console.log('Date Admitted: ' + dateAdmitted);
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Patient List</h1>
+  <ul>
+    {% for patient in patients %}
+    <li class="patient">
+      <strong>Employee ID: </strong><span class="employee-id">{{ patient.employee_id }}</span><br> <!-- New field -->
+      <strong>Name: </strong><span class="name">{{ patient.name }}</span><br>
+      <strong>Age: </strong><span class="age">{{ patient.age }}</span><br>
+      <strong>Gender: </strong><span class="gender">{{ patient.gender }}</span><br>
+      <strong>Phone Number: </strong><span class="phone-number">{{ patient.phone_number }}</span><br>
+      <strong>Email: </strong><span class="email">{{ patient.email }}</span><br>
+      <strong>Address: </strong><span class="address">{{ patient.address }}</span><br>
+      <strong>Date Admitted: </strong><span class="date-admitted">{{ patient.date_admitted }}</span><br>
+    </li>
+    {% empty %}
+    <li>No patients found.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

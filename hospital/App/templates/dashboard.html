@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Dashboard</title>
+  <link rel="stylesheet"
+        href="static/css/dashboard.css">
+        <script src="script.js"></script> 
+</head>
+ 
+<body>
+  <div class="dashboard-container">
+    <h1 class="dashboard-title">Dashboard</h1>
+
+    <h2>Models</h2>
+    <ul class="dashboard-list">
+      <li><a href="{% url 'patient' %}">Patients</a></li>
+      <li><a href="{% url 'drugs' %}">Drugs</a></li>
+      <li><a href="{% url 'doctor' %}">Doctors</a></li>
+      <li><a href="{% url 'department' %}">Departments</a></li>
+      <li><a href="{% url 'medical_record' %}">Medical Records</a></li>
+      <li><a href="{% url 'prescription' %}">Prescriptions</a></li>
+      <li><a href="{% url 'appointment' %}">Appointments</a></li>
+    </ul>
+  </div>
+</body>
+</html>

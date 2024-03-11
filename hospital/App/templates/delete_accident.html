@@ -1,0 +1,18 @@
+<!-- delete_accident.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Accident</title>
+</head>
+<body>
+    <h1>Delete Accident</h1>
+
+    <p>Are you sure you want to delete the accident (ID: {{ accident.id }})?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

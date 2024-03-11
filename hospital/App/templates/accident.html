@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Accident Information</title>
+  <link rel="stylesheet" href="static/css/accident.css">
+</head>
+<body>
+  <div class="accident-container">
+    <h1 class="accident-title">Accident Information for {{ patient.name }}</h1>
+
+    <div class="button-container">
+      <a href="{% url 'add_accident' patient.employee_id %}" class="add-appointment-button">Add Accident</a>
+      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
+    </div>
+
+    <ul class="accident-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Causal Material Element</th>
+            <th>Nature of Lesions</th>
+            <th>Position</th>
+            <th>Number of Days Off</th>
+            <th>Partial Permanent Incapacity</th>
+            <th>Observation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for accident in accidents %}
+          <tr>
+            <td>{{ accident.date }}</td>
+            <td>{{ accident.causal_material_element }}</td>
+            <td>{{ accident.nature_of_lesions }}</td>
+            <td>{{ accident.position }}</td>
+            <td>{{ accident.numb_of_days_off }}</td>
+            <td>{{ accident.partial_permanent_incapacity }}</td>
+            <td>{{ accident.observation }}</td>
+            <td><a href="{% url 'change_accident' accident.id %}">Change</a></td>
+            <td><a href="{% url 'delete_accident' accident.id %}">Delete</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7">No accidents found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </ul>
+  </div>
+
+  <script>
+    // Dynamically apply styles to the accident.html elements
+    const accidentContainer = document.querySelector('.accident-container');
+    accidentContainer.style.maxWidth = '800px';
+    accidentContainer.style.margin = '0 auto';
+    accidentContainer.style.padding = '20px';
+
+    const accidentTitle = document.querySelector('.accident-title');
+    accidentTitle.style.textAlign = 'center';
+
+    const patientInformationButton = document.querySelector('.patient-information-button');
+    patientInformationButton.style.display = 'inline-block';
+    patientInformationButton.style.padding = '8px 16px';
+    patientInformationButton.style.backgroundColor = '#2196F3';
+    patientInformationButton.style.color = 'white';
+    patientInformationButton.style.textDecoration = 'none';
+    patientInformationButton.style.borderRadius = '4px';
+    patientInformationButton.style.marginLeft = '10px';
+
+    const accidentDetailsTable = document.querySelector('table');
+    accidentDetailsTable.style.width = '100%';
+    accidentDetailsTable.style.borderCollapse = 'collapse';
+    accidentDetailsTable.style.marginBottom = '20px';
+
+    const tableHeaders = accidentDetailsTable.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+      header.style.padding = '8px';
+      header.style.textAlign = 'left';
+      header.style.borderBottom = '1px solid #ddd';
+      header.style.backgroundColor = '#f2f2f2';
+    });
+
+    const tableRows = accidentDetailsTable.querySelectorAll('td');
+    tableRows.forEach(row => {
+      row.style.padding = '8px';
+      row.style.textAlign = 'left';
+      row.style.borderBottom = '1px solid #ddd';
+    });
+  </script>
+</body>
+</html>

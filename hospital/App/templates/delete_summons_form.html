@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Summons Form</title>
+</head>
+<body>
+    <h1>Delete Summons Form</h1>
+
+    <p>Are you sure you want to delete this summons form?</p>
+
+    <form method="post" action="{% url 'delete_summons_form' summons_form.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

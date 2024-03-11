@@ -1,0 +1,121 @@
+/* Styles for the Prescription Information page */
+.prescription-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.prescription-title {
+  text-align: center;
+}
+
+.button-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-prescription-button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.prescription-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.prescription-details th {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  background-color: #f2f2f2;
+}
+
+.prescription-details td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.prescription-details a {
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.prescription-details td a:hover {
+  text-decoration: underline;
+}
+
+.prescription-details td:nth-child(3) a {
+  color: #f44336;
+}
+
+.prescription-details td:nth-child(4) a {
+  color: #2196F3;
+}
+
+.prescription-details td:nth-child(3) a:hover,
+.prescription-details td:nth-child(4) a:hover {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Styles for the Add Prescription page */
+.add-prescription-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.add-prescription-title {
+  text-align: center;
+}
+
+.add-prescription-form {
+  margin-top: 20px;
+}
+
+.add-prescription-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.add-prescription-form input[type="text"],
+.add-prescription-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.add-prescription-form input[type="submit"] {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-prescription-form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.add-prescription-form input[type="submit"]:focus {
+  outline: none;
+}
+
+.error-message {
+  color: red;
+  margin-top: 8px;
+}

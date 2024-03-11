@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Medical Record</title>
+</head>
+<body>
+  <h1>Confirm Deletion</h1>
+  <p>Are you sure you want to delete the medical record with ID: {{ record.id }}?</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+  </form>
+</body>
+</html>

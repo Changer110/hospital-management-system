@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Drug</title>
+  <link rel="stylesheet" href="static/css/add_drug.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <style>
+    /* CSS code for custom styling */
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .hasDatepicker {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    $(function() {
+      $("#id_expiry_date").datepicker({
+        dateFormat: 'yy-mm-dd'
+      });
+    });
+
+    function validateForm() {
+      var name = document.getElementById('id_name').value;
+      var drugType = document.getElementById('id_drug_type').value;
+      var quantity = document.getElementById('id_quantity').value;
+      var expiryDate = document.getElementById('id_expiry_date').value;
+      var dosageIssued = document.getElementById('id_dosage_issued').value;
+      var price = document.getElementById('id_price').value;
+      var importedFrom = document.getElementById('id_imported_from').value;
+
+      if (name.trim() === '' || drugType.trim() === '' || quantity.trim() === '' || expiryDate.trim() === '' || dosageIssued.trim() === '' || price.trim() === '' || priceperdrug.trim() === '' || importedFrom.trim() === '') {
+        alert('Please fill in all fields');
+        return false;
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Add Drug</h1>
+    <form method="post" action="" onsubmit="return validateForm()">
+      {% csrf_token %}
+      <label for="id_name">Name</label>
+      <input type="text" id="id_name" name="name">
+
+      <label for="id_drug_type">Drug Type</label>
+      <select id="id_drug_type" name="drug_type">
+        <option value="Tablet">Tablet</option>
+        <option value="Capsule">Capsule</option>
+        <option value="Liquid">Liquid</option>
+        <option value="Injection">Injection</option>
+        <option value="Cream">Cream</option>
+        <option value="Spray">Spray</option>
+      </select>
+
+      <label for="id_quantity">Quantity</label>
+      <input type="text" id="id_quantity" name="quantity">
+
+      <label for="id_expiry_date">Expiry Date</label>
+      <input type="text" id="id_expiry_date" name="expiry_date" class="hasDatepicker">
+
+      <label for="id_dosage_issued">Dosage Issued</label>
+      <input type="text" id="id_dosage_issued" name="dosage_issued">
+
+      <label for="id_price">Price</label>
+      <input type="text" id="id_price" name="price">
+      <label for="id_price_per_drug">Price Per Drug</label>
+      <input type="text" id="id_price_per_drug" name="price_per_drug">
+
+      <label for="id_imported_from">Imported From</label>
+      <input type="text" id="id_imported_from" name="imported_from">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+</html>

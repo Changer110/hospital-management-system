@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Change Patient Information</title>
+  <link rel="stylesheet" href="static/css/patient.css">
+</head>
+<body>
+  <div class="patient-container">
+    <h1 class="patient-title">Change Patient Information</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Save Changes">
+    </form>
+  </div>
+</body>
+</html>

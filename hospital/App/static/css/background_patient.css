@@ -1,0 +1,50 @@
+/* Styles for the container */
+.background-patient-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Styles for the title */
+  .background-patient-title {
+    text-align: center;
+  }
+  
+  /* Styles for the buttons */
+  .add-background-patient-button,
+  .patient-information-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-left: 10px;
+  }
+  
+  /* Styles for the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  /* Styles for table headers */
+  th {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #f2f2f2;
+  }
+  
+  /* Styles for table rows */
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Styles for the selected row */
+  tr.selected {
+    background-color: #e0e0e0;
+  }

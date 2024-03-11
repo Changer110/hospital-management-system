@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Occupational Illness Information</title>
+  <link rel="stylesheet" href="static/css/occupational_illness.css">
+  <style>
+    /* Add any additional custom styles here */
+  </style>
+</head>
+<body>
+  <div class="occupational-illness-container">
+    <h1 class="occupational-illness-title">Occupational Illness Information for {{ patient.name }}</h1>
+
+    <div class="button-container">
+      <a href="{% url 'add_occupational_illness' patient.employee_id %}" class="add-occupational-illness-button">Add Occupational Illness</a>
+      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
+    </div>
+
+    <ul class="occupational-illness-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Tableau</th>
+            <th>Causal Agent</th>
+            <th>Job</th>
+            <th>Decision</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for occupational_illness in occupational_illnesses %}
+          <tr>
+            <td>{{ occupational_illness.date }}</td>
+            <td>{{ occupational_illness.tableau }}</td>
+            <td>{{ occupational_illness.causal_agent }}</td>
+            <td>{{ occupational_illness.job }}</td>
+            <td>{{ occupational_illness.decision }}</td>
+            <td><a href="{% url 'change_occupational_illness' occupational_illness.id %}">Change</a></td>
+            <td><a href="{% url 'delete_occupational_illness' occupational_illness.id %}">Delete</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7">No occupational illnesses found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </ul>
+  </div>
+
+  <script>
+    // Dynamically apply styles to the occupational_illness.html elements
+  const occupationalIllnessContainer = document.querySelector('.occupational-illness-container');
+  occupationalIllnessContainer.style.maxWidth = '800px';
+  occupationalIllnessContainer.style.margin = '0 auto';
+  occupationalIllnessContainer.style.padding = '20px';
+
+  const occupationalIllnessTitle = document.querySelector('.occupational-illness-title');
+  occupationalIllnessTitle.style.textAlign = 'center';
+
+  const addOccupationalIllnessButton = document.querySelector('.add-occupational-illness-button');
+  addOccupationalIllnessButton.style.display = 'inline-block';
+  addOccupationalIllnessButton.style.padding = '8px 16px';
+  addOccupationalIllnessButton.style.backgroundColor = '#4CAF50';
+  addOccupationalIllnessButton.style.color = 'white';
+  addOccupationalIllnessButton.style.textDecoration = 'none';
+  addOccupationalIllnessButton.style.borderRadius = '4px';
+
+  const patientInformationButton = document.querySelector('.patient-information-button');
+  patientInformationButton.style.display = 'inline-block';
+  patientInformationButton.style.padding = '8px 16px';
+  patientInformationButton.style.backgroundColor = '#2196F3';
+  patientInformationButton.style.color = 'white';
+  patientInformationButton.style.textDecoration = 'none';
+  patientInformationButton.style.borderRadius = '4px';
+  patientInformationButton.style.marginLeft = '10px';
+
+  const occupationalIllnessDetailsTable = document.querySelector('table');
+  occupationalIllnessDetailsTable.style.width = '100%';
+  occupationalIllnessDetailsTable.style.borderCollapse = 'collapse';
+  occupationalIllnessDetailsTable.style.marginBottom = '20px';
+
+  const tableHeaders = occupationalIllnessDetailsTable.querySelectorAll('th');
+  tableHeaders.forEach(header => {
+    header.style.padding = '8px';
+    header.style.textAlign = 'left';
+    header.style.borderBottom = '1px solid #ddd';
+    header.style.backgroundColor = '#f2f2f2';
+  });
+
+  const tableRows = occupationalIllnessDetailsTable.querySelectorAll('td');
+  tableRows.forEach(row => {
+    row.style.padding = '8px';
+    row.style.textAlign = 'left';
+    row.style.borderBottom = '1px solid #ddd';
+  });
+
+  // Add click event listener to table rows
+  const rows = occupationalIllnessDetailsTable.querySelectorAll('tbody tr');
+  rows.forEach(row => {
+    row.addEventListener('click', () => {
+      row.classList.toggle('selected');
+    });
+  });
+  </script>
+</body>
+</html>

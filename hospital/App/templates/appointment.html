@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Appointment Information</title>
+  <link rel="stylesheet" href="static/css/appointment.css">
+</head>
+<body>
+  <div class="appointment-container">
+    <h1 class="appointment-title">Appointment Information for {{ patient.name }}</h1>
+
+    <div class="button-container">
+      <a href="{% url 'add_appointment' patient.employee_id %}" class="add-appointment-button">Add Appointment</a>
+      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
+    </div>
+
+    <ul class="appointment-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Doctor</th>
+            <th>Appointment Time</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+          <tr>
+            <td>{{ appointment.appointment_date }}</td>
+            <td>{{ appointment.doctor }}</td>
+            <td>{{ appointment.appointment_time }}</td>
+            <td><a href="{% url 'delete_appointment' appointment.id %}">delete</td>
+            <td><a href="{% url 'change_appointment' appointment.id %}">Change</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5">No appointments found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </ul>
+  </div>
+
+  <script>
+    // Dynamically apply styles to the appointment.html elements
+    const appointmentContainer = document.querySelector('.appointment-container');
+    appointmentContainer.style.maxWidth = '800px';
+    appointmentContainer.style.margin = '0 auto';
+    appointmentContainer.style.padding = '20px';
+
+    const appointmentTitle = document.querySelector('.appointment-title');
+    appointmentTitle.style.textAlign = 'center';
+
+    const addAppointmentButton = document.querySelector('.add-appointment-button');
+    addAppointmentButton.style.display = 'inline-block';
+    addAppointmentButton.style.padding = '8px 16px';
+    addAppointmentButton.style.backgroundColor = '#4CAF50';
+    addAppointmentButton.style.color = 'white';
+    addAppointmentButton.style.textDecoration = 'none';
+    addAppointmentButton.style.borderRadius = '4px';
+
+    const patientInformationButton = document.querySelector('.patient-information-button');
+    patientInformationButton.style.display = 'inline-block';
+    patientInformationButton.style.padding = '8px 16px';
+    patientInformationButton.style.backgroundColor = '#2196F3';
+    patientInformationButton.style.color = 'white';
+    patientInformationButton.style.textDecoration = 'none';
+    patientInformationButton.style.borderRadius = '4px';
+    patientInformationButton.style.marginLeft = '10px';
+
+    const appointmentDetailsTable = document.querySelector('table');
+    appointmentDetailsTable.style.width = '100%';
+    appointmentDetailsTable.style.borderCollapse = 'collapse';
+    appointmentDetailsTable.style.marginBottom = '20px';
+
+    const tableHeaders = appointmentDetailsTable.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+      header.style.padding = '8px';
+      header.style.textAlign = 'left';
+      header.style.borderBottom = '1px solid #ddd';
+      header.style.backgroundColor = '#f2f2f2';
+    });
+
+    const tableRows = appointmentDetailsTable.querySelectorAll('td');
+    tableRows.forEach(row => {
+      row.style.padding = '8px';
+      row.style.textAlign = 'left';
+      row.style.borderBottom = '1px solid #ddd';
+    });
+
+    const deleteAppointmentButton = appointmentDetailsTable.querySelectorAll('input[type="submit"]');
+    deleteAppointmentButton.forEach(button => {
+      button.style.display = 'inline-block';
+      button.style.padding = '4px 8px';
+      button.style.backgroundColor = '#f44336';
+      button.style.color = 'white';
+      button.style.textDecoration = 'none';
+      button.style.borderRadius = '4px';
+    });
+
+    const changeAppointmentLink = appointmentDetailsTable.querySelectorAll('a');
+    changeAppointmentLink.forEach(link => {
+      link.style.color = '#2196F3';
+      link.style.textDecoration = 'none';
+    });
+
+    // Add click event listener to table rows
+    const rows = appointmentDetailsTable.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        row.classList.toggle('selected');
+      });
+    });
+  </script>
+</body>
+</html>

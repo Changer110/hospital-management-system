@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Enterprise</title>
+    <!-- Add any additional CSS or styling links here -->
+</head>
+<body>
+    <h1>Delete Enterprise</h1>
+    <p>Are you sure you want to delete the enterprise "{{ enterprise.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+    </form>
+</body>
+</html>

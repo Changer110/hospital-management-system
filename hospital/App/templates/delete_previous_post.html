@@ -1,0 +1,18 @@
+<!-- delete_previous_post.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Previous Post</title>
+</head>
+<body>
+    <h1>Delete Previous Post</h1>
+
+    <p>Are you sure you want to delete the previous post (ID: {{ previous_post.id }})?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

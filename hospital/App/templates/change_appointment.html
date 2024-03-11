@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Change Appointment</title>
+  <link rel="stylesheet" href="static/css/appointment.css">
+</head>
+<body>
+  <h1>Change Appointment for {{ appointment.patient.name }}</h1>
+  <form method="post" action="{% url 'change_appointment' appointment.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save Changes">
+  </form>
+</body>
+</html>

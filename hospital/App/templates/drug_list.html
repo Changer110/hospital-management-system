@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drug List</title>
+  <link rel="stylesheet" href="static/css/drug_list.css">
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var drugs = document.getElementsByClassName('drug');
+
+      for (var i = 0; i < drugs.length; i++) {
+        var drug = drugs[i];
+
+        var name = drug.getElementsByClassName('name')[0].innerText;
+        var type = drug.getElementsByClassName('type')[0].innerText;
+        var quantity = drug.getElementsByClassName('quantity')[0].innerText;
+        var expiryDate = drug.getElementsByClassName('expiry-date')[0].innerText;
+        var dosageIssued = drug.getElementsByClassName('dosage-issued')[0].innerText;
+        var price = drug.getElementsByClassName('price')[0].innerText;
+        var importedFrom = drug.getElementsByClassName('imported-from')[0].innerText;
+
+        console.log('Drug Name: ' + name);
+        console.log('Type: ' + type);
+        console.log('Quantity: ' + quantity);
+        console.log('Expiry Date: ' + expiryDate);
+        console.log('Dosage Issued: ' + dosageIssued);
+        console.log('Price: ' + price);
+        console.log('Imported From: ' + importedFrom);
+      }
+    });
+  </script>
+</head>
+<body>
+  <h1>Drug List</h1>
+  <ul>
+    {% for drug in drugs %}
+    <li class="drug">
+      <strong>Name: </strong><span class="name">{{ drug.name }}</span><br>
+      <strong>Type: </strong><span class="type">{{ drug.drug_type }}</span><br>
+      <strong>Quantity: </strong><span class="quantity">{{ drug.quantity }}</span><br>
+      <strong>Expiry Date: </strong><span class="expiry-date">{{ drug.expiry_date }}</span><br>
+      <strong>Dosage Issued: </strong><span class="dosage-issued">{{ drug.dosage_issued }}</span><br>
+      <strong>Price: </strong><span class="price">{{ drug.price }}</span><br>
+      <strong>Imported From: </strong><span class="imported-from">{{ drug.imported_from }}</span><br>
+    </li>
+    {% empty %}
+    <li>No drugs found.</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

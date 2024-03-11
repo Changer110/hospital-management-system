@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Occupational Illness</title>
+  <link rel="stylesheet" href="static/css/occupational_illness.css">
+</head>
+<body>
+  <h1>Add Occupational Illness for {{ patient.name }}</h1>
+  <form method="post" action="{% url 'add_occupational_illness' patient.employee_id %}">
+    {% csrf_token %}
+
+    <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date">
+
+    <label for="maladie">Illness:</label>
+    <input type="text" name="maladie" id="maladie">
+
+    <label for="tableau">Tableau:</label>
+    <input type="text" name="tableau" id="tableau">
+
+    <label for="causal_agent">Causal Agent:</label>
+    <input type="text" name="causal_agent" id="causal_agent">
+
+    <label for="job">Job Position:</label>
+    <input type="text" name="job" id="job">
+
+    <label for="decision">Decision/Observation:</label>
+    <textarea name="decision" id="decision"></textarea>
+
+    <input type="submit" value="Add Occupational Illness">
+  </form>
+</body>
+</html>

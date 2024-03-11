@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Prescription</title>
+  <link rel="stylesheet" href="static/css/prescription.css">
+</head>
+<body>
+  <div class="delete-prescription-container">
+    <h1 class="delete-prescription-title">Delete Prescription</h1>
+
+    <p class="delete-prescription-message">Are you sure you want to delete this prescription?</p>
+
+    <form method="POST" class="delete-prescription-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="delete-button">Delete</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Previous Post Information</title>
+  <link rel="stylesheet" href="static/css/previous_post.css">
+</head>
+<body>
+  <div class="previous-post-container">
+    <h1 class="previous-post-title">Previous Post Information for {{ patient.name }}</h1>
+
+    <div class="button-container">
+      <a href="{% url 'add_previous_post' patient.employee_id %}" class="add-previous-post-button">Add Previous Post</a>
+      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
+    </div>
+
+    <ul class="previous-post-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Denomination</th>
+            <th>Enterprise</th>
+            <th>Period</th>
+            <th>Nuisance Factors</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for previous_post in previous_posts %}
+          <tr>
+            <td>{{ previous_post.denomination }}</td>
+            <td>{{ previous_post.enterprise }}</td>
+            <td>{{ previous_post.period }}</td>
+            <td>{{ previous_post.nuisance_factors }}</td>
+            <td><a href="{% url 'change_previous_post' previous_post.id %}">Change</a></td>
+            <td><a href="{% url 'delete_previous_post' previous_post.id %}">Delete</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4">No previous posts found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </ul>
+  </div>
+
+  <script>
+    // Dynamically apply styles to the previous_post.html elements
+    const previousPostContainer = document.querySelector('.previous-post-container');
+    previousPostContainer.style.maxWidth = '800px';
+    previousPostContainer.style.margin = '0 auto';
+    previousPostContainer.style.padding = '20px';
+
+    const previousPostTitle = document.querySelector('.previous-post-title');
+    previousPostTitle.style.textAlign = 'center';
+
+    const addPreviousPostButton = document.querySelector('.add-previous-post-button');
+    addPreviousPostButton.style.display = 'inline-block';
+    addPreviousPostButton.style.padding = '8px 16px';
+    addPreviousPostButton.style.backgroundColor = '#4CAF50';
+    addPreviousPostButton.style.color = 'white';
+    addPreviousPostButton.style.textDecoration = 'none';
+    addPreviousPostButton.style.borderRadius = '4px';
+
+    const patientInformationButton = document.querySelector('.patient-information-button');
+    patientInformationButton.style.display = 'inline-block';
+    patientInformationButton.style.padding = '8px 16px';
+    patientInformationButton.style.backgroundColor = '#2196F3';
+    patientInformationButton.style.color = 'white';
+    patientInformationButton.style.textDecoration = 'none';
+    patientInformationButton.style.borderRadius = '4px';
+    patientInformationButton.style.marginLeft = '10px';
+
+    const previousPostDetailsTable = document.querySelector('table');
+    previousPostDetailsTable.style.width = '100%';
+    previousPostDetailsTable.style.borderCollapse = 'collapse';
+    previousPostDetailsTable.style.marginBottom = '20px';
+
+    const tableHeaders = previousPostDetailsTable.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+      header.style.padding = '8px';
+      header.style.textAlign = 'left';
+      header.style.borderBottom = '1px solid #ddd';
+      header.style.backgroundColor = '#f2f2f2';
+    });
+
+    const tableRows = previousPostDetailsTable.querySelectorAll('td');
+    tableRows.forEach(row => {
+      row.style.padding = '8px';
+      row.style.textAlign = 'left';
+      row.style.borderBottom = '1px solid #ddd';
+    });
+
+    // Add click event listener to table rows
+    const rows = previousPostDetailsTable.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        row.classList.toggle('selected');
+      });
+    });
+  </script>
+</body>
+</html>
