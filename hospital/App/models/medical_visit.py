@@ -5,6 +5,7 @@ from .doctor import Doctor
 
 class MedicalVisit(models.Model):
     employee_id = models.ForeignKey(Patient, on_delete=models.CASCADE, to_field='employee_id')
+    hospital_visit = models.CharField(max_length = 200)
     plaintes = models.TextField()
     mensuration_kg = models.DecimalField(max_digits = 3, decimal_places=2)
     mensuration_size = models.DecimalField(max_digits = 3, decimal_places=2)

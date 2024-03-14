@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from App.models import BackgroundPatient, Patient
 
 
-def background_patient(request, employee_id):
+def display_background_patient(request, employee_id):
 
   patient = Patient.objects.get(employee_id=employee_id)
   background_patients = BackgroundPatient.objects.filter(employee_id=employee_id)

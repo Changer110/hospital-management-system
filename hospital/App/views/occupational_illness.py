@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from App.models import OccupationalIllness, Patient
 
-def occupational_illness(request, employee_id):
+def display_occupational_illness(request, employee_id):
 
   patient = Patient.objects.get(employee_id=employee_id)
   occupational_illnesses = OccupationalIllness.objects.filter(employee_id=employee_id)

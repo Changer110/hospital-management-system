@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Background Patient Information</title>
+  <!-- <link rel="stylesheet" href="static/css/background_patient.css"> -->
+</head>
+<body>
+  <div class="background-patient-container">
+    <h1 class="background-patient-title">Current post for {{ patient.name }}</h1>
+
+    <div class="button-container">
+      <a href="{% url 'add_current_post' patient.employee_id %}" class="add-background-patient-button">Add current post</a>
+      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
+    </div>
+
+    <ul class="background-patient-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Begin_date</th>
+            <th>End_date</th>
+            <th>Post</th>
+            <th>Tasks</th>
+            <th>Work rate</th>
+            <th>Nusance factors</th>
+            <th>Metrology date</th>
+            <th>Metrology type</th>
+            <th>Metrology R</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in posts %}
+          <tr>
+            <td>{{ post.begin_date }}</td>
+            <td>{{ post.end_date }}</td>
+            <td>{{ post.post }}</td>
+            <td>{{ post.tasks }}</td>
+            <td>{{ post.work_rate }}</td>
+            <td>{{ post.nusance_factors }}</td>
+            <td>{{ post.metrology_date }}</td>
+            <td>{{ post.metrology_type }}</td>
+            <td>{{ post.metrology_R }}</td>
+            <td><a href="{% url 'change_patient' patient.employee_id %}" class="patient-button">Change</a></td>
+            <td><a href="{% url 'delete_patient' patient.employee_id %}" class="patient-button">Delete</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="8">No background patient information found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </ul>
+  </div>

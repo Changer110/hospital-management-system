@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from App.models import Drugs
 
-def drugs(request):
+def display_drugs(request):
     drugs = Drugs.objects.all()
     context = {'drugs': drugs}
     return render(request, 'drugs.html', context)

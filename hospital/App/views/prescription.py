@@ -3,7 +3,7 @@ from App.models import  Prescription, MedicalRecord, Drugs
 from App.models.forms import PrescriptionForm
 
 
-def prescription(request, medical_record_id):
+def display_prescription(request, medical_record_id):
 
     # records = MedicalRecord.objects.get(pk=medical_record_id)
     prescriptions = Prescription.objects.filter(medical_record=medical_record_id)

@@ -17,7 +17,7 @@ from App.models import Prescription
 
 
 
-def medical_record(request, employee_id):
+def display_medical_record(request, employee_id):
     patient = Patient.objects.get(employee_id=employee_id)
     records = MedicalRecord.objects.filter(patient = employee_id)
     total_price = records.aggregate(total_price=Sum('price'))
@@ -56,7 +56,6 @@ def delete_medical_record(request, record_id):
 def change_medical_record(request, record_id):
     try:
         records = MedicalRecord.objects.get(id=record_id)
-        patient_id = records.patient.employee_id
     except MedicalRecord.DoesNotExist:
         return redirect('medical_record')  # Redirect to medical_record page if record doesn't exist
 
@@ -64,7 +63,7 @@ def change_medical_record(request, record_id):
         form = MedicalRecordForm(request.POST, instance=records)
         if form.is_valid():
             form.save()
-            return redirect('medical_record', employee_id=patient_id)
+            return redirect('medical_record', employee_id = records.patient.employee_id)
     else:
         form = MedicalRecordForm(instance=records)
 

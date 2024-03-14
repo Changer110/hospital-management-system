@@ -1,7 +1,12 @@
 from django.shortcuts import render,redirect
 from App.models import SummonsForm, Patient
 
-def summons_form(request, employee_id):
+
+
+
+
+
+def display_summons_form(request, employee_id):
 
   patient = Patient.objects.get(employee_id=employee_id)
   summons_forms = SummonsForm.objects.filter(employee_id=employee_id)

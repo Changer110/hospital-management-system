@@ -1,14 +1,4 @@
 from django.urls import path
-# from App.views.index import index
-# from App.views.login import login
-# from App.views.dashboard import dashboard
-
-
-# urlpatterns = [
-#     path('homepage', index),
-#     path('login', login),
-#     path('dashboard' , dashboard)
-# ]
 
 
 
@@ -28,15 +18,15 @@ urlpatterns = [
     path('patient_information/<int:employee_id>/', patient_information, name='patient_information'),
     
     
-    path('drugs' , drugs, name='drugs'),
+    path('drugs' , display_drugs, name='drugs'),
     path('search_drug/', search_drug, name='search_drug'),
     path('show_drugs/', show_all_drugs, name='show_all_drugs'),
     
-    path('medicalrecord/<int:employee_id>/' ,medical_record,name='medical_record' ),
+    path('medicalrecord/<int:employee_id>/' ,display_medical_record,name='medical_record' ),
     path('search_medical_record/<int:employee_id>' ,search_medical_record, name='search_medical_record'),
     path('back_to_medical_record/<int:record_id>/', back_to_medical_record, name='back_to_medical_record'),
     
-   path('prescription/<int:medical_record_id>/', prescription, name='prescription'),
+   path('prescription/<int:medical_record_id>/', display_prescription, name='prescription'),
     path('appointment/<int:employee_id>/' , appointment , name='appointment'),
     path('add_patient', add_patient, name='add_patient'),
     # path('patient_list', patient_list, name='patient_list'),
@@ -74,46 +64,53 @@ urlpatterns = [
     
     
     
-path('enterprises/', enterprise_list, name='enterprise_list'),
-path('enterprises/add/', add_enterprise, name='add_enterprise'),
-path('enterprise/delete/<int:enterprise_id>/',delete_enterprise, name='delete_enterprise'),
+    path('enterprises/', enterprise_list, name='enterprise_list'),
+    path('enterprises/add/', add_enterprise, name='add_enterprise'),
+    path('enterprise/delete/<int:enterprise_id>/',delete_enterprise, name='delete_enterprise'),
 
 
- path('previous_post/<int:employee_id>/', previous_post, name='previous_post'),
- path('add-previous-post/<int:employee_id>/', add_previous_post, name='add_previous_post'),
- path('previous_post/change/<int:previous_post_id>/', change_previous_post, name='change_previous_post'),
- path('previous_post/delete/<int:previous_post_id>/', delete_previous_post, name='delete_previous_post'),
- 
- 
- 
- path('accident/<int:employee_id>/', accident, name='accident'),
- path('add_accident/<int:employee_id>/', add_accident, name='add_accident'),
- path('accident/change/<int:accident_id>/', change_accident, name='change_accident'),
- path('accident/delete/<int:accident_id>/', delete_accident, name='delete_accident'),
-  
-  
- path('occupational_illness/<int:employee_id>/', occupational_illness, name='occupational_illness'),
- path('add-occupational-illness/<int:employee_id>/', add_occupational_illness, name='add_occupational_illness'),
- path('occupational_illness/delete/<int:occupational_illness_id>/',delete_occupational_illness, name='delete_occupational_illness'),
- path('occupational_illness/change/<int:occupational_illness_id>/',change_occupational_illness, name='change_occupational_illness'),
- 
- 
-path('background_patient/<int:employee_id>/', background_patient, name='background_patient'),
-path('background_patient/add/<int:employee_id>/', add_background_patient, name='add_background_patient'),
-
-
-
-
-
-path('summons_form/<int:employee_id>/', summons_form, name='summons_form'), 
-path('add_summons_form/<int:employee_id>/', add_summons_form, name='add_summons_form'),
-path('change_summons_form/<int:summons_form_id>/', change_summons_form, name='change_summons_form'),
-path('delete_summons_form/<int:summons_form_id>/', delete_summons_form, name='delete_summons_form'),
-]
-
-
-
-   
-   
-   
+    path('previous_post/<int:employee_id>/', previous_post, name='previous_post'),
+    path('add-previous-post/<int:employee_id>/', add_previous_post, name='add_previous_post'),
+    path('previous_post/change/<int:previous_post_id>/', change_previous_post, name='change_previous_post'),
+    path('previous_post/delete/<int:previous_post_id>/', delete_previous_post, name='delete_previous_post'),
     
+    
+    
+    path('accident/<int:employee_id>/', accident, name='accident'),
+    path('add_accident/<int:employee_id>/', add_accident, name='add_accident'),
+    path('accident/change/<int:accident_id>/', change_accident, name='change_accident'),
+    path('accident/delete/<int:accident_id>/', delete_accident, name='delete_accident'),
+    
+    
+    path('occupational_illness/<int:employee_id>/', display_occupational_illness, name='occupational_illness'),
+    path('add-occupational-illness/<int:employee_id>/', add_occupational_illness, name='add_occupational_illness'),
+    path('occupational_illness/delete/<int:occupational_illness_id>/',delete_occupational_illness, name='delete_occupational_illness'),
+    path('occupational_illness/change/<int:occupational_illness_id>/',change_occupational_illness, name='change_occupational_illness'),
+    
+    
+    path('background_patient/<int:employee_id>/', display_background_patient, name='background_patient'),
+    path('background_patient/add/<int:employee_id>/', add_background_patient, name='add_background_patient'),
+
+
+
+
+
+    path('summons_form/<int:employee_id>/', display_summons_form, name='summons_form'), 
+    path('add_summons_form/<int:employee_id>/', add_summons_form, name='add_summons_form'),
+    path('change_summons_form/<int:summons_form_id>/', change_summons_form, name='change_summons_form'),
+    path('delete_summons_form/<int:summons_form_id>/', delete_summons_form, name='delete_summons_form'),
+    
+    
+    
+    path('current_post/<int:employee_id>/', display_current_post, name='current_post'),
+    path('add_current_post/<int:employee_id>/', add_current_post, name='add_current_post'),
+    path('update_current_post/<int:employee_id>/', update_current_post, name='update_current_post'),
+    path('delete_add_current_post/<int:employee_id>/', delete_current_post, name='delete_current_post'),
+    
+    
+    
+    path('medical_visit/<int:employee_id>/', show_medical_visit, name='medical_visit'),
+    path('add_medical_visit/<int:employee_id>/', add_medical_visit, name='add_medical_visit'),
+    # path('update_current_post/<int:employee_id>/', update_current_post, name='update_current_post'),
+    # path('delete_add_current_post/<int:employee_id>/', delete_current_post, name='delete_current_post'),
+]

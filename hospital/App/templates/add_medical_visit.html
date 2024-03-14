@@ -1,0 +1,45 @@
+
+<!-- add_background_patient.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Background Patient</title>
+  <link rel="stylesheet" href="static/css/background_patient.css">
+</head>
+<body>
+  <h1>Add current post for  {{ patient.name }}</h1>
+  <form method="post" action="{% url 'add_medical_visit' patient.employee_id %}">
+    {% csrf_token %}
+    <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+    <label for="begin_date">begin_date :</label>
+    <input type="date" name="begin_date" id="begin_date">
+
+    <label for="end_date">end_date :</label>
+    <input type="date" name="end_date" id="end_date">
+
+    <label for="post">Post :</label>
+    <input type="text" name="post" id="post">
+
+    <label for="tasks">Tasks :</label>
+    <textarea name="tasks" id="tasks"></textarea>
+
+    <label for="work_rate">Work rate :</label>
+    <textarea name="work_rate" id="work_rate"></textarea>
+
+    <label for="nusance_factors">Nusance factors :</label>
+    <textarea name="nusance_factors" id="nusance_factors"></textarea>
+
+    <label for="metrology_date">Social Personal :</label>
+    <input type="date" name="metrology_date" id="metrology_date">
+
+    <label for="metrology_type">Metrology type :</label>
+    <input type="text" name="metrology_type" id="metrology_type">
+
+    <label for="metrology_R">metrology R :</label>
+    <textarea  name="metrology_R" id="metrology_R"></textarea>
+
+    <input type="submit" value="Add Background Patient">
+  </form>
+</body>
+</html>
