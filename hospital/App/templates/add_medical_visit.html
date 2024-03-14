@@ -3,41 +3,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Background Patient</title>
+  <title>Add Medical visit</title>
   <link rel="stylesheet" href="static/css/background_patient.css">
 </head>
 <body>
-  <h1>Add current post for  {{ patient.name }}</h1>
+  <h1>Add a medical visit for  {{ patient.name }}</h1>
   <form method="post" action="{% url 'add_medical_visit' patient.employee_id %}">
     {% csrf_token %}
     <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
-    <label for="begin_date">begin_date :</label>
-    <input type="date" name="begin_date" id="begin_date">
+    <!-- <label for="doctor">Patient : </label>
+    <select id="doctor"  name="doctor">
+      {% for doctor in doctors %}
+        <option value="{{doctor.doctor_id}}">{{doctor.name}}</option>
+      {% endfor %}
+    </select> -->
 
-    <label for="end_date">end_date :</label>
-    <input type="date" name="end_date" id="end_date">
+    <label for="hospital_visit">hospital visit : </label>
+    <input type="date" name="hospital_visit" id="hospital_visit">
 
-    <label for="post">Post :</label>
-    <input type="text" name="post" id="post">
+    <label for="plaintes">plaintes : </label>
+    <input type="date" name="plaintes" id="plaintes">
 
-    <label for="tasks">Tasks :</label>
-    <textarea name="tasks" id="tasks"></textarea>
+    <label for="mensuration_kg">Weights :</label>
+    <input type="text" name="mensuration_kg" id="mensuration_kg">
 
-    <label for="work_rate">Work rate :</label>
-    <textarea name="work_rate" id="work_rate"></textarea>
+    <label for="mensuration_size">Size : </label>
+    <textarea name="mensuration_size" id="mensuration_size"></textarea>
 
-    <label for="nusance_factors">Nusance factors :</label>
-    <textarea name="nusance_factors" id="nusance_factors"></textarea>
+    <label for="mensuration_TA">TA :</label>
+    <textarea name="mensuration_TA" id="mensuration_TA"></textarea>
 
-    <label for="metrology_date">Social Personal :</label>
-    <input type="date" name="metrology_date" id="metrology_date">
+    <label for="mensuration_PIT">PIT :</label>
+    <textarea name="mensuration_PIT" id="mensuration_PIT"></textarea>
 
-    <label for="metrology_type">Metrology type :</label>
-    <input type="text" name="metrology_type" id="metrology_type">
+    <label for="mensuration_PTE">PTE :</label>
+    <input type="date" name="mensuration_PTE" id="mensuration_PTE">
 
-    <label for="metrology_R">metrology R :</label>
-    <textarea  name="metrology_R" id="metrology_R"></textarea>
+    <label for="mensuration_PA">PA :</label>
+    <input type="text" name="mensuration_PA" id="mensuration_PA">
+
+    <label for="mensuration_Pouls">Pouls :</label>
+    <textarea  name="mensuration_Pouls" id="mensuration_Pouls"></textarea>
 
     <input type="submit" value="Add Background Patient">
   </form>
