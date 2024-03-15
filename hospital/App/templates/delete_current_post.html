@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Current Post</title>
+</head>
+<body>
+  <h1>Delete Current Post</h1>
+  <p>Are you sure you want to delete the current post?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+  </form>
+</body>
+</html>
