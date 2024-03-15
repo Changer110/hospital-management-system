@@ -11,7 +11,7 @@ def login(request):
     if request.method == 'POST':
         uname = request.POST['username']
         ukey = request.POST['password']
-        user = authenticate(username = uname, password = ukey)
+        user = authenticate(request, username = uname, password = ukey)
         if user:
             login(request, user)
             request.session['doctor'] = user.pk
