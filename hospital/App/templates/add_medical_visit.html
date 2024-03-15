@@ -12,41 +12,68 @@
     {% csrf_token %}
     <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
-    <!-- <label for="doctor">Patient : </label>
+    <label for="hospital_visit">hospital visit : </label>
+    <input type="text" name="hospital_visit" id="hospital_visit">
+
+    <label for="plaintes">plaintes : </label>
+    <input type="text" name="plaintes" id="plaintes">
+
+    <label for="mensuration_kg">Weights :</label>
+    <input type="number" step="any" name="mensuration_kg" id="mensuration_kg">
+
+    <label for="mensuration_size">Size : </label>
+    <input type="number" step="any" name="mensuration_size" id="mensuration_size">
+
+    <label for="mensuration_TA">TA :</label>
+    <input type="number" step="any" name="mensuration_TA" id="mensuration_TA">
+
+    <label for="mensuration_PIT">PIT :</label>
+    <input type="number" step="any" name="mensuration_PIT" id="mensuration_PIT">
+
+    <label for="mensuration_PTE">PTE :</label>
+    <input type="number" step="any" name="mensuration_PTE" id="mensuration_PTE">
+
+    <label for="mensuration_PA">PA :</label>
+    <input type="number" step="any" name="mensuration_PA" id="mensuration_PA">
+
+    <label for="mensuration_Pouls">Pouls :</label>
+    <input type="number" step="any" name="mensuration_Pouls" id="mensuration_Pouls">
+
+    <label for="mensuration_AV_OD">AV OD :</label>
+    <input type="number" step="any" name="mensuration_AV_OD" id="mensuration_AV_OD">
+
+    <label for="mensuration_OG">OG :</label>
+    <input type="number" step="any" name="mensuration_OG" id="mensuration_OG">
+
+    <label for="biology">Biology :</label>
+    <textarea name="biology" id="biology"></textarea>
+
+    <label for="electrocardiogram">Electrocardiogram :</label>
+    <textarea name="electrocardiogram" id="electrocardiogram"></textarea>
+
+    <label for="audiometry">Audiometry :</label>
+    <textarea name="audiometry" id="audiometry"></textarea>
+
+    <label for="spirometry">Spirometry :</label>
+    <textarea name="spirometry" id="spirometry"></textarea>
+
+    <label for="RX_pulmonery">RX pulmonery :</label>
+    <textarea name="RX_pulmonery" id="RX_pulmonery"></textarea>
+
+    <label for="what_to_do">What to do :</label>
+    <textarea name="what_to_do" id="what_to_do"></textarea>
+
+    <label for="aptitude">Aptitude :</label>
+    <textarea name="aptitude" id="aptitude"></textarea>
+
+    <label for="doctor">Doctor : </label>
     <select id="doctor"  name="doctor">
       {% for doctor in doctors %}
         <option value="{{doctor.doctor_id}}">{{doctor.name}}</option>
       {% endfor %}
-    </select> -->
+    </select>
 
-    <label for="hospital_visit">hospital visit : </label>
-    <input type="date" name="hospital_visit" id="hospital_visit">
-
-    <label for="plaintes">plaintes : </label>
-    <input type="date" name="plaintes" id="plaintes">
-
-    <label for="mensuration_kg">Weights :</label>
-    <input type="text" name="mensuration_kg" id="mensuration_kg">
-
-    <label for="mensuration_size">Size : </label>
-    <textarea name="mensuration_size" id="mensuration_size"></textarea>
-
-    <label for="mensuration_TA">TA :</label>
-    <textarea name="mensuration_TA" id="mensuration_TA"></textarea>
-
-    <label for="mensuration_PIT">PIT :</label>
-    <textarea name="mensuration_PIT" id="mensuration_PIT"></textarea>
-
-    <label for="mensuration_PTE">PTE :</label>
-    <input type="date" name="mensuration_PTE" id="mensuration_PTE">
-
-    <label for="mensuration_PA">PA :</label>
-    <input type="text" name="mensuration_PA" id="mensuration_PA">
-
-    <label for="mensuration_Pouls">Pouls :</label>
-    <textarea  name="mensuration_Pouls" id="mensuration_Pouls"></textarea>
-
-    <input type="submit" value="Add Background Patient">
+    <button type="submit">Register</button>
   </form>
 </body>
 </html>

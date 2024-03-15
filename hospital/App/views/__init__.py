@@ -2,7 +2,7 @@
 
 
 from .index import *
-from .login import *
+from .user import *
 from .dashboard import *
 from .doctor import *
 from .patient import *
