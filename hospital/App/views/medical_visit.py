@@ -2,6 +2,8 @@
 
 from django.shortcuts import render, redirect
 from App.models import *
+from App.models.forms import medicalVisitForm
+
 
 
 def show_medical_visit(request, employee_id):
@@ -16,7 +18,7 @@ def add_medical_visit(request, employee_id):
     doctors = Doctor.objects.all()
     context = {'patient': patient, 'doctors': doctors}
     if request.method == 'POST':
-        form = MedicalVisit(request.POST)
+        form = medicalVisitForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('medical_visit',employee_id=employee_id)

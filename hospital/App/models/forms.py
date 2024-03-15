@@ -128,4 +128,4 @@ class CurrentPostForm(forms.ModelForm):
 class medicalVisitForm(forms.ModelForm):
     class Meta:
         model = MedicalVisit
-        fields = '__all__'
+        fields =  '__all__'
