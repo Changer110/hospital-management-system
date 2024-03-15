@@ -90,7 +90,8 @@ urlpatterns = [
     
     path('background_patient/<int:employee_id>/', display_background_patient, name='background_patient'),
     path('background_patient/add/<int:employee_id>/', add_background_patient, name='add_background_patient'),
-
+    path('change_background_patient/<int:background_patient_id>/', change_background_patient, name='change_background_patient'),
+    path('delete_background_patient/<int:background_patient_id>/',delete_background_patient, name='delete_background_patient'), 
 
 
 
@@ -104,8 +105,8 @@ urlpatterns = [
     
     path('current_post/<int:employee_id>/', display_current_post, name='current_post'),
     path('add_current_post/<int:employee_id>/', add_current_post, name='add_current_post'),
-    path('update_current_post/<int:employee_id>/', update_current_post, name='update_current_post'),
-    path('delete_add_current_post/<int:employee_id>/', delete_current_post, name='delete_current_post'),
+    path('update_current_post/<int:current_post_id>/', update_current_post, name='update_current_post'),
+    path('delete_current_post/<int:current_post_id>/', delete_current_post, name='delete_current_post'),
     
     
     

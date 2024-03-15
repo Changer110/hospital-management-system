@@ -42,8 +42,8 @@
             <td>{{ post.metrology_date }}</td>
             <td>{{ post.metrology_type }}</td>
             <td>{{ post.metrology_R }}</td>
-            <td><a href="{% url 'change_patient' patient.employee_id %}" class="patient-button">Change</a></td>
-            <td><a href="{% url 'delete_patient' patient.employee_id %}" class="patient-button">Delete</a></td>
+            <td><a href="{% url 'update_current_post' post.id %}">Change</a></td>
+            <td><a href="{% url 'delete_current_post' post.id %}">Delete</a></td>
           </tr>
           {% empty %}
           <tr>

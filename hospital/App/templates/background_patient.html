@@ -38,7 +38,8 @@
             <td>{{ background_patient.family_surgical }}</td>
             <td>{{ background_patient.social_personal }}</td>
             <td>{{ background_patient.social_family }}</td>
-            
+            <td><a href="{% url 'change_background_patient' background_patient.id %}">Change</a></td>
+            <td><a href="{% url 'delete_background_patient' background_patient.id %}">Delete</a></td>
           </tr>
           {% empty %}
           <tr>

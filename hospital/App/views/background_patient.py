@@ -22,3 +22,31 @@ def add_background_patient(request, employee_id):
             form.save()
             return redirect('background_patient', employee_id=employee_id)
     return render(request, 'add_background_patient.html', context)
+  
+  
+  
+  
+def change_background_patient(request, background_patient_id):
+    background_patient = BackgroundPatient.objects.get(id=background_patient_id)
+
+    if request.method == 'POST':
+        form = BackgroundPatientForm(request.POST, instance=background_patient)
+        if form.is_valid():
+            form.save()
+            return redirect('background_patient', employee_id=background_patient.employee_id.employee_id)
+    else:
+        form = BackgroundPatientForm(instance=background_patient)
+
+    context = {'form': form, ' background_patient':  background_patient}
+    return render(request, 'change_background_patient.html', context) 
+  
+  
+def delete_background_patient(request, background_patient_id):
+    background_patient  = BackgroundPatient.objects.get(id=background_patient_id)
+
+    if request.method == 'POST':
+        background_patient.delete()
+        return redirect('background_patient',employee_id=background_patient.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
+
+    context = {'background_patient': background_patient}
+    return render(request, 'delete_background.html', context)       
