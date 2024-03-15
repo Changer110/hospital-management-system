@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Absenteeism Information</title>
+  <link rel="stylesheet" href="static/css/absenteeism.css">
+</head>
+<body>
+  <div class="absenteeism-container">
+    <h1 class="absenteeism-title">Absenteeism Information for {{ patient.name }}</h1>
+
+    <div class="button-container">
+      <a href="{% url 'add_absenteeism' patient.employee_id %}" class="add-absenteeism-button">Add Absenteeism</a>
+      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
+    </div>
+
+    <ul class="absenteeism-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Cause</th>
+            <th>Beginning</th>
+            <th>Reprise</th>
+            <th>Days Off</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for absenteeism in absenteeisms %}
+          <tr>
+            <td>{{ absenteeism.type }}</td>
+            <td>{{ absenteeism.cause }}</td>
+            <td>{{ absenteeism.beginning }}</td>
+            <td>{{ absenteeism.reprise }}</td>
+            <td>{{ absenteeism.days_off }}</td>
+            <td><a href="{% url 'change_absenteeism' absenteeism.id %}">Change</a></td>
+            <td><a href="{% url 'delete_absenteeism' absenteeism.id %}">Delete</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5">No absenteeism records found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </ul>
+  </div>
+
+  <script>
+    // Dynamically apply styles to the absenteeism.html elements
+    const absenteeismContainer = document.querySelector('.absenteeism-container');
+    absenteeismContainer.style.maxWidth = '800px';
+    absenteeismContainer.style.margin = '0 auto';
+    absenteeismContainer.style.padding = '20px';
+
+    const absenteeismTitle = document.querySelector('.absenteeism-title');
+    absenteeismTitle.style.textAlign = 'center';
+
+    const patientInformationButton = document.querySelector('.patient-information-button');
+    patientInformationButton.style.display = 'inline-block';
+    patientInformationButton.style.padding = '8px 16px';
+    patientInformationButton.style.backgroundColor = '#2196F3';
+    patientInformationButton.style.color = 'white';
+    patientInformationButton.style.textDecoration = 'none';
+    patientInformationButton.style.borderRadius = '4px';
+    patientInformationButton.style.marginLeft = '10px';
+
+    const absenteeismDetailsTable = document.querySelector('table');
+    absenteeismDetailsTable.style.width = '100%';
+    absenteeismDetailsTable.style.borderCollapse = 'collapse';
+    absenteeismDetailsTable.style.marginBottom = '20px';
+
+    const tableHeaders = absenteeismDetailsTable.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+      header.style.padding = '8px';
+      header.style.textAlign = 'left';
+      header.style.borderBottom = '1px solid #ddd';
+      header.style.backgroundColor = '#f2f2f2';
+    });
+
+    const tableRows = absenteeismDetailsTable.querySelectorAll('td');
+    tableRows.forEach(row => {
+      row.style.padding = '8px';
+      row.style.textAlign = 'left';
+      row.style.borderBottom = '1px solid #ddd';
+    });
+  </script>
+</body>
+</html>

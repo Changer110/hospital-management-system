@@ -129,3 +129,11 @@ class medicalVisitForm(forms.ModelForm):
     class Meta:
         model = MedicalVisit
         fields =  '__all__'
+        
+        
+        
+        
+class AbsenteeismForm(forms.ModelForm):
+    class Meta:
+        model = Absenteeism
+        fields = '__all__'        

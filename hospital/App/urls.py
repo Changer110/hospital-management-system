@@ -112,6 +112,13 @@ urlpatterns = [
     
     path('medical_visit/<int:employee_id>/', show_medical_visit, name='medical_visit'),
     path('add_medical_visit/<int:employee_id>/', add_medical_visit, name='add_medical_visit'),
-    # path('update_current_post/<int:employee_id>/', update_current_post, name='update_current_post'),
-    # path('delete_add_current_post/<int:employee_id>/', delete_current_post, name='delete_current_post'),
+    path('change_medical_visit/<int:visit_id>/', change_medical_visit, name='change_medical_visit'),
+    path('medical_visit/delete/<int:visit_id>/', delete_medical_visit, name='delete_medical_visit'),
+    
+    
+    
+    path('absenteeism/<int:employee_id>/',absenteeism, name='absenteeism'),
+    path('add_absenteeism/<int:employee_id>/',add_absenteeism, name='add_absenteeism'),
+    path('change_absenteeism/<int:absenteeism_id>/',change_absenteeism, name='change_absenteeism'),
+    path('absenteeism/delete/<int:absenteeism_id>/', delete_absenteeism, name='delete_absenteeism'),
 ]

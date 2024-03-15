@@ -31,3 +31,4 @@ from .accident_sheet import *
 from .occupational_illness import *
 from .background_patient import *
 from .summons_form import *
+from .absenteeism_sheet import *

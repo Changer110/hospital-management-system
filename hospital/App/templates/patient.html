@@ -95,6 +95,7 @@
             <td><a href="{% url 'summons_form' patient.employee_id %}" class="patient-button">Summons Form</a></td>
             <td><a href="{% url 'current_post' patient.employee_id %}" class="patient-button">Current post</a></td>
             <td><a href="{% url 'medical_visit' patient.employee_id %}" class="patient-button">Medical visit</a></td>
+            <td><a href="{% url 'absenteeism' patient.employee_id %}" class="patient-button">Absenteeism</a></td>
           </tr>
           {% empty %}
           <tr>

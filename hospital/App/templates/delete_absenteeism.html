@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Absenteeism</title>
+</head>
+<body>
+    <h1>Delete Absenteeism</h1>
+
+    <p>Are you sure you want to delete the absenteeism (ID: {{ absenteeism.id }})?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+</body>
+</html>

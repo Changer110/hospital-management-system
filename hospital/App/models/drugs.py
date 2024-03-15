@@ -8,6 +8,7 @@ class Drugs(models.Model):
         ('Liquid', 'Liquid'),
         ('Injection', 'Injection'),
         ('Cream', 'Cream'),
+        ('Spray', 'Spray'),
     )
 
     name = models.CharField(max_length=100, unique=True)
