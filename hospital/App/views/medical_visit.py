@@ -6,6 +6,14 @@ from App.models.forms import medicalVisitForm
 
 
 
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from io import BytesIO
+# import json
+
+
+
 def show_medical_visit(request, employee_id):
     patient = Patient.objects.get(employee_id=employee_id)
     medical_visits = MedicalVisit.objects.filter(employee_id = employee_id)
@@ -21,5 +29,65 @@ def add_medical_visit(request, employee_id):
         form = medicalVisitForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('medical_visit',employee_id=employee_id)
+            return redirect('medical_visit', employee_id=employee_id)
     return render(request, 'add_medical_visit.html', context)
+
+
+
+
+def download_medical_visit(request, employee_id):
+    medical_visit = MedicalVisit.objects.get(employee_id = employee_id)
+
+    titles = [
+        'Code : ', 'Medical visit : ','Name : ', 'Gender : ', 'Age : ','Work post : ','Plaintes : ',
+        'Poids : ','Size : ','TA : ','PIT : ','PTE : ','PA : ','Pouls : ','AV/OD : ','OG :','Biology : ',
+        'Electrocardiogram : ', 'Audiometry : ', 'Spirometry : ', 'RX pulmonery : ','What to do : ','Aptitude : ',
+        'Doctor : ']
+    
+    values = [
+        str(medical_visit.employee_id.employee_id),
+        medical_visit.hospital_visit,
+        medical_visit.employee_id.name,
+        medical_visit.employee_id.gender,
+        str(medical_visit.employee_id.age),
+        medical_visit.plaintes,
+        medical_visit.plaintes,
+        str(medical_visit.mensuration_kg),
+        str(medical_visit.mensuration_size),
+        str(medical_visit.mensuration_TA),
+        str(medical_visit.mensuration_PIT),
+        str(medical_visit.mensuration_PTE),
+        str(medical_visit.mensuration_PA),
+        str(medical_visit.mensuration_Pouls),
+        str(medical_visit.mensuration_AV_OD),
+        str(medical_visit.mensuration_OG),
+        medical_visit.biology,
+        medical_visit.electrocardiogram,
+        medical_visit.audiometry,
+        medical_visit.spirometry,
+        str(medical_visit.RX_pulmonery),
+        medical_visit.what_to_do,
+        medical_visit.aptitude,
+        medical_visit.doctor.name,
+    ]
+
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer)
+
+    p.setFont('Helvetica', 12)
+    y = 800 
+    for title, value in zip(titles, values):
+        p.drawString(100, y, title)
+        p.drawString(200, y, value)
+        y -= 20
+
+    p.showPage()
+    p.save()
+    buffer.seek(0)
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="medical_visit.pdf"'
+    response.write(buffer.read())
+    buffer.close()
+
+    return response

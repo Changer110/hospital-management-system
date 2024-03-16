@@ -58,62 +58,37 @@
       box-sizing: border-box;
     }
   </style>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-    $(function() {
-      $("#id_expiry_date").datepicker({
-        dateFormat: 'yy-mm-dd'
-      });
-    });
 
-    function validateForm() {
-      var name = document.getElementById('id_name').value;
-      var drugType = document.getElementById('id_drug_type').value;
-      var quantity = document.getElementById('id_quantity').value;
-      var expiryDate = document.getElementById('id_expiry_date').value;
-      var dosageIssued = document.getElementById('id_dosage_issued').value;
-      var price = document.getElementById('id_price').value;
-      var importedFrom = document.getElementById('id_imported_from').value;
-
-      if (name.trim() === '' || drugType.trim() === '' || quantity.trim() === '' || expiryDate.trim() === '' || dosageIssued.trim() === '' || price.trim() === '' || priceperdrug.trim() === '' || importedFrom.trim() === '') {
-        alert('Please fill in all fields');
-        return false;
-      }
-    }
-  </script>
 </head>
 <body>
   <div class="form-container">
     <h1>Add Drug</h1>
-    <form method="post" action="" onsubmit="return validateForm()">
+    <form method="post" action="{% url 'add_drug' %}">
       {% csrf_token %}
       <label for="id_name">Name</label>
       <input type="text" id="id_name" name="name">
 
       <label for="id_drug_type">Drug Type</label>
       <select id="id_drug_type" name="drug_type">
-        <option value="Tablet">Tablet</option>
-        <option value="Capsule">Capsule</option>
-        <option value="Liquid">Liquid</option>
-        <option value="Injection">Injection</option>
-        <option value="Cream">Cream</option>
-        <option value="Spray">Spray</option>
+        {% for type in types %}
+        <option value="{{type}}">{{type}}</option>
+        {% endfor %}
       </select>
 
       <label for="id_quantity">Quantity</label>
-      <input type="text" id="id_quantity" name="quantity">
+      <input type="number" id="id_quantity" name="quantity">
 
       <label for="id_expiry_date">Expiry Date</label>
-      <input type="text" id="id_expiry_date" name="expiry_date" class="hasDatepicker">
+      <input type="date" id="id_expiry_date" name="expiry_date" class="hasDatepicker">
 
       <label for="id_dosage_issued">Dosage Issued</label>
-      <input type="text" id="id_dosage_issued" name="dosage_issued">
+      <input type="number" id="id_dosage_issued" name="dosage_issued" value="0">
 
       <label for="id_price">Price</label>
       <input type="text" id="id_price" name="price">
-      <label for="id_price_per_drug">Price Per Drug</label>
-      <input type="text" id="id_price_per_drug" name="price_per_drug">
+
+      <label for="per_drug">Price Per Drug</label>
+      <input type="number" id="per_drug" name="price_per_drug">
 
       <label for="id_imported_from">Imported From</label>
       <input type="text" id="id_imported_from" name="imported_from">

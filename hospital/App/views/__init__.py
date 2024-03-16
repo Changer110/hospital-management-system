@@ -14,7 +14,7 @@ from .prescription import *
 
 from .current_post import *
 
-from .add_drug import *
+
 
 from .drug_list import *
 from .delete_drug import *

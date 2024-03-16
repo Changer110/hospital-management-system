@@ -1,87 +1,89 @@
 
-
+{% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Medical visit</title>
-  <!-- <link rel="stylesheet" href="static/css/background_patient.css"> -->
-</head>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/medical_visit.css' %}">
+    <title>Medical visit</title>
+  </head>
+
 <body>
+  <nav></nav>
 
-  <div class="background-patient-container">
-    <h1 class="background-patient-title">Medical visit for {{ patient.name }}</h1>
+  <h1 class="background-patient-title">Medical visit for {{ patient.name }}</h1>
 
-    <div class="button-container">
-      <a href="{% url 'add_medical_visit' patient.employee_id %}" class="add-background-patient-button">Add Medical visit</a>
-      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Download</a>
-    </div>    
+  <div class="button-container">
+    <a href="{% url 'add_medical_visit' patient.employee_id %}" class="add-background-patient-button">Add Medical visit</a>
+    <a href="{% url 'download_medical_visit' patient.employee_id %}" class="patient-information-button">Download</a>
+  </div>    
     
 
-    <div class="medical_visit_container">
-      {% for visit in visits %}
-      <div class="medical_visit">
-        <div class="1st_info">
-          <label>Employee : <span id="employee_id">{{visit.employee_id.employee_id}}</span></label>
+  <div class="medical_visit_container">
+    {% for visit in visits %}
+    <div class="medical_visit">
+      <div class="1st_info">
+        <label>Employee : <span id="employee_id">{{visit.employee_id.employee_id}}</span></label>
+        <label for=""></label>
+      </div>
+
+      <div class="2nd_info">
+        <h2>Medical Visit ... ... ... ... ... ... ...</h2>
+        <label>Name : <span>{{visit.employee_id.name}}</span></label>
+        <div>
+          <label for="">Sexe : <span>{{visit.employee_id.gender}}</span></label>
+          <label for="">Age : <span>{{visit.employee_id.age}}</span></label>
+        </div>
+        <label for="">Work post : <span>{{visit.employee_id.age}}</span></label>
+      </div>
+
+      <div class="3rd_info">
+        <h2>I - Clinic</h2>
+        <label for=""><span></span></label>
+        <div>
           <label for=""></label>
-        </div>
-
-        <div class="2nd_info">
-          <h2>Medical Visit ... ... ... ... ... ... ...</h2>
-          <label>Name : <span>{{visit.employee_id.name}}</span></label>
-          <div>
-            <label for="">Sexe : <span>{{visit.employee_id.gender}}</span></label>
-            <label for="">Age : <span>{{visit.employee_id.age}}</span></label>
-          </div>
-          <label for="">Work post : <span>{{visit.employee_id.age}}</span></label>
-        </div>
-
-        <div class="3rd_info">
-          <h2>I - Clinic</h2>
-          <label for=""><span></span></label>
           <div>
             <label for=""></label>
-            <div>
-              <label for=""></label>
-              <label for=""></label>
-              <label for=""></label>
-            </div>
-            <div>
-              <label for=""></label>
-              <label for=""></label>
-              <label for=""></label>
-            </div>
-            <div>
-              <label for=""></label>
-              <label for=""></label>
-              <label for=""></label>
-            </div>
+            <label for=""></label>
+            <label for=""></label>
+          </div>
+          <div>
+            <label for=""></label>
+            <label for=""></label>
+            <label for=""></label>
+          </div>
+          <div>
+            <label for=""></label>
+            <label for=""></label>
+            <label for=""></label>
           </div>
         </div>
-
-        <div class="4th_info">
-          <h2>II - Complemantary exams</h2>
-          <label for="">Biology : <span>{{visit.biology}}</span></label>
-          <label for="">Electrocardiogram : <span>{{visit.electrocardiogram}}</span></label>
-          <label for="">Audiometry : <span>{{visit.audiometry}}</span></label>
-          <label for="">Spirometry : <span>{{visit.spirometry}}</span></label>
-          <label for="">Rx pulmonary : <span>{{visit.RX_pulmonery}}</span></label>
-        </div>
-
-        <div class="5th_info">
-          <h2>III - What to do</h2>
-          <label for=""></label>
-          <label for="">Medical records : <span>{{visit.what_to_do}}</span></label>
-        </div>
-
-        <div class="6th_info">
-          <h2>IV - Aptitude : {{visit.aptitude}}</h2>
-          <label for="">Doctor : <span>{{visit.aptitude}}</span></label>
-        </div>
       </div>
-      {% empty %}
-        <div>No Medical visit information found.</div>
-      {% endfor %}
+
+      <div class="4th_info">
+        <h2>II - Complemantary exams</h2>
+        <label for="">Biology : <span>{{visit.biology}}</span></label>
+        <label for="">Electrocardiogram : <span>{{visit.electrocardiogram}}</span></label>
+        <label for="">Audiometry : <span>{{visit.audiometry}}</span></label>
+        <label for="">Spirometry : <span>{{visit.spirometry}}</span></label>
+        <label for="">Rx pulmonary : <span>{{visit.RX_pulmonery}}</span></label>
+      </div>
+
+      <div class="5th_info">
+        <h2>III - What to do</h2>
+        <label for=""></label>
+        <label for="">Medical records : <span>{{visit.what_to_do}}</span></label>
+      </div>
+
+      <div class="6th_info">
+        <h2>IV - Aptitude : {{visit.aptitude}}</h2>
+        <label for="">Doctor : <span>{{visit.aptitude}}</span></label>
+      </div>
     </div>
-          
+    {% empty %}
+      <div>No Medical visit found.</div>
+    {% endfor %}
   </div>
+
 </body>
+</html>
+

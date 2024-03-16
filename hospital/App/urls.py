@@ -29,7 +29,7 @@ urlpatterns = [
    path('prescription/<int:medical_record_id>/', display_prescription, name='prescription'),
     path('appointment/<int:employee_id>/' , appointment , name='appointment'),
     path('add_patient', add_patient, name='add_patient'),
-    # path('patient_list', patient_list, name='patient_list'),
+
     path('add_drug', add_drug, name='add_drug'),
     path('delete_patient/<int:employee_id>/', delete_patient, name='delete_patient'),
     path('change_patient/<int:employee_id>', update_patient, name='change_patient'),
@@ -41,7 +41,7 @@ urlpatterns = [
     path('change_doctor/<int:doctor_id>', change_doctor, name='change_doctor'),
     path('doctor_list', doctor_list, name='doctor_list'),
     path('add_medical_record/<int:employee_id>/', add_medical_record, name='add_medical_record'),
-    # path('medical_record_list', medical_record_list, name='medical_record_list'),
+
     path('medical_records/<int:employee_id>/', show_all_medical_records, name='show_all_medical_records'),
     
     
@@ -112,6 +112,6 @@ urlpatterns = [
     
     path('medical_visit/<int:employee_id>/', show_medical_visit, name='medical_visit'),
     path('add_medical_visit/<int:employee_id>/', add_medical_visit, name='add_medical_visit'),
-    # path('update_current_post/<int:employee_id>/', update_current_post, name='update_current_post'),
+    path('download_medical_visit/<int:employee_id>/', download_medical_visit, name='download_medical_visit'),
     # path('delete_add_current_post/<int:employee_id>/', delete_current_post, name='delete_current_post'),
 ]

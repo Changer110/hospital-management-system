@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from App.models.forms import AddDrugForm
 
+
+
 def add_drug(request):
     if request.method == 'POST':
         form = AddDrugForm(request.POST)
