@@ -9,7 +9,7 @@
     <h1 class="absenteeism-title">Absenteeism Information for {{ patient.name }}</h1>
 
     <div class="button-container">
-      <a href="{% url 'add_absenteeism' patient.employee_id %}" class="add-absenteeism-button">Add Absenteeism</a>
+      <a href="{% url 'add_absenteeism' patient.employee_id %}" class="add-absenteeism-button" style="background-color: green;">Add Absenteeism</a>
       <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
     </div>
 
@@ -32,8 +32,8 @@
             <td>{{ absenteeism.beginning }}</td>
             <td>{{ absenteeism.reprise }}</td>
             <td>{{ absenteeism.days_off }}</td>
-            <td><a href="{% url 'change_absenteeism' absenteeism.id %}">Change</a></td>
-            <td><a href="{% url 'delete_absenteeism' absenteeism.id %}">Delete</a></td>
+            <td><a href="{% url 'change_absenteeism' absenteeism.id %}" class="change-button">Change</a></td>
+            <td><a href="{% url 'delete_absenteeism' absenteeism.id %}" class="delete-button">Delete</a></td>
           </tr>
           {% empty %}
           <tr>
@@ -64,6 +64,15 @@
     patientInformationButton.style.borderRadius = '4px';
     patientInformationButton.style.marginLeft = '10px';
 
+    const addAbsenteeismButton = document.querySelector('.add-absenteeism-button');
+    addAbsenteeismButton.style.display = 'inline-block';
+    addAbsenteeismButton.style.padding = '8px 16px';
+    addAbsenteeismButton.style.backgroundColor = 'green';
+    addAbsenteeismButton.style.color = 'white';
+    addAbsenteeismButton.style.textDecoration = 'none';
+    addAbsenteeismButton.style.borderRadius = '4px';
+    addAbsenteeismButton.style.marginLeft = '10px';
+
     const absenteeismDetailsTable = document.querySelector('table');
     absenteeismDetailsTable.style.width = '100%';
     absenteeismDetailsTable.style.borderCollapse = 'collapse';
@@ -82,6 +91,27 @@
       row.style.padding = '8px';
       row.style.textAlign = 'left';
       row.style.borderBottom = '1px solid #ddd';
+    });
+
+    const changeButtons = document.querySelectorAll('.change-button');
+    changeButtons.forEach(changeButton => {
+      changeButton.style.display = 'inline-block';
+      changeButton.style.padding = '8px 16px';
+      changeButton.style.backgroundColor = '#2196F3';
+      changeButton.style.color = 'white';
+      changeButton.style.textDecoration = 'none';
+      changeButton.style.borderRadius = '4px';
+      changeButton.style.marginRight = '10px';
+    });
+
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.style.display = 'inline-block';
+      deleteButton.style.padding = '8px 16px';
+      deleteButton.style.backgroundColor = 'red';
+      deleteButton.style.color = 'white';
+      deleteButton.style.textDecoration = 'none';
+      deleteButton.style.borderRadius = '4px';
     });
   </script>
 </body>

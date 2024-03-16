@@ -38,8 +38,8 @@
             <td>{{ background_patient.family_surgical }}</td>
             <td>{{ background_patient.social_personal }}</td>
             <td>{{ background_patient.social_family }}</td>
-            <td><a href="{% url 'change_background_patient' background_patient.id %}">Change</a></td>
-            <td><a href="{% url 'delete_background_patient' background_patient.id %}">Delete</a></td>
+            <td><a href="{% url 'change_background_patient' background_patient.id %}" class="change-button">Change</a></td>
+            <td><a href="{% url 'delete_background_patient' background_patient.id %}" class="delete-button">Delete</a></td>
           </tr>
           {% empty %}
           <tr>
@@ -96,6 +96,26 @@
       row.style.padding = '8px';
       row.style.textAlign = 'left';
       row.style.borderBottom = '1px solid #ddd';
+    });
+
+    const changeButtons = document.querySelectorAll('.change-button');
+    changeButtons.forEach(changeButton => {
+      changeButton.style.display = 'inline-block';
+      changeButton.style.padding = '8px 16px';
+changeButton.style.backgroundColor = 'blue';
+      changeButton.style.color = 'white';
+      changeButton.style.textDecoration = 'none';
+      changeButton.style.borderRadius = '4px';
+    });
+
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.style.display = 'inline-block';
+      deleteButton.style.padding = '8px 16px';
+      deleteButton.style.backgroundColor = 'red';
+      deleteButton.style.color = 'white';
+      deleteButton.style.textDecoration = 'none';
+      deleteButton.style.borderRadius = '4px';
     });
 
     // Add click event listener to table rows
