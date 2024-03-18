@@ -35,8 +35,8 @@ def add_medical_visit(request, employee_id):
 
 
 
-def download_medical_visit(request, employee_id):
-    medical_visit = MedicalVisit.objects.get(employee_id = employee_id)
+def download_medical_visit(request, visit_id):
+    medical_visit = MedicalVisit.objects.get(pk = visit_id)
 
     titles = [
         'Code : ', 'Medical visit : ','Name : ', 'Gender : ', 'Age : ','Work post : ','Plaintes : ',

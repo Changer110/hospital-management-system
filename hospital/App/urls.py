@@ -112,7 +112,7 @@ urlpatterns = [
     
     path('medical_visit/<int:employee_id>/', show_medical_visit, name='medical_visit'),
     path('add_medical_visit/<int:employee_id>/', add_medical_visit, name='add_medical_visit'),
-    path('download_medical_visit/<int:employee_id>/', download_medical_visit, name='download_medical_visit'),
+    path('download_medical_visit/<int:visit_id>/', download_medical_visit, name='download_medical_visit'),
     # path('delete_add_current_post/<int:employee_id>/', delete_current_post, name='delete_current_post'),
     path('change_medical_visit/<int:visit_id>/', change_medical_visit, name='change_medical_visit'),
     path('medical_visit/delete/<int:visit_id>/', delete_medical_visit, name='delete_medical_visit'),
