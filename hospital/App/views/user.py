@@ -3,7 +3,7 @@
 
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 
 def user_login(request):
@@ -18,3 +18,8 @@ def user_login(request):
             page = 'patient'
         return redirect(page)
     return render(request, 'login.html')
+
+
+def user_logout(request):
+    logout(request)
+    return render(request,'index.html')

@@ -7,6 +7,8 @@ from App.views import *
 urlpatterns = [
     path('homepage', index),
     path('login', user_login, name='login'),
+    path('logout/', user_logout, name='logout'), 
+    
     path('dashboard' , dashboard),
     path('doctor' , display_doctors, name='doctor'),
     path('search_doctor/', search_doctor, name='search_doctor'),
