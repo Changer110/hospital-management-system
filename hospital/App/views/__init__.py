@@ -16,7 +16,7 @@ from .current_post import *
 
 
 
-from .drug_list import *
+
 from .delete_drug import *
 from .change_drug import *
 from .add_doctor import *

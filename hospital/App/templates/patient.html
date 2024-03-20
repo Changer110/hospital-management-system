@@ -6,13 +6,30 @@
   <title>Patient Information</title>
   <!-- <link rel="stylesheet" href="static/css/patient.css"> -->
   <link rel="stylesheet" href="{% static 'css/medical_visit.css' %}">
+  <style>
+    .more_info {
+      display: none;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+  
+    .more_info table {
+      width: 100%;
+    }
+  
+    .more_info th,
+    .more_info td {
+      padding: 5px;
+    }
+  </style>
 </head>
 
 <body>
   <nav>
-    <a href="{% url 'show_all_patient' %}">Patient</a>
+    <a href="{% url 'patient' 'all' %}">Patient</a>
     <a href="">Appointment</a>
-    <a href="{% url 'show_all_doctors' %}">Doctors</a>
+    <a href="{% url 'doctor' %}">Doctors</a>
     <a href="{% url 'show_all_drugs' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
@@ -23,7 +40,7 @@
 
     <div class="info_action">
       <a href="{% url 'add_patient' %}" class="green_link">Add</a>
-      <a href="{% url 'show_all_patient' %}" class="blue_link">Show all</a>
+      <a href="{% url 'patient' 'all' %}" class="blue_link">Show all</a>
       <form action="{% url 'search_patient' %}" style="display: flex; gap: 5px" method="POST">
         {% csrf_token %}
         <input type="number" name="employee_id">
@@ -37,7 +54,6 @@
 
     <div class="data_container">
       {% for patient in patients %}
-      <!-- <h5 style="text-align: center;">___________________________________________________________________________________________________________________________________________________</h5> -->
       <table>
         <tr>
           <th>ENTERPRISE : </th>
@@ -111,21 +127,22 @@
         <tr>
 
           <th><a href="{% url 'change_patient' patient.employee_id %}" class="blue_link">Change</a></th>
-          <th><a href="{% url 'medical_record' patient.employee_id %}" class="green_link">Medical record</a></th>
           <th><a href="{% url 'delete_patient' patient.employee_id %}" class="red_link">Delete</a></th>
+          <th><a href="{% url 'medical_record' patient.employee_id %}" class="green_link">Medical record</a></th>
           <th>
-            <a href="{% url 'delete_patient' patient.employee_id %}" class="blue_link">More</a>
-            <div class="more_info" style="display: none; position:absolute">
+            <a href="" onclick="show(event)" class="blue_link">More</a>
+            <div id="more_info" class="more_info">
               <table>
-                <tr><th><a href="{% url 'appointment' 1 %}" class="patient-button">Appointment</a></th></tr>
-                <tr><th><a href="{% url 'previous_post' 1 %}" class="patient-button">Previous post</a></th></tr>
-                <tr><th><a href="{% url 'accident' 1 %}" class="patient-button">Accident</a></th></tr>
-                <tr><th><a href="{% url 'occupational_illness' 1 %}" class="patient-button">Occupational Illness</a></th></tr>
-                <tr><th><a href="{% url 'background_patient' 1 %}" class="patient-button">Background Patient</a></th></tr>
-                <tr><th><a href="{% url 'summons_form' 1 %}" class="patient-button">Summons Form</a></th></tr>
-                <tr><th><a href="{% url 'current_post' 1 %}" class="patient-button">Current post</a></th></tr>
-                <tr><th></th></tr>
-                <tr><th></th></tr>
+                </tr>
+                <tr><th><a href="{% url 'previous_post' patient.employee_id %}" class="green_link">Previous post</a></th></tr>
+                <tr><th><a href="{% url 'accident' patient.employee_id %}" class="green_link">Accident</a></th></tr>
+                <tr><th><a href="{% url 'occupational_illness' patient.employee_id %}" class="green_link">Occupational Illness</a></th></tr>
+                <tr><th><a href="{% url 'background_patient' patient.employee_id %}" class="green_link">Background Patient</a></th></tr>
+                <tr><th><a href="{% url 'summons_form' patient.employee_id %}" class="green_link">Summons Form</a></th></tr>
+                <tr><th><a href="{% url 'current_post' patient.employee_id %}" class="green_link">Current post</a></th></tr>
+                <tr><th><a href="{% url 'medical_visit' patient.employee_id %}" class="green_link">Medical Visit</a></th></tr>
+                <tr><th><a href="{% url 'appointment' patient.employee_id %}" class="green_link">Appointment</a></th></tr>
+                <tr><th><a href="{% url 'absenteeism' patient.employee_id %}" class="green_link">Absenteeism</a></th></tr>
               </table>
             </div>
           </th>
@@ -229,5 +246,15 @@
       });
     });
   </script> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function show(event){
+      event.preventDefault();
+      const th = event.target.closest('th');
+      const links = th.querySelector('.more_info');
+      links.style.display = (links.style.display === 'none') ? 'block' : 'none';
+    }
+    </script>
+
 </body>
 </html>

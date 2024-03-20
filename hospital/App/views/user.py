@@ -14,7 +14,8 @@ def user_login(request):
         user = authenticate(request, username = uname, password = ukey)
         if user:
             login(request, user)
-            request.session['doctor'] = user.pk
+            request.session['user'] = user.pk
+            request.session['role'] = user.role
             page = 'patient'
         return redirect(page)
     return render(request, 'login.html')
@@ -23,3 +24,12 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return render(request,'index.html')
+    #     return redirect(page, employee_id = 'all')
+    # return render(request, 'login.html')
+
+
+# def user_page(request):
+#     page = 'login'
+#     if request.session.get('user'):
+#         return render
+#     return redirect([page])

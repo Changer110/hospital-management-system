@@ -77,6 +77,13 @@
 </head>
 
 <body>
+  <nav>
+    <a href="{% url 'patient' 'all' %}">Patient</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'doctor' %}">Doctors</a>
+    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a class="logout" href="{% url 'show_all_drugs' %}">Logout</a>
+  </nav>
   <h1>Drug List</h1>
   <a href="{% url 'add_drug' %}" class="add-button">Add Drug</a>
   <form action="{% url 'search_drug' %}" style="display: flex; gap: 5px" method="POST">
@@ -85,8 +92,6 @@
     <input type="submit" value="Search">
   </form>
   <a href="{% url 'show_all_drugs' %}" class="add-button">Show all Drugs</a>
-  <a href="{% url 'show_all_patient' %}" class="add-patient-button">Show all Patients</a>
-  <a href="{% url 'show_all_doctors' %}" class="add-patient-button">Show all Doctors</a>
   <table id="drug-table">
     <thead>
       <tr>
