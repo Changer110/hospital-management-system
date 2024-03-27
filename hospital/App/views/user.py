@@ -16,9 +16,7 @@ def user_login(request):
             login(request, user)
             request.session['user'] = user.pk
             request.session['role'] = user.role
-            employee_id = 'employee_id'  # Replace with the actual employee_id
-            
-            page = reverse('patient', kwargs={'employee_id': employee_id})
+            return redirect('patient', employee_id = 'all')
         return redirect(page)
     return render(request, 'login.html')
 

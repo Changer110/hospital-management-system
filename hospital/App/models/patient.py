@@ -4,6 +4,7 @@ from .enterprise import Enterprise
 
 class Patient(models.Model):
     employee_id = models.BigIntegerField(unique=True)
+    picture = models.ImageField(upload_to='img/',null=False, blank=True)
     enterprise_name = models.ForeignKey(Enterprise, to_field = 'enterprise_ID',on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     date_of_birth = models.DateField()
