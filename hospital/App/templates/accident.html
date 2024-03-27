@@ -38,6 +38,7 @@
             <td>{{ accident.observation }}</td>
             <td><a href="{% url 'change_accident' accident.id %}">Change</a></td>
             <td><a href="{% url 'delete_accident' accident.id %}">Delete</a></td>
+            <td><a href="{% url 'download_accident' accident.id %}">Download</a></td>
           </tr>
           {% empty %}
           <tr>

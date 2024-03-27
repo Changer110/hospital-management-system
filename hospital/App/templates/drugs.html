@@ -5,6 +5,7 @@
 <html>
 <head>
   <title>Drugs</title>
+  <link rel="stylesheet" href="{% static 'css/medical_visit.css' %}">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -79,10 +80,9 @@
 <body>
   <nav>
     <a href="{% url 'patient' 'all' %}">Patient</a>
-    <a href="">Appointment</a>
     <a href="{% url 'doctor' %}">Doctors</a>
     <a href="{% url 'show_all_drugs' %}">Drugs</a>
-    <a class="logout" href="{% url 'show_all_drugs' %}">Logout</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
   <h1>Drug List</h1>
   <a href="{% url 'add_drug' %}" class="add-button">Add Drug</a>

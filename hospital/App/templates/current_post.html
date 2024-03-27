@@ -44,6 +44,7 @@
             <td>{{ post.metrology_R }}</td>
             <td><a href="{% url 'update_current_post' post.id %}" class="change-button">Change</a></td>
             <td><a href="{% url 'delete_current_post' post.id %}" class="delete-button">Delete</a></td>
+            <td><a href="{% url 'download_current_post' post.id %}" class="delete-button">Download</a></td>
           </tr>
           {% empty %}
           <tr>

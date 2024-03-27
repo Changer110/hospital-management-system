@@ -19,10 +19,8 @@ from .current_post import *
 
 from .delete_drug import *
 from .change_drug import *
-from .add_doctor import *
 from .change_doctor import *
 from .delete_doctor import *
-from .doctor_list import *
 from .vaccination import *
 
 from .enterprise import *

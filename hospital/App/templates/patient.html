@@ -28,9 +28,9 @@
 <body>
   <nav>
     <a href="{% url 'patient' 'all' %}">Patient</a>
-    <a href="">Appointment</a>
     <a href="{% url 'doctor' %}">Doctors</a>
     <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a href="{% url 'enterprise_list' %}">Enterprise</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
@@ -97,7 +97,7 @@
         <tr>
           <th>Nationality : </th>
           <td>{{ patient.nationality }}</td>
-          <th>Martial statuts : </th>
+          <th>Marital statuts : </th>
           <td>{{ patient.marital_status }}</td>
           <th>Dependent children : </th>
           <td>{{ patient.num_dependent_children }}</td>
@@ -128,6 +128,7 @@
 
           <th><a href="{% url 'change_patient' patient.employee_id %}" class="blue_link">Change</a></th>
           <th><a href="{% url 'delete_patient' patient.employee_id %}" class="red_link">Delete</a></th>
+          <th><a href="{% url 'download_patient' patient.employee_id %}" class="red_link">Download</a></th>
           <th><a href="{% url 'medical_record' patient.employee_id %}" class="green_link">Medical record</a></th>
           <th>
             <a href="" onclick="show(event)" class="blue_link">More</a>

@@ -7,7 +7,7 @@ def delete_doctor(request, doctor_id):
         
         if request.method == 'POST':
             doctor.delete()
-            return redirect('doctor_list')  # Redirect to the doctor list page after deletion
+            return redirect('doctor')  # Redirect to the doctor list page after deletion
         
         context = {
             'doctor': doctor

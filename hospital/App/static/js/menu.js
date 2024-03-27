@@ -1,9 +1,9 @@
 
 
 
-function showMenu(evant){
-    var 
-}
+// function showMenu(evant){
+//     var 
+// }
 
 
 // <td><a href="{% url 'delete_patient' 1 %}" class="patient-button">Delete</a></td>

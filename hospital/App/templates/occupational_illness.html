@@ -39,6 +39,7 @@
             <td>{{ occupational_illness.decision }}</td>
             <td><a href="{% url 'change_occupational_illness' occupational_illness.id %}">Change</a></td>
             <td><a href="{% url 'delete_occupational_illness' occupational_illness.id %}">Delete</a></td>
+            <td><a href="{% url 'download_occupational_illness' occupational_illness.id %}">Download</a></td>
           </tr>
           {% empty %}
           <tr>

@@ -20,6 +20,7 @@
       <h2>Total price: {{ total_price }}</h2>
       <a href="{%url 'show_all_medical_records' patient.employee_id %}" class="add-medical-record-button">Show All Medical Records</a>
       <a href="{%url 'patient_information' patient.employee_id %}" class="add-medical-record-button">Patient Information</a>
+     
     </div>
 
     <ul class="medical-record-details">
@@ -51,6 +52,7 @@
             <td>{{ record.constants }}</td>
             <td>{{ record.physical_examination }}</td>
             <td>{{ record.observations }}</td>
+            <td><a href="{% url 'download_medical_record' record.id %}" class="delete-button">download</a></td>
             <td><a href="{% url 'delete_medical_record' record.id %}" class="delete-button">delete</a></td>
             <td><a href="{% url 'change_medical_record' record.id %}" class="change-button">Change</a></td>
             <td><a href="{% url 'prescription' record.id %}" class="prescription-button">Prescription</a></td>
@@ -107,7 +109,7 @@
     }
 
     .change-button {
-      color: #2196F3;
+      color: hsl(176, 88%, 3%);
     }
 
     .prescription-button {

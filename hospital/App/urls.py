@@ -5,7 +5,7 @@ from django.urls import path
 from App.views import *
 
 urlpatterns = [
-    path('homepage', index),
+    path('', index),
     path('login', user_login, name='login'),
     path('logout/', user_logout, name='logout'), 
     
@@ -15,9 +15,13 @@ urlpatterns = [
     path('show_all_doctors/', show_all_doctors, name='show_all_doctors'),
     
     path('patient/<str:employee_id>/' , display_patient, name='patient'),
+    path('add_patient', add_patient, name='add_patient'),
     path('search_patient', search_patient, name='search_patient'),
     path('patients/', show_all_patient, name='show_all_patient'),
     path('patient_information/<int:employee_id>/', patient_information, name='patient_information'),
+    path('download-patient/<int:employee_id>/', download_patient, name='download_patient'),
+    path('delete_patient/<int:employee_id>/', delete_patient, name='delete_patient'),
+    path('change_patient/<int:employee_id>', update_patient, name='change_patient'),
     
     
     path('drugs' , display_drugs, name='drugs'),
@@ -30,18 +34,16 @@ urlpatterns = [
     
    path('prescription/<int:medical_record_id>/', display_prescription, name='prescription'),
     path('appointment/<int:employee_id>/' , appointment , name='appointment'),
-    path('add_patient', add_patient, name='add_patient'),
+   
 
     path('add_drug', add_drug, name='add_drug'),
-    path('delete_patient/<int:employee_id>/', delete_patient, name='delete_patient'),
-    path('change_patient/<int:employee_id>', update_patient, name='change_patient'),
     # path('drug_list/', drug_list, name='drug_list'),
     path('delete-drug/<int:drug_id>', delete_drug, name='delete_drug'),
     path('change_drug/<int:drug_id>', change_drug, name='change_drug'),
     path('add_doctor', add_doctor, name='add_doctor'),
     path('delete_doctor/<int:doctor_id>/', delete_doctor, name='delete_doctor'),
     path('change_doctor/<int:doctor_id>', change_doctor, name='change_doctor'),
-    path('doctor_list', doctor_list, name='doctor_list'),
+    # path('doctor_list', doctor_list, name='doctor_list'),
     path('add_medical_record/<int:employee_id>/', add_medical_record, name='add_medical_record'),
 
     path('medical_records/<int:employee_id>/', show_all_medical_records, name='show_all_medical_records'),
@@ -50,6 +52,9 @@ urlpatterns = [
     
     path('medical-record/delete/<int:record_id>/', delete_medical_record, name='delete_medical_record'),
     path('medical-record/change/<int:record_id>/', change_medical_record, name='change_medical_record'),
+    path('download-medical-record/<int:record_id>/', download_medical_record, name='download_medical_record'),
+    
+    # path('download_medical_record/<records>/', download_all, name='download_medical_record'),
     
     path('add_appointment/<int:employee_id>/', add_appointment, name='add_appointment'),
     path('appointment/delete/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
@@ -75,6 +80,7 @@ urlpatterns = [
     path('add-previous-post/<int:employee_id>/', add_previous_post, name='add_previous_post'),
     path('previous_post/change/<int:previous_post_id>/', change_previous_post, name='change_previous_post'),
     path('previous_post/delete/<int:previous_post_id>/', delete_previous_post, name='delete_previous_post'),
+    path('previous_post/download/<int:previous_post_id>/', download_previous_post, name='download_previous_post'),
     
     
     
@@ -82,18 +88,21 @@ urlpatterns = [
     path('add_accident/<int:employee_id>/', add_accident, name='add_accident'),
     path('accident/change/<int:accident_id>/', change_accident, name='change_accident'),
     path('accident/delete/<int:accident_id>/', delete_accident, name='delete_accident'),
+    path('accident/download/<int:accident_id>/', download_accident, name='download_accident'),
     
     
     path('occupational_illness/<int:employee_id>/', display_occupational_illness, name='occupational_illness'),
     path('add-occupational-illness/<int:employee_id>/', add_occupational_illness, name='add_occupational_illness'),
     path('occupational_illness/delete/<int:occupational_illness_id>/',delete_occupational_illness, name='delete_occupational_illness'),
     path('occupational_illness/change/<int:occupational_illness_id>/',change_occupational_illness, name='change_occupational_illness'),
+    path('occupational_illness/download/<int:occupational_illness_id>/',download_occupational_illness, name='download_occupational_illness'),
     
     
     path('background_patient/<int:employee_id>/', display_background_patient, name='background_patient'),
     path('background_patient/add/<int:employee_id>/', add_background_patient, name='add_background_patient'),
     path('change_background_patient/<int:background_patient_id>/', change_background_patient, name='change_background_patient'),
-    path('delete_background_patient/<int:background_patient_id>/',delete_background_patient, name='delete_background_patient'), 
+    path('delete_background_patient/<int:background_patient_id>/',delete_background_patient, name='delete_background_patient'),
+    path('download_background_patient/<int:background_patient_id>/', download_background_patient, name='download_background_patient'),
 
 
 
@@ -102,6 +111,7 @@ urlpatterns = [
     path('add_summons_form/<int:employee_id>/', add_summons_form, name='add_summons_form'),
     path('change_summons_form/<int:summons_form_id>/', change_summons_form, name='change_summons_form'),
     path('delete_summons_form/<int:summons_form_id>/', delete_summons_form, name='delete_summons_form'),
+    path('download_summons_form/<int:summons_form_id>/', download_summons_form, name='download_summons_form'),
     
     
     
@@ -109,6 +119,7 @@ urlpatterns = [
     path('add_current_post/<int:employee_id>/', add_current_post, name='add_current_post'),
     path('update_current_post/<int:current_post_id>/', update_current_post, name='update_current_post'),
     path('delete_current_post/<int:current_post_id>/', delete_current_post, name='delete_current_post'),
+    path('download_current_post/<int:current_post_id>/', download_current_post, name='download_current_post'),
     
     
     
@@ -125,4 +136,5 @@ urlpatterns = [
     path('add_absenteeism/<int:employee_id>/',add_absenteeism, name='add_absenteeism'),
     path('change_absenteeism/<int:absenteeism_id>/',change_absenteeism, name='change_absenteeism'),
     path('absenteeism/delete/<int:absenteeism_id>/', delete_absenteeism, name='delete_absenteeism'),
+    path('absenteeism/download/<int:absenteeism_id>/', download_absenteeism, name='download_absenteeism'),
 ]

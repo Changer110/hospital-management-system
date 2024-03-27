@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Doctor Information</title>
-  <link rel="stylesheet" href="static/css/doctor.css">
+  <link rel="stylesheet" href="static/css/medical_visit.css">
   <style>
     /* Additional CSS code for custom styling */
     .selected {
@@ -41,6 +41,12 @@
   </style>
 </head>
 <body>
+  <nav>
+    <a href="{% url 'patient' 'all' %}">Patient</a>
+    <a href="{% url 'doctor' %}">Doctors</a>
+    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
+  </nav>
   <div class="doctor-container">
     <h1 class="doctor-title">Doctor Information</h1>
 
@@ -52,8 +58,6 @@
         <input type="submit" value="Search">
       </form>
       <a href="{% url 'show_all_doctors' %}" class="add-patient-button">Show all Doctors</a>
-      <a href="{% url 'show_all_patient' %}" class="add-patient-button">Show all Patients</a>
-      <a href="{% url 'show_all_drugs' %}" class="add-button">Show all Drugs</a>
     </div>
   </div>
 

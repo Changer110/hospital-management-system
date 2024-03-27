@@ -34,6 +34,7 @@
             <td>{{ summons_form.observation }}</td>
             <td><a href="{% url 'change_summons_form' summons_form.id %}">Change</a></td> 
             <td><a href="{% url 'delete_summons_form' summons_form.id %}">Delete</a></td>
+            <td><a href="{% url 'download_summons_form' summons_form.id %}">Download</a></td>
           </tr>
           {% empty %}
           <tr>

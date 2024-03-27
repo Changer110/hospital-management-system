@@ -2,7 +2,7 @@
 
 
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,reverse
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -16,7 +16,9 @@ def user_login(request):
             login(request, user)
             request.session['user'] = user.pk
             request.session['role'] = user.role
-            page = 'patient'
+            employee_id = 'employee_id'  # Replace with the actual employee_id
+            
+            page = reverse('patient', kwargs={'employee_id': employee_id})
         return redirect(page)
     return render(request, 'login.html')
 

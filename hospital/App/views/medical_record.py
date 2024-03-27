@@ -9,7 +9,7 @@ from django.db.models import Sum
 
 from datetime import datetime
 from App.models import Prescription
-
+import json
 
 
 
@@ -23,7 +23,8 @@ def display_medical_record(request, employee_id):
         records = MedicalRecord.objects.filter(patient = employee_id)
         total_price = records.aggregate(total_price=Sum('price'))
         total_price = 0 if not total_price['total_price'] else total_price['total_price']
-        context = {'records': records,'patient': patient, 'total_price' : total_price}
+        
+        context = {'records': records,'patient': patient, 'total_price' : total_price, 'list':(list(records))}
         return render(request, 'medical_record.html', context)
     return redirect('login')
 
@@ -120,3 +121,73 @@ def show_all_medical_records(request, employee_id):
         context = {'records': records, 'patient': patient, 'total_price': total_price}
         return render(request, 'medical_record.html', context)
     return redirect('login')
+
+
+from django.http import HttpResponse
+from django.template.loader import get_template
+from django.conf import settings
+from io import BytesIO
+from reportlab.pdfgen import canvas
+
+
+def download_medical_record(request, record_id):
+    try:
+        medical_record = MedicalRecord.objects.get(id=record_id)
+        
+        # Generate the PDF file
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="medical_record.pdf"'
+
+        buffer = BytesIO()
+        p = canvas.Canvas(buffer, pagesize=settings.DEFAULT_PAGE_SIZE)
+
+        # Set the font and size for the PDF
+        p.setFont("Helvetica", 12)
+        
+        # Write the medical record information to the PDF
+        p.drawString(100, 700, f"Name: {medical_record.patient.name}")
+        p.drawString(100, 680, f"Date: {medical_record.date}")
+        p.drawString(100, 660, f"Price: {medical_record.price}")
+
+        # Save the PDF
+        p.showPage()
+        p.save()
+
+        # Retrieve the PDF content from the buffer and return the response
+        pdf = buffer.getvalue()
+        buffer.close()
+        response.write(pdf)
+
+        return response
+    except MedicalRecord.DoesNotExist:
+        # Handle case when the medical record with the specified record_id does not exist
+        return HttpResponse("Medical Record not found", status=404)
+    
+    
+# def download_all(request, records):
+#     records_list = records
+#     # Generate the PDF file
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="medical_record.pdf"'
+
+#     buffer = BytesIO()
+#     p = canvas.Canvas(buffer, pagesize=settings.DEFAULT_PAGE_SIZE)
+
+#     # Set the font and size for the PDF
+#     p.setFont("Helvetica", 12)
+    
+#     for record in records_list:
+#         p.drawString(100, 700, f"Name: {record[0]}")
+#         p.drawString(100, 680, f"Date: {record[0]}")
+#         p.drawString(100, 660, f"Price: {record[0]}")
+
+#     # Save the PDF
+#     p.showPage()
+#     p.save()
+
+#     # Retrieve the PDF content from the buffer and return the response
+#     pdf = buffer.getvalue()
+#     buffer.close()
+#     response.write(pdf)
+
+#     return response
