@@ -4,9 +4,8 @@
   <title>Add Patient</title>
   <link rel="stylesheet" href="static/css/add_patient.css">
   <style>
-    /* CSS code for custom styling */
     .form-container {
-      max-width: 400px;
+      width: 400px;
       margin: 0 auto;
       padding: 20px;
       border: 1px solid #ccc;
@@ -54,10 +53,12 @@
 <body>
   <div class="form-container">
     <h1>Add Patient</h1>
-    <form method="post" action="{% url 'add_patient' %}">
+    <form method="POST" action="{% url 'add_patient' %}" enctype="multipart/form-data">
       {% csrf_token %}
+      <label>Employee picture</label>
+      <img src="#" id="picture" alt="" style="width: 130px; height:150px; border: 1px solid black">
+      <input type="file" onchange="getfile(event)" name="picture" required>
 
-      <input type="file">
       <label for="employee_id">Employee ID</label>
       <input type="number" id="employee_id" name="employee_id" step="1">
 
@@ -112,7 +113,6 @@
         <option value="Divorced">Divorced</option>
         <option value="Widow (sphinster)">Widow or sphinster</option>
       </select>
-      <!-- <input type="text" id="marital_status" name="marital_status"> -->
 
       <label for="num_dependent_children">Number of Dependent Children</label>
       <input type="number" id="num_dependent_children" name="num_dependent_children">
@@ -142,5 +142,17 @@
       <button type="submit">Save</button>
     </form>
   </div>
+  <script>
+    function getfile(event) {
+        var imageFile = event.target.files[0];
+        var imagePreview = document.getElementById('picture');
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(imageFile);
+    };
+</script>
 </body>
 </html>
