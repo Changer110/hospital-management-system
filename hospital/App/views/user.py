@@ -24,12 +24,3 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return render(request,'index.html')
-    #     return redirect(page, employee_id = 'all')
-    # return render(request, 'login.html')
-
-
-# def user_page(request):
-#     page = 'login'
-#     if request.session.get('user'):
-#         return render
-#     return redirect([page])
