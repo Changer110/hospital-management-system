@@ -28,8 +28,4 @@ def user_logout(request):
     # return render(request, 'login.html')
 
 
-# def user_page(request):
-#     page = 'login'
-#     if request.session.get('user'):
-#         return render
-#     return redirect([page])
+
