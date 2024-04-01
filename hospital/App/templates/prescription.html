@@ -9,35 +9,38 @@
     <h1 class="prescription-title">Prescription Information</h1>
 
     <div class="button-container">
-        <a href="{% url 'add_prescription' record %}" class="add-prescription-button">Add prescription</a>
+        <a href="{% url 'add_prescription' record %}" class="add-prescription-button">Add Prescription</a>
         <a href="{% url 'back_to_medical_record' record %}" class="back-to-medical-record-button">Back to Medical Record</a>
     </div>
 
-    <ul class="prescription-details">
-      <table>
-        <thead>
+    <table class="prescription-details">
+      <thead>
+        <tr>
           <th>Drug Name</th>
           <th>Dosage</th>
           <th></th>
           <th></th>
-        </thead>
+        </tr>
+      </thead>
+      <tbody>
         {% for prescription in prescriptions %}
-        <tbody>
+        <tr>
           <td>{{ prescription.drug_name.name }}</td>
           <td>{{ prescription.dosage }}</td>
-          <td><a href="{% url 'delete_prescription' prescription.pk %}">Delete</a></td>
-          <td><a href="{% url 'change_prescription' prescription.pk %}">Change</a></td>
-        </tbody>
+          <td><a href="{% url 'delete_prescription' prescription.pk %}" class="delete-button">Delete</a></td>
+          <td><a href="{% url 'change_prescription' prescription.pk %}" class="change-button">Change</a></td>
+          <td><a href="{% url 'download_prescription' prescription.pk %}" class="delete-button">Download</a></td>
+        </tr>
         {% empty %}
-          <tr>
-            <td colspan="4">No prescriptions found.</td>
-          </tr>
+        <tr>
+          <td colspan="4">No prescriptions found.</td>
+        </tr>
         {% endfor %}
-      </table>
-    </ul>
+      </tbody>
+    </table>
   </div>
   <script>
-    // Style the "Add prescription" button
+    // Style the "Add Prescription" button
     const addPrescriptionButton = document.querySelector('.add-prescription-button');
     addPrescriptionButton.style.display = 'inline-block';
     addPrescriptionButton.style.padding = '8px 16px';
@@ -45,34 +48,55 @@
     addPrescriptionButton.style.color = 'white';
     addPrescriptionButton.style.textDecoration = 'none';
     addPrescriptionButton.style.borderRadius = '4px';
-  
-    // Style the "Delete" and "Change" buttons
-    const deleteButtons = document.querySelectorAll('.prescription-details a[href*="delete_prescription"]');
+
+    // Style the "Back to Medical Record" button
+    const backToMedicalRecordButton = document.querySelector('.back-to-medical-record-button');
+    backToMedicalRecordButton.style.display = 'inline-block';
+    backToMedicalRecordButton.style.padding = '8px 16px';
+    backToMedicalRecordButton.style.backgroundColor = '#2196F3';
+    backToMedicalRecordButton.style.color = 'white';
+    backToMedicalRecordButton.style.textDecoration = 'none';
+    backToMedicalRecordButton.style.borderRadius = '4px';
+
+    // Style the table
+    const prescriptionTable = document.querySelector('.prescription-details');
+    prescriptionTable.style.width = '100%';
+    prescriptionTable.style.borderCollapse = 'collapse';
+    prescriptionTable.style.marginBottom = '20px';
+
+    const tableHeaders = prescriptionTable.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+      header.style.padding = '8px';
+      header.style.textAlign = 'left';
+      header.style.borderBottom = '1px solid #ddd';
+      header.style.backgroundColor = '#f2f2f2';
+    });
+
+    const tableRows = prescriptionTable.querySelectorAll('td');
+    tableRows.forEach(row => {
+      row.style.padding = '8px';
+      row.style.textAlign = 'left';
+      row.style.borderBottom = '1px solid #ddd';
+    });
+
+    // Style the "Delete" button
+    const deleteButtons = document.querySelectorAll('.delete-button');
     deleteButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
       button.style.backgroundColor = '#f44336';
       button.style.color = 'white';
       button.style.textDecoration = 'none';
       button.style.borderRadius = '4px';
-  
-      // Emphasize "Prescription" on the button
-      const buttonInnerHTML = button.innerHTML;
-      button.innerHTML = buttonInnerHTML.replace('prescription', '<strong>prescription</strong>');
+      button.style.padding = '8px 16px';
     });
-  
-    const changeButtons = document.querySelectorAll('.prescription-details a[href*="change_prescription"]');
+
+    // Style the "Change" button
+    const changeButtons = document.querySelectorAll('.change-button');
     changeButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
       button.style.backgroundColor = '#2196F3';
       button.style.color = 'white';
       button.style.textDecoration = 'none';
       button.style.borderRadius = '4px';
-  
-      // Emphasize "Prescription" on the button
-      const buttonInnerHTML = button.innerHTML;
-      button.innerHTML = buttonInnerHTML.replace('prescription', '<strong>prescription</strong>');
+      button.style.padding = '8px 16px';
     });
   </script>
 </body>

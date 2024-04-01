@@ -30,8 +30,8 @@
             <td>{{ appointment.appointment_date }}</td>
             <td>{{ appointment.doctor }}</td>
             <td>{{ appointment.appointment_time }}</td>
-            <td><a href="{% url 'delete_appointment' appointment.id %}">delete</td>
-            <td><a href="{% url 'change_appointment' appointment.id %}">Change</a></td>
+            <td><a href="{% url 'delete_appointment' appointment.id %}" class="delete-button">Delete</a></td>
+            <td><a href="{% url 'change_appointment' appointment.id %}" class="change-button">Change</a></td>
           </tr>
           {% empty %}
           <tr>
@@ -90,20 +90,22 @@
       row.style.borderBottom = '1px solid #ddd';
     });
 
-    const deleteAppointmentButton = appointmentDetailsTable.querySelectorAll('input[type="submit"]');
-    deleteAppointmentButton.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
+    const deleteButton = document.querySelectorAll('.delete-button');
+    deleteButton.forEach(button => {
       button.style.backgroundColor = '#f44336';
       button.style.color = 'white';
       button.style.textDecoration = 'none';
       button.style.borderRadius = '4px';
+      button.style.padding = '8px 16px';
     });
 
-    const changeAppointmentLink = appointmentDetailsTable.querySelectorAll('a');
-    changeAppointmentLink.forEach(link => {
-      link.style.color = '#2196F3';
-      link.style.textDecoration = 'none';
+    const changeButton = document.querySelectorAll('.change-button');
+    changeButton.forEach(button => {
+      button.style.backgroundColor = '#2196F3';
+      button.style.color = 'white';
+      button.style.textDecoration = 'none';
+      button.style.borderRadius = '4px';
+      button.style.padding = '8px 16px';
     });
 
     // Add click event listener to table rows

@@ -131,37 +131,39 @@ from reportlab.pdfgen import canvas
 
 
 def download_medical_record(request, record_id):
-    try:
-        medical_record = MedicalRecord.objects.get(id=record_id)
-        
-        # Generate the PDF file
-        response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="medical_record.pdf"'
+    if request.session.get('user'):
+        try:
+            medical_record = MedicalRecord.objects.get(id=record_id)
+            
+            # Generate the PDF file
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="medical_record.pdf"'
 
-        buffer = BytesIO()
-        p = canvas.Canvas(buffer, pagesize=settings.DEFAULT_PAGE_SIZE)
+            buffer = BytesIO()
+            p = canvas.Canvas(buffer, pagesize=settings.DEFAULT_PAGE_SIZE)
 
-        # Set the font and size for the PDF
-        p.setFont("Helvetica", 12)
-        
-        # Write the medical record information to the PDF
-        p.drawString(100, 700, f"Name: {medical_record.patient.name}")
-        p.drawString(100, 680, f"Date: {medical_record.date}")
-        p.drawString(100, 660, f"Price: {medical_record.price}")
+            # Set the font and size for the PDF
+            p.setFont("Helvetica", 12)
+            
+            # Write the medical record information to the PDF
+            p.drawString(100, 700, f"Name: {medical_record.patient.name}")
+            p.drawString(100, 680, f"Date: {medical_record.date}")
+            p.drawString(100, 660, f"Price: {medical_record.price}")
 
-        # Save the PDF
-        p.showPage()
-        p.save()
+            # Save the PDF
+            p.showPage()
+            p.save()
 
-        # Retrieve the PDF content from the buffer and return the response
-        pdf = buffer.getvalue()
-        buffer.close()
-        response.write(pdf)
+            # Retrieve the PDF content from the buffer and return the response
+            pdf = buffer.getvalue()
+            buffer.close()
+            response.write(pdf)
 
-        return response
-    except MedicalRecord.DoesNotExist:
-        # Handle case when the medical record with the specified record_id does not exist
-        return HttpResponse("Medical Record not found", status=404)
+            return response
+        except MedicalRecord.DoesNotExist:
+            # Handle case when the medical record with the specified record_id does not exist
+            return HttpResponse("Medical Record not found", status=404)
+    return redirect('login')    
     
     
 # def download_all(request, records):

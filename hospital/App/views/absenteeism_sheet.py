@@ -69,31 +69,33 @@ from django.http import HttpResponse
 from reportlab.pdfgen import canvas
 
 def download_absenteeism(request, absenteeism_id):
-    # Retrieve the Absenteeism object based on the absenteeism_id
-    absenteeism = Absenteeism.objects.get(id=absenteeism_id)
+    if request.session.get('user'):
+        # Retrieve the Absenteeism object based on the absenteeism_id
+        absenteeism = Absenteeism.objects.get(id=absenteeism_id)
 
-    # Create a PDF file
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="absenteeism.pdf"'
+        # Create a PDF file
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="absenteeism.pdf"'
 
-    # Create the PDF content
-    p = canvas.Canvas(response)
-    p.setFont("Helvetica-Bold", 16)
+        # Create the PDF content
+        p = canvas.Canvas(response)
+        p.setFont("Helvetica-Bold", 16)
 
-    # Write the heading with employee name
-    employee_name = absenteeism.employee_id.name
-    p.drawString(50, 750, f"Absenteeism Information for {employee_name}")
+        # Write the heading with employee name
+        employee_name = absenteeism.employee_id.name
+        p.drawString(50, 750, f"Absenteeism Information for {employee_name}")
 
-    p.setFont("Helvetica", 12)
+        p.setFont("Helvetica", 12)
 
-    # Write the Absenteeism information to the PDF
-    p.drawString(50, 720, f"Type: {absenteeism.type}")
-    p.drawString(50, 700, f"Cause: {absenteeism.cause}")
-    p.drawString(50, 680, f"Beginning: {absenteeism.beginning}")
-    p.drawString(50, 660, f"Reprise: {absenteeism.reprise}")
-    p.drawString(50, 640, f"Days Off: {absenteeism.days_off}")
+        # Write the Absenteeism information to the PDF
+        p.drawString(50, 720, f"Type: {absenteeism.type}")
+        p.drawString(50, 700, f"Cause: {absenteeism.cause}")
+        p.drawString(50, 680, f"Beginning: {absenteeism.beginning}")
+        p.drawString(50, 660, f"Reprise: {absenteeism.reprise}")
+        p.drawString(50, 640, f"Days Off: {absenteeism.days_off}")
 
-    p.showPage()
-    p.save()
+        p.showPage()
+        p.save()
 
-    return response
+        return response
+    return redirect('login')

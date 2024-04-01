@@ -64,3 +64,41 @@ def change_vaccination(request, vaccination_id):
         context = {'form': form, 'vaccination': vaccination}
         return render(request, 'change_vaccination.html', context)
     return redirect('login')
+
+
+
+
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+
+def download_vaccination(request, vaccination_id):
+    if request.session.get('user'):
+        vaccinations = Vaccination.objects.filter(id=vaccination_id)
+        patient = vaccinations.first().medical_record.patient  # Assuming 'patient_name' is a field in the MedicalRecord model
+        
+        # Create the PDF file
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename=vaccination_{patient}.pdf'
+        
+        # Generate the PDF content using reportlab
+        p = canvas.Canvas(response)
+        p.setFont("Helvetica", 12)
+        
+        # Write vaccination information in PDF
+        p.drawString(100, 700, f"Vaccination Information for {patient}")
+        p.drawString(100, 675, "------------------------------------")
+        y = 650  # Starting y-coordinate for vaccination details
+        for vaccination in vaccinations:
+            p.drawString(100, y, f"Date: {vaccination.date.strftime('%Y-%m-%d')}")
+            p.drawString(100, y - 25, f"Vaccine: {vaccination.vaccine}")
+            p.drawString(100, y - 50, f"Lot: {vaccination.lot}")
+            p.drawString(100, y - 75, f"Type: {vaccination.type}")
+            p.drawString(100, y - 100, f"Dose: {vaccination.dose}")
+            p.drawString(100, y - 125, "------------------------------------")
+            y -= 150
+        
+        p.save()
+        
+        return response
+    
+    return redirect('login')

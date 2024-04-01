@@ -67,3 +67,34 @@ def delete_prescription(request, prescription_id):
         context = {'prescription': prescription}
         return render(request, 'delete_prescription.html', context)
     return redirect('login')
+
+
+
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+
+def download_prescription(request, prescription_id):
+    if request.session.get('user'):
+        prescription = Prescription.objects.get(id=prescription_id)
+        patient = prescription.medical_record.patient  # Assuming 'patient' is a field in the MedicalRecord model
+        
+        # Create the PDF file
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename=prescription_{patient}.pdf'
+        
+        # Generate the PDF content using reportlab
+        p = canvas.Canvas(response)
+        p.setFont("Helvetica", 12)
+        
+        # Write prescription information in PDF
+        p.drawString(100, 700, f"Prescription Information for {patient}")
+        p.drawString(100, 675, "------------------------------------")
+        p.drawString(100, 650, f"Drug Name: {prescription.drug_name}")
+        p.drawString(100, 625, f"Dosage: {prescription.dosage}")
+        p.drawString(100, 600, "------------------------------------")
+        
+        p.save()
+        
+        return response
+    
+    return redirect('login')

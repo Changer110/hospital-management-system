@@ -26,6 +26,9 @@ urlpatterns = [
     path('search_patient', search_patient, name='search_patient'),
     path('delete_patient/<int:employee_id>/', delete_patient, name='delete_patient'),
     path('change_patient/<int:employee_id>', update_patient, name='change_patient'),
+    path('download_patient/<int:employee_id>', download_patient, name='download_patient'),
+    path('patient_information/<int:employee_id>', patient_information, name='patient_information'),
+    
     
     
     # DRUGS URLS
@@ -35,6 +38,7 @@ urlpatterns = [
     path('add_drug', add_drug, name='add_drug'),
     path('delete-drug/<int:drug_id>', delete_drug, name='delete_drug'),
     path('change_drug/<int:drug_id>', change_drug, name='change_drug'),
+    path('download_drug/', download_drugs, name='download_drug'),
     
     
     # MEDICAL RECORDS URLS
@@ -62,6 +66,7 @@ urlpatterns = [
     path('add_prescription/<int:medical_record_id>/', add_prescription, name='add_prescription'),
     path('change-prescription/<int:prescription_id>/', change_prescription, name='change_prescription'),
     path('delete-prescription/<int:prescription_id>/', delete_prescription, name='delete_prescription'),
+    path('download_prescription/<int:prescription_id>/', download_prescription, name='download_prescription'),
     
     
     # VACCINATION URLS
@@ -69,6 +74,7 @@ urlpatterns = [
     path('add_vaccination/<int:medical_record_id>', add_vaccination, name='add_vaccination'),
     path('vaccination/delete/<int:vaccination_id>/', delete_vaccination, name='delete_vaccination'),
     path('vaccination/change/<int:vaccination_id>/', change_vaccination, name='change_vaccination'),
+    path('vaccination/download/<int:vaccination_id>/', download_vaccination, name='download_vaccination'),
     
     
     
