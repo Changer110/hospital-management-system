@@ -44,6 +44,7 @@
           <td>{{ vaccination.dose }}</td>
           <td>
             <div>
+              <a href="{% url 'download_vaccination' vaccination.pk %}" class="delete-button">Download</a>
               <a href="{% url 'delete_vaccination' vaccination.pk %}">Delete</a>
               <a href="{% url 'change_vaccination' vaccination.pk %}">Change</a>
             </div>

@@ -45,7 +45,7 @@
           <td>{{ absenteeism.days_off }}</td>
           <td>
             <div>
-              <a href="{% url 'update_absenteeism' absenteeism.id %}" class="green_link">Download</a>
+              <a href="{% url 'download_absenteeism' absenteeism.id %}" class="delete-button">Download</a>
               <a href="{% url 'update_absenteeism' absenteeism.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_absenteeism' absenteeism.id %}" class="red_link">Delete</a>
             </div>

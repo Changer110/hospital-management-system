@@ -3,7 +3,6 @@
 from .import_all import *
 
 
-
 def display_patient(request, employee_id):
     if request.session.get('user'):
         if request.method == 'POST':
@@ -52,7 +51,7 @@ def delete_patient(request, employee_id):
         patient = Patient.objects.get(employee_id=employee_id)
         if request.method == 'POST':
             patient.delete()
-            return redirect('patient')
+            return redirect('patient', employee_id = 'all')
         return render(request, 'delete_patient.html', {'patient': patient})
     return redirect('login')
 
@@ -91,3 +90,73 @@ def update_patient(request, employee_id):
 
 
 
+
+
+def download_patient(request, employee_id):
+    if request.session.get('user'):
+        try:
+            patient = Patient.objects.get(employee_id=employee_id)
+        except Patient.DoesNotExist:
+            return HttpResponse("Patient not found.", status=404)
+        
+        buffer = BytesIO()
+        p = canvas.Canvas(buffer, pagesize=letter)
+        p.setFont("Helvetica", 10)
+        heading_color = "#004d99"
+        content_color = "#333333"
+        p.setFont("Helvetica-Bold", 16)
+        p.setFillColor(heading_color)
+        p.drawString(100, 750, "Patient Data")
+
+        p.setFont("Helvetica-Bold", 12)
+        y = 700
+        row_height = 20
+        data = [
+            f"Employee ID: {patient.employee_id}",
+            f"Name: {patient.name}",
+            f"Patient Creation Date: {patient.patient_creation_date}",
+            f"Enterprise Name: {patient.enterprise_name.enterprise_ID}",
+            f"Date of Birth: {patient.date_of_birth}",
+            f"Place of Birth: {patient.place_of_birth}",
+            f"Nationality: {patient.nationality}",
+            f"Age: {patient.age}",
+            f"Gender: {patient.gender}",
+            f"Phone Number: {patient.phone_number}",
+            f"Email: {patient.email}",
+            f"Address: {patient.address}",
+            f"Size: {patient.size}",
+            f"Blood Group: {patient.blood_group}",
+            f"Marital Status: {patient.marital_status}",
+            f"Number of Dependent Children: {patient.num_dependent_children}",
+            f"Affiliation with INSS: {patient.affiliation_with_inss}",
+            f"Emergency Contact: {patient.emergency_contact}",
+            f"Hiring Date: {patient.hiring_date}",
+            f"Departure Date: {patient.departure_date}",
+            f"Reason for Leaving: {patient.reason_for_leaving}",
+            f"Qualification: {patient.qualification}",
+            # Add more fields as needed
+        ]
+        for item in data:
+            p.setFillColor(content_color)
+            p.drawString(150, y, item)
+            y -= row_height
+
+        if patient.picture:
+            image_path = os.path.join(settings.BASE_DIR, 'App/static/img', str(patient.picture))
+            if os.path.exists(image_path):
+                image = PILImage.open(image_path)
+                max_image_width = 500
+                max_image_height = 150
+                image.thumbnail((max_image_width, max_image_height))
+                image_width, image_height = image.size
+                p.drawInlineImage(image_path, 400, 650, width=image_width, height=image_height)
+
+        p.showPage()
+        p.save()
+
+        buffer.seek(0)
+        response = HttpResponse(buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="patient_{employee_id}_data.pdf"'
+        return response
+    
+    return redirect('login')

@@ -68,3 +68,32 @@ def delete_drug(request, drug_id):
         # return JsonResponse({'message': 'Drug deleted successfully'})
     return redirect('login')
 
+
+
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+
+def download_drugs(request):
+    if request.session.get('user'):
+        drugs = Drugs.objects.all()
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=drugs_list.pdf'
+        p = canvas.Canvas(response)
+        p.setFont("Helvetica", 12)
+        p.drawString(100, 700, "Drugs List")
+        p.drawString(100, 675, "------------------------------------")
+        y = 650
+        for drug in drugs:
+            p.drawString(100, y, f"Name: {drug.name}")
+            p.drawString(100, y - 25, f"Type: {drug.get_drug_type_display()}")
+            p.drawString(100, y - 50, f"Quantity: {drug.quantity}")
+            p.drawString(100, y - 75, f"Expiry Date: {drug.expiry_date.strftime('%Y-%m-%d')}")
+            p.drawString(100, y - 100, f"Dosage Issued: {drug.dosage_issued}")
+            p.drawString(100, y - 125, f"Price: {drug.price}")
+            p.drawString(100, y - 150, f"Price Per Drug: {drug.price_per_drug}")
+            p.drawString(100, y - 175, f"Imported From: {drug.imported_from}")
+            p.drawString(100, y - 200, "------------------------------------")
+            y -= 225
+        p.save()
+        return response
+    return redirect('login')

@@ -40,8 +40,8 @@
           <td>{{ appointment.appointment_time }}</td>
           <td>
             <div>
-              <a href="{% url 'delete_appointment' appointment.id %}">delete</a>
-              <a href="{% url 'change_appointment' appointment.id %}">Change</a>
+              <a href="{% url 'change_appointment' appointment.id %}">Update</a>
+              <a href="{% url 'delete_appointment' appointment.id %}">Delete</a>
             </div>
           </td>
         </tr>

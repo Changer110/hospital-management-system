@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Background Patient Information</title>
+  <link rel="stylesheet" href="static/css/background_patient.css">
+</head>
+<body>
+  <div class="background-patient-container">
+    <h1 class="background-patient-title">Background Patient Information for {{ patient.name }}</h1>
+
+    <div class="button-container">
+      <a href="{% url 'add_background_patient' patient.employee_id %}" class="add-background-patient-button">Add Background Patient</a>
+      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
+    </div>
+
+    <ul class="background-patient-details">
+      <table>
+        <thead>
+          <tr>
+            <th>Personal Medical</th>
+            <th>Personal Surgical</th>
+            <th>Proffesional Medical</th>
+            <th>Proffesional Surgical</th>
+            <th>Family Medical</th>
+            <th>Family Surgical</th>
+            <th>Social Personal</th>
+            <th>Social Family</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for background_patient in background_patients %}
+          <tr>
+            <td>{{ background_patient.personal_medical }}</td>
+            <td>{{ background_patient.personal_surgical }}</td>
+            <td>{{ background_patient.proffesional_medical }}</td>
+            <td>{{ background_patient.proffesional_surgical }}</td>
+            <td>{{ background_patient.family_medical }}</td>
+            <td>{{ background_patient.family_surgical }}</td>
+            <td>{{ background_patient.social_personal }}</td>
+            <td>{{ background_patient.social_family }}</td>
+            <td><a href="{% url 'change_background_patient' background_patient.id %}" class="change-button">Change</a></td>
+            <td><a href="{% url 'delete_background_patient' background_patient.id %}" class="delete-button">Delete</a></td>
+            <td><a href="{% url 'download_background_patient' background_patient.id %}" class="delete-button">Download</a></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="8">No background patient information found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </ul>
+  </div>
+
+  <script>
+    // Dynamically apply styles to the background_patient.html elements
+    const backgroundPatientContainer = document.querySelector('.background-patient-container');
+    backgroundPatientContainer.style.maxWidth = '800px';
+    backgroundPatientContainer.style.margin = '0 auto';
+    backgroundPatientContainer.style.padding = '20px';
+
+    const backgroundPatientTitle = document.querySelector('.background-patient-title');
+    backgroundPatientTitle.style.textAlign = 'center';
+
+    const addBackgroundPatientButton = document.querySelector('.add-background-patient-button');
+    addBackgroundPatientButton.style.display = 'inline-block';
+    addBackgroundPatientButton.style.padding = '8px 16px';
+    addBackgroundPatientButton.style.backgroundColor = '#4CAF50';
+    addBackgroundPatientButton.style.color = 'white';
+    addBackgroundPatientButton.style.textDecoration = 'none';
+    addBackgroundPatientButton.style.borderRadius = '4px';
+
+    const patientInformationButton = document.querySelector('.patient-information-button');
+    patientInformationButton.style.display = 'inline-block';
+    patientInformationButton.style.padding = '8px 16px';
+    patientInformationButton.style.backgroundColor = '#2196F3';
+    patientInformationButton.style.color = 'white';
+    patientInformationButton.style.textDecoration = 'none';
+    patientInformationButton.style.borderRadius = '4px';
+    patientInformationButton.style.marginLeft = '10px';
+
+    const backgroundPatientDetailsTable = document.querySelector('table');
+    backgroundPatientDetailsTable.style.width = '100%';
+    backgroundPatientDetailsTable.style.borderCollapse = 'collapse';
+    backgroundPatientDetailsTable.style.marginBottom = '20px';
+
+    const tableHeaders = backgroundPatientDetailsTable.querySelectorAll('th');
+    tableHeaders.forEach(header => {
+      header.style.padding = '8px';
+      header.style.textAlign = 'left';
+      header.style.borderBottom = '1px solid #ddd';
+      header.style.backgroundColor = '#f2f2f2';
+    });
+
+    const tableRows = backgroundPatientDetailsTable.querySelectorAll('td');
+    tableRows.forEach(row => {
+      row.style.padding = '8px';
+      row.style.textAlign = 'left';
+      row.style.borderBottom = '1px solid #ddd';
+    });
+
+    const changeButtons = document.querySelectorAll('.change-button');
+    changeButtons.forEach(changeButton => {
+      changeButton.style.display = 'inline-block';
+      changeButton.style.padding = '8px 16px';
+changeButton.style.backgroundColor = 'blue';
+      changeButton.style.color = 'white';
+      changeButton.style.textDecoration = 'none';
+      changeButton.style.borderRadius = '4px';
+    });
+
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(deleteButton => {
+      deleteButton.style.display = 'inline-block';
+      deleteButton.style.padding = '8px 16px';
+      deleteButton.style.backgroundColor = 'red';
+      deleteButton.style.color = 'white';
+      deleteButton.style.textDecoration = 'none';
+      deleteButton.style.borderRadius = '4px';
+    });
+
+    // Add click event listener to table rows
+    const rows = backgroundPatientDetailsTable.querySelectorAll('tbody tr');
+    rows.forEach(row => {
+      row.addEventListener('click', () => {
+        row.classList.toggle('selected');
+      });
+    });
+  </script>
+</body>
+</html>

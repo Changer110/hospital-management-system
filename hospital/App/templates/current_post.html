@@ -52,7 +52,8 @@
           <td>{{ post.metrology_R }}</td>
           <td>
             <div>
-              <a href="{% url 'update_current_post' post.id %}" class="blue_link">Change</a>
+              <a href="{% url 'download_current_post' post.id %}" class="delete-button">Download</a>
+              <a href="{% url 'update_current_post' post.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_current_post' post.id %}" class="red_link">Delete</a>
             </div>
           </td>
