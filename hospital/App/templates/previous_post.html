@@ -1,50 +1,62 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Previous Post Information</title>
-  <link rel="stylesheet" href="static/css/previous_post.css">
+  <title>Previous Post</title>
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
 </head>
 <body>
-  <div class="previous-post-container">
-    <h1 class="previous-post-title">Previous Post Information for {{ patient.name }}</h1>
+  <nav>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
+  </nav>
 
-    <div class="button-container">
-      <a href="{% url 'add_previous_post' patient.employee_id %}" class="add-previous-post-button">Add Previous Post</a>
-      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
-    </div>
+  <h1 style="text-align: center;">Previous Post Information for {{ patient.employee_name }}</h1>
 
-    <ul class="previous-post-details">
-      <table>
-        <thead>
-          <tr>
-            <th>Denomination</th>
-            <th>Enterprise</th>
-            <th>Period</th>
-            <th>Nuisance Factors</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for previous_post in previous_posts %}
-          <tr>
-            <td>{{ previous_post.denomination }}</td>
-            <td>{{ previous_post.enterprise }}</td>
-            <td>{{ previous_post.period }}</td>
-            <td>{{ previous_post.nuisance_factors }}</td>
-            <td><a href="{% url 'change_previous_post' previous_post.id %}">Change</a></td>
-            <td><a href="{% url 'delete_previous_post' previous_post.id %}">Delete</a></td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="4">No previous posts found.</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </ul>
+  <div class="info_action">
+    <a href="{% url 'add_previous_post' patient.employee_id %}" class="green_link">Add</a>
+    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link">Patient</a>
   </div>
 
-  <script>
-    // Dynamically apply styles to the previous_post.html elements
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
+          <th>Denomination</th>
+          <th>Enterprise</th>
+          <th>Period</th>
+          <th>Nuisance Factors</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for previous_post in previous_posts %}
+        <tr>
+          <td>{{ previous_post.denomination }}</td>
+          <td>{{ previous_post.enterprise }}</td>
+          <td>{{ previous_post.period }}</td>
+          <td>{{ previous_post.nuisance_factors }}</td>
+          <td>
+            <div>
+              <a href="{% url 'update_previous_post' previous_post.id %}" class="blue_link">Change</a>
+              <a href="{% url 'delete_previous_post' previous_post.id %}" class="red_link">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3">No previous posts found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- <script>
     const previousPostContainer = document.querySelector('.previous-post-container');
     previousPostContainer.style.maxWidth = '800px';
     previousPostContainer.style.margin = '0 auto';
@@ -90,13 +102,13 @@
       row.style.borderBottom = '1px solid #ddd';
     });
 
-    // Add click event listener to table rows
+
     const rows = previousPostDetailsTable.querySelectorAll('tbody tr');
     rows.forEach(row => {
       row.addEventListener('click', () => {
         row.classList.toggle('selected');
       });
     });
-  </script>
+  </script> -->
 </body>
 </html>

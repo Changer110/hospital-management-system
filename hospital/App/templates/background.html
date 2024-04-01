@@ -1,0 +1,67 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Background Patient Information</title>
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
+</head>
+<body>
+  <nav>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
+  </nav>
+
+  <h1 style="text-align: center;">Background Patient Information for {{ patient.employee_name }}</h1>
+
+  <div class="info_action">
+    <a href="{% url 'add_background' patient.employee_id %}" class="green_link">Add</a>
+    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link">Patient</a>
+  </div>
+
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
+          <th>Personal Medical</th>
+          <th>Personal Surgical</th>
+          <th>Proffesional Medical</th>
+          <th>Proffesional Surgical</th>
+          <th>Family Medical</th>
+          <th>Family Surgical</th>
+          <th>Social Personal</th>
+          <th>Social Family</th>
+          <th>action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for background in backgrounds %}
+        <tr>
+          <td>{{ background.personal_medical }}</td>
+          <td>{{ background.personal_surgical }}</td>
+          <td>{{ background.proffesional_medical }}</td>
+          <td>{{ background.proffesional_surgical }}</td>
+          <td>{{ background.family_medical }}</td>
+          <td>{{ background.family_surgical }}</td>
+          <td>{{ background.social_personal }}</td>
+          <td>{{ background.social_family }}</td>
+          <td>
+            <div>
+              <a href="{% url 'update_background' background.id %}" class="blue_link">Change</a>
+              <a href="{% url 'delete_background' background.id %}" class="red_link">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8">No background patient information found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

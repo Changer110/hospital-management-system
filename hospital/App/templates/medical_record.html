@@ -1,138 +1,81 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>Medical Record Information</title>
-  <link rel="stylesheet" href="static/css/medical_record.css">
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
 </head>
 <body>
-  <div class="medical-record-container">
-    <h1 class="medical-record-title">Medical Record Information for {{ patient.name }}</h1>
-    <div class="button-container" style="display: flex; gap: 20px">
-      <a href="{%url 'add_medical_record' patient.employee_id %}" class="add-medical-record-button">Add Medical Record</a>
-      <form method="post" action="{%url 'search_medical_record' patient.employee_id%}" style="display: flex; gap: 7px">
-        {% csrf_token %}
-        <input style="width: 150px;" name="start_date" placeholder="Begin date"
-          onblur="this.type = 'text'" onfocus="this.type='date'" required>
-        <input style="width: 150px;" name="end_date" placeholder="End date"
-          onblur="this.type = 'text'" onfocus="this.type='date'" required>
-        <input type="submit" value="Filter" class="filter-button">
-      </form>
-      <h2>Total price: {{ total_price }}</h2>
-      <a href="{%url 'show_all_medical_records' patient.employee_id %}" class="add-medical-record-button">Show All Medical Records</a>
-      <a href="{%url 'patient_information' patient.employee_id %}" class="add-medical-record-button">Patient Information</a>
-    </div>
+  <nav>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
+  </nav>
 
-    <ul class="medical-record-details">
-      <table class="medical-record-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Diagnosis</th>
-            <th>Treatment</th>
-            <th>Doctor</th>
-            <th>Price</th>
-            <th>Complaints</th>
-            <th>Constants</th>
-            <th>Physical Examination</th>
-            <th>Observations</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for record in records %}
-          <tr>
-            <td>{{ record.date }}</td>
-            <td>{{ record.diagnosis }}</td>
-            <td>{{ record.treatment }}</td>
-            <td>{{ record.doctor }}</td>
-            <td>{{ record.price }}</td>
-            <td>{{ record.complaints }}</td>
-            <td>{{ record.constants }}</td>
-            <td>{{ record.physical_examination }}</td>
-            <td>{{ record.observations }}</td>
-            <td><a href="{% url 'delete_medical_record' record.id %}" class="delete-button">delete</a></td>
-            <td><a href="{% url 'change_medical_record' record.id %}" class="change-button">Change</a></td>
-            <td><a href="{% url 'prescription' record.id %}" class="prescription-button">Prescription</a></td>
-            <td><a href="{% url 'vaccination' record.id %}" class="vaccination-button">Vaccination</a></td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="7">No medical records found.</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </ul>
+  <h1 style="text-align: center;">Medical Record Information for {{ patient.employee_name }}</h1>
+
+  <div class="info_action">
+    <a href="{%url 'add_medical_record' patient.employee_id %}" class="green_link">Add Record</a>
+    <form method="post" action="{%url 'search_medical_record' patient.employee_id%}" style="display: flex; gap: 7px">
+      {% csrf_token %}
+      <input style="width: 150px;" name="begin_date" placeholder="Record begin date"
+        onblur="this.type = 'text'" onfocus="this.type='date'">
+      <input style="width: 150px;" name="end_date" placeholder="Record end date"
+        onblur="this.type = 'text'" onfocus="this.type='date'">
+      <input type="submit" value="Filter" class="filter-button">
+    </form>
+    <h2>Total price: {{ total_price }}Fbu</h2>
+    <a href="{% url 'display_medical_record' patient.employee_id %}" class="green_link">All Records</a>
+    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link">Patient</a>
   </div>
+  
 
-  <style>
-    /* Add your custom styles here */
-    .medical-record-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .medical-record-title {
-      text-align: center;
-    }
-
-    .button-container {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .add-medical-record-button,
-    .filter-button,
-    .delete-button,
-    .change-button,
-    .prescription-button {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-
-    .filter-button {
-      padding: 4px 8px;
-    }
-
-    .delete-button {
-      background-color: #f44336;
-    }
-
-    .change-button {
-      color: #2196F3;
-    }
-
-    .prescription-button {
-      background-color: #2196F3;
-    }
-
-    .medical-record-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .medical-record-table th,
-    .medical-record-table td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .medical-record-table th {
-      background-color: #f2f2f2;
-    }
-
-    .medical-record-table td:last-child {
-      text-align: center;
-    }
-  </style>
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Diagnosis</th>
+          <th>Treatment</th>
+          <th>Doctor</th>
+          <th>Price</th>
+          <th>Complaints</th>
+          <th>Constants</th>
+          <th>Physical Examination</th>
+          <th>Observations</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+        <tr>
+          <td>{{ record.date }}</td>
+          <td>{{ record.diagnosis }}</td>
+          <td>{{ record.treatment }}</td>
+          <td>{{ record.doctor.name }}</td>
+          <td>{{ record.price }}</td>
+          <td>{{ record.complaints }}</td>
+          <td>{{ record.constants }}</td>
+          <td>{{ record.physical_examination }}</td>
+          <td>{{ record.observations }}</td>
+          <td>
+            <div>
+              <a href="{% url 'prescription' record.id %}" class="blue_link">Prescription</a>
+              <a href="{% url 'vaccination' record.id %}" class="blue_link">Vaccination</a>
+              <a href="{% url 'change_medical_record' record.id %}" class="green_link">Change</a>
+              <a href="{% url 'delete_medical_record' record.id %}" class="red_link">delete</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7">No medical records found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>

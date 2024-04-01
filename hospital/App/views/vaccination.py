@@ -3,7 +3,7 @@ from App.models import  Vaccination, MedicalRecord
 from App.models.forms import VaccinationForm
 
 
-def vaccination(request, medical_record_id):
+def display_vaccination(request, medical_record_id):
     if request.session.get('user'):
         vaccinations = Vaccination.objects.filter(medical_record=medical_record_id)
         context = {'vaccinations': vaccinations, 'record': medical_record_id}

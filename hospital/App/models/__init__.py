@@ -11,10 +11,10 @@ from .doctor import *
 from .vaccination import *
 from .enterprise import *
 from .current_post import *
-from .background_patient import *
-from .absenteeism_sheet import *
-from .accident_sheet import *
+from .background import *
+from .absenteeism import *
+from .accident import *
 from .occupational_illness import *
 from .medical_visit import *
 from .previous_post import *
-from .summons_form import *
+from .summons import *

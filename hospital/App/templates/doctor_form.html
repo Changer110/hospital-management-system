@@ -1,0 +1,37 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Doctor</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Doctor information</h1>
+    <form method="POST" action="{% url sbt value %}" >
+      {% csrf_token %}
+      <label>Doctor ID</label>
+      <input type="number" name="doctor_id" step="1" value="{{doctor.doctor_id}}">
+
+      <label>Name</label>
+      <input type="text" name="name" value="{{doctor.name}}">
+
+      <label>Specialization</label>
+      <input type="text" name="specialization" value="{{doctor.specialization}}">
+
+      <label>Phone Number</label>
+      <input type="text" name="phone_number" value="{{doctor.phone_number}}">
+
+      <label>Email</label>
+      <input type="text" name="email" value="{{doctor.email}}">
+
+      <label>Address</label>
+      <input type="text" name="address" value="{{doctor.address}}">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+</html>

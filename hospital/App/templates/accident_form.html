@@ -1,0 +1,50 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Accident</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Accident informations for {{ patient.employee_name }}</h1>
+    <form method="post" action="{% url sbt value %}">
+      {% csrf_token %}
+
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+      <label>Date:</label>
+      <input type="text"  name="date" value="{{ accident.date }}"
+      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Causal Material Element</label>
+      <input type="text" name="material_causel" value="{{accident.material_causel}}">
+
+      <label>Nature of Lesions</label>
+      <textarea name="lesions_nature">{{accident.lesions_nature}}</textarea>
+
+      <label>Position:</label>
+      <input type="text" name="position" value="{{accident.position}}">
+
+      <label>Number of Days Off:</label>
+      <input type="number" name="days_off" value="{{accident.days_off}}">
+
+      <!-- <input type="text" name="partial_incapacity" value="{{accident.partial_incapacity}}"> -->
+      <label>Partial Permanent Incapacity:</label>
+      <select name="partial_incapacity">
+        <option value="Not">Yes</option>
+        <option value="Yes">Not</option>
+      </select>
+
+      <label>Observation:</label>
+      <textarea name="observation">{{accident.observation}}</textarea>
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <script src="{% static 'js/functions.js'%}"></script>
+
+</body>
+</html>

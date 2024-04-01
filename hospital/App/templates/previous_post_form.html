@@ -1,0 +1,33 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Previous Post</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Previous post information for {{ patient.employee_name }}</h1>
+    <form method="POST" action="{% url sbt value %}">
+      {% csrf_token %}
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+      <label>Denomination:</label>
+      <input type="text" name="denomination" value="{{previous_post.denomination}}">
+
+      <label>Enterprise:</label>
+      <input type="text" name="enterprise" value="{{previous_post.enterprise}}">
+
+      <label>Period:</label>
+      <input type="text" name="period" value="{{previous_post.period}}">
+
+      <label>Nuisance Factors:</label>
+      <input type="text" name="nuisance_factors" value="{{previous_post.nuisance_factors}}">
+
+      <button type="submit">Save</button>
+      <!-- <a href="">Cancel</a> -->
+    </form>
+  </div>
+</body>
+</html>

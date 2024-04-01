@@ -1,0 +1,76 @@
+
+from .import_all import *
+
+
+def display_absenteeism(request, employee_id):
+    if request.session.get('user'):
+        patient = Patient.objects.get(employee_id=employee_id)
+        absenteeisms = Absenteeism.objects.filter(employee_id=employee_id)
+        absenteeism_id = request.session.get('absenteeism_id')
+        if absenteeism_id:
+            absenteeisms = Absenteeism.objects.filter(pk = absenteeism_id)
+            request.session['absenteeism_id'] = None
+        context = {
+            'absenteeisms' : absenteeisms,
+            'patient' : patient
+        }
+        return render(request, 'absenteeism.html', context)
+    return redirect('login')
+
+
+
+def add_absenteeism(request, employee_id):
+    if request.session.get('user'):
+        patient = Patient.objects.get(employee_id=employee_id)        
+        if request.method == 'POST':
+            form = AbsenteeismForm(request.POST)
+            if form.is_valid():
+                absenteeism = form.save()
+                request.session['absenteeism_id'] = absenteeism.pk
+                return redirect('display_absenteeism', employee_id = employee_id)
+            return redirect('add_absenteeism', employee_id = employee_id)
+        context = {
+            'action' : 'Add',
+            'patient' : patient,
+            'value' : employee_id,
+            'sbt' : 'add_absenteeism',
+        }
+        return render(request, 'absenteeism_form.html', context)
+    return redirect('login')
+    
+
+
+def update_absenteeism(request, absenteeism_id):
+    if request.session.get('user'):
+        absenteeism = Absenteeism.objects.get(pk = absenteeism_id)
+        if request.method == 'POST':
+            form = AbsenteeismForm(request.POST, instance = absenteeism)
+            if form.is_valid():
+                form.save()
+                request.session['absenteeism_id'] = absenteeism.pk
+                return redirect('display_absenteeism', employee_id = absenteeism.employee_id.employee_id)
+            return redirect('update_absenteeism', absenteeism_id = absenteeism_id)
+        context = {
+            'action' : 'Update',
+            'value' : absenteeism_id,
+            'absenteeism' : absenteeism,
+            'sbt' : 'update_absenteeism',
+            'patient' : absenteeism.employee_id
+        }
+        
+        return render(request, 'absenteeism_form.html', context)
+    return redirect('login')
+
+
+
+def delete_absenteeism(request, absenteeism_id):
+    if request.session.get('user'):
+        absenteeism = Absenteeism.objects.get(id=absenteeism_id)
+
+        if request.method == 'POST':
+            absenteeism.delete()
+            return redirect('absenteeism' ,employee_id=absenteeism.employee_id.employee_id )  # Replace 'absenteeism_list' with the appropriate URL pattern name for the absenteeism list view
+
+        context = {'absenteeism': absenteeism}
+        return render(request, 'delete_absenteeism.html', context)
+    return redirect('login')

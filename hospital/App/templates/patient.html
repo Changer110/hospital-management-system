@@ -4,8 +4,7 @@
 <html>
 <head>
   <title>Patient Information</title>
-  <!-- <link rel="stylesheet" href="static/css/patient.css"> -->
-  <link rel="stylesheet" href="{% static 'css/medical_visit.css' %}">
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
   <style>
     .more_info {
       display: none;
@@ -27,232 +26,136 @@
 
 <body>
   <nav>
-    <a href="{% url 'patient' 'all' %}">Patient</a>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
     <a href="">Appointment</a>
-    <a href="{% url 'doctor' %}">Doctors</a>
-    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
 
-  <!-- <div class="patient-container"> -->
-    <h1 style="text-align: center;" class="patient-title">Patient list</h1>
 
-    <div class="info_action">
-      <a href="{% url 'add_patient' %}" class="green_link">Add</a>
-      <a href="{% url 'patient' 'all' %}" class="blue_link">Show all</a>
-      <form action="{% url 'search_patient' %}" style="display: flex; gap: 5px" method="POST">
-        {% csrf_token %}
-        <input type="number" name="employee_id">
-        <input type="submit" value="Search">
-      </form>
-      <!-- <a href="{% url 'show_all_drugs' %}" class="add-patient-button">Show all Drugs</a>
-      <a href="{% url 'show_all_doctors' %}" class="add-patient-button">Show all Doctors</a>
-      <a href="{% url 'enterprise_list' %}" class="add-patient-button">Enterprise List</a> -->
-    </div>
+  <h1 style="text-align: center;">Patient list</h1>
+
+  <div class="info_action">
+    <a href="{% url 'add_patient' 'Add' %}" class="green_link">Add</a>
+    <a href="{% url 'display_patient' 'all' %}" class="blue_link">Show all</a>
+    <form action="{% url 'display_patient' 'id' %}" style="display: flex; gap: 5px" method="POST">
+      {% csrf_token %}
+      <input type="number" name="employee_id">
+      <input type="submit" value="Search">
+    </form>
+  </div>
+  <h5 style="text-align: center;">___________________________________________________________________________________________________________________________________________________</h5>
+
+  <div class="data_container">
+    {% for patient in patients %}
+    <table class="patient_table">
+      <tr>
+        <th>ENTERPRISE : </th>
+        <td>{{ patient.enterprise_ID.name }}</td>
+      </tr>
+      <tr>
+        <th>ENTERPRISE ID : </th>
+        <td>{{ patient.enterprise_ID.enterprise_ID}}</td>
+      </tr>
+      <tr>
+        <th>Creation date : </th>
+        <td>{{ patient.creation_date }}</td>
+      </tr>
+      <tr>
+        <th>Identification(CODE) : </th>
+        <td>{{ patient.employee_id }}</td>
+        <th></th>
+        <td></td>
+        <th></th>
+        <th></th>
+        <th><img src="/static/img/{{patient.picture}}" style="width: 130px; height:150px; border:1px solid black" alt=""></th>
+      </tr>
+      <tr>
+        <th>Name : </th>
+        <td>{{ patient.employee_name }}</td>
+        <th>Birth date : </th>
+        <td>{{ patient.birth_date }}</td>
+        <th>Birth placce : </th>
+        <td>{{ patient.birth_place }}</td>
+      </tr>
+      <tr>
+        <th>Gender : </th>
+        <td>{{ patient.gender }}</td>
+        <th>Size : </th>
+        <td>{{ patient.size }}</td>
+        <th>Age : </th>
+        <td>{{ patient.age }}</td>
+        <th>Blood group : </th>
+        <td>{{ patient.blood_group }}</td>
+      </tr>
+      <tr>
+        <th>Nationality : </th>
+        <td>{{ patient.nationality }}</td>
+        <th>Martial statuts : </th>
+        <td>{{ patient.marital_status }}</td>
+        <th>Dependent children : </th>
+        <td>{{ patient.dependent_children }}</td>
+        <th>Personaly adress : </th>
+        <td>{{ patient.address }}</td>
+      </tr>
+      <tr>
+        <th>Phone number</th>
+        <td>{{ patient.phone_number }}</td>
+        <th>Gmail : </th>
+        <td>{{ patient.email }}</td>
+        <th>Affiliation with the inss : </th>
+        <td>{{ patient.affiliation_with_inss }}</td>
+        <th>Emergency contact : </th>
+        <td>{{ patient.emergency_contact }}</td>
+      </tr>
+      <tr>
+        <th>Hiring date : </th>
+        <td>{{ patient.hiring_date }}</td>
+        <th>Depature date : </th>
+        <td>{{ patient.departure_date }}</td>
+        <th>Reason for leaving : </th>
+        <td>{{ patient.leaving_reason }}</td>
+        <th>Qualification : </th>
+        <td>{{ patient.qualification }}</td>
+      </tr>
+      <tr>
+
+        <th><a href="{% url 'update_patient' patient.employee_id %}" class="blue_link">Update</a></th>
+        <th><a href="{% url 'delete_patient' patient.employee_id %}" class="red_link">Delete</a></th>
+        <th><a href="{% url 'display_medical_record' patient.employee_id %}" class="green_link">Medical record</a></th>
+        <th>
+          <a href="" onclick="show(event)" class="blue_link">More</a>
+          <div id="more_info" class="more_info">
+            <table>
+              </tr>
+              <tr><th><a href="{% url 'display_previous_post' patient.employee_id %}" class="green_link">Previous post</a></th></tr>
+              <tr><th><a href="{% url 'display_accident' patient.employee_id %}" class="green_link">Accident</a></th></tr>
+              <tr><th><a href="{% url 'display_occupational_illness' patient.employee_id %}" class="green_link">Occupational Illness</a></th></tr>
+              <tr><th><a href="{% url 'display_background' patient.employee_id %}" class="green_link">Background Patient</a></th></tr>
+              <tr><th><a href="{% url 'display_summons' patient.employee_id %}" class="green_link">Summons</a></th></tr>
+              <tr><th><a href="{% url 'display_current_post' patient.employee_id %}" class="green_link">Current post</a></th></tr>
+              <tr><th><a href="{% url 'display_medical_visit' patient.employee_id %}" class="green_link">Medical Visit</a></th></tr>
+              <tr><th><a href="{% url 'display_appointment' patient.employee_id %}" class="green_link">Appointment</a></th></tr>
+              <tr><th><a href="{% url 'display_absenteeism' patient.employee_id %}" class="green_link">Absenteeism</a></th></tr>
+            </table>
+          </div>
+        </th>
+      </tr>
+    </table>
     <h5 style="text-align: center;">___________________________________________________________________________________________________________________________________________________</h5>
-
-    <div class="data_container">
-      {% for patient in patients %}
-      <table>
-        <tr>
-          <th>ENTERPRISE : </th>
-          <td>{{ patient.enterprise_name.name }}</td>
-        </tr>
-        <tr>
-          <th>ENTERPRISE ID : </th>
-          <td>{{ patient.enterprise_name.enterprise_ID }}</td>
-        </tr>
-        <tr>
-          <th>Creation date : </th>
-          <td>{{ patient.patient_creation_date }}</td>
-        </tr>
-        <tr>
-          <th>Identification(CODE) : </th>
-          <td>{{ patient.employee_id }}</td>
-          <th></th>
-          <td></td>
-          <th></th>
-          <th></th>
-          <th><img src="/static/img/{{patient.picture}}" style="width: 130px; height:150px; border:1px solid blue" alt=""></th>
-        </tr>
-        <tr>
-          <th>Name : </th>
-          <td>{{ patient.name }}</td>
-          <th>Birth date : </th>
-          <td>{{ patient.date_of_birth }}</td>
-          <th>Birth placce : </th>
-          <td>{{ patient.place_of_birth }}</td>
-        </tr>
-        <tr>
-          <th>Gender : </th>
-          <td>{{ patient.gender }}</td>
-          <th>Size : </th>
-          <td>{{ patient.size }}</td>
-          <th>Age : </th>
-          <td>{{ patient.age }}</td>
-          <th>Blood group : </th>
-          <td>{{ patient.blood_group }}</td>
-        </tr>
-        <tr>
-          <th>Nationality : </th>
-          <td>{{ patient.nationality }}</td>
-          <th>Martial statuts : </th>
-          <td>{{ patient.marital_status }}</td>
-          <th>Dependent children : </th>
-          <td>{{ patient.num_dependent_children }}</td>
-          <th>Personaly adress : </th>
-          <td>{{ patient.address }}</td>
-        </tr>
-        <tr>
-          <th>Phone number</th>
-          <td>{{ patient.phone_number }}</td>
-          <th>Gmail : </th>
-          <td>{{ patient.email }}</td>
-          <th>Affiliation with the inss : </th>
-          <td>{{ patient.affiliation_with_inss }}</td>
-          <th>Emergency contact : </th>
-          <td>{{ patient.emergency_contact }}</td>
-        </tr>
-        <tr>
-          <th>Hiring date : </th>
-          <td>{{ patient.hiring_date }}</td>
-          <th>Depature date : </th>
-          <td>{{ patient.departure_date }}</td>
-          <th>Reason for leaving : </th>
-          <td>{{ patient.reason_for_leaving }}</td>
-          <th>Qualification : </th>
-          <td>{{ patient.qualification }}</td>
-        </tr>
-        <tr>
-
-          <th><a href="{% url 'change_patient' patient.employee_id %}" class="blue_link">Change</a></th>
-          <th><a href="{% url 'delete_patient' patient.employee_id %}" class="red_link">Delete</a></th>
-          <th><a href="{% url 'medical_record' patient.employee_id %}" class="green_link">Medical record</a></th>
-          <th>
-            <a href="" onclick="show(event)" class="blue_link">More</a>
-            <div id="more_info" class="more_info">
-              <table>
-                </tr>
-                <tr><th><a href="{% url 'previous_post' patient.employee_id %}" class="green_link">Previous post</a></th></tr>
-                <tr><th><a href="{% url 'accident' patient.employee_id %}" class="green_link">Accident</a></th></tr>
-                <tr><th><a href="{% url 'occupational_illness' patient.employee_id %}" class="green_link">Occupational Illness</a></th></tr>
-                <tr><th><a href="{% url 'background_patient' patient.employee_id %}" class="green_link">Background Patient</a></th></tr>
-                <tr><th><a href="{% url 'summons_form' patient.employee_id %}" class="green_link">Summons Form</a></th></tr>
-                <tr><th><a href="{% url 'current_post' patient.employee_id %}" class="green_link">Current post</a></th></tr>
-                <tr><th><a href="{% url 'medical_visit' patient.employee_id %}" class="green_link">Medical Visit</a></th></tr>
-                <tr><th><a href="{% url 'appointment' patient.employee_id %}" class="green_link">Appointment</a></th></tr>
-                <tr><th><a href="{% url 'absenteeism' patient.employee_id %}" class="green_link">Absenteeism</a></th></tr>
-              </table>
-            </div>
-          </th>
-          
-        </tr>
-      </table>
-      <h5 style="text-align: center;">___________________________________________________________________________________________________________________________________________________</h5>
-      {% endfor %}
-    </div>
-    
-    
-    
-
-
-
-    
-       
-
-    <!-- <td><a href="{% url 'change_patient' 1 %}" class="patient-button">Change</a></td>
-    <td><a href="{% url 'delete_patient' 1 %}" class="patient-button">Delete</a></td>
-    <td><a href="{% url 'medical_record' 1 %}" class="patient-button">Medical record</a></td>
-
-    <td><a href="{% url 'appointment' 1 %}" class="patient-button">Appointment</a></td>
-    <td><a href="{% url 'previous_post' 1 %}" class="patient-button">Previous post</a></td>
-    <td><a href="{% url 'accident' 1 %}" class="patient-button">Accident</a></td>
-    <td><a href="{% url 'occupational_illness' 1 %}" class="patient-button">Occupational Illness</a></td>
-    <td><a href="{% url 'background_patient' 1 %}" class="patient-button">Background Patient</a></td>
-    <td><a href="{% url 'summons_form' 1 %}" class="patient-button">Summons Form</a></td>
-    <td><a href="{% url 'current_post' 1 %}" class="patient-button">Current post</a></td>
-    <td><a href="{% url 'medical_visit' 1 %}" class="patient-button">Medical visit</a></td>
-    <td><a href="{% url 'absenteeism' 1 %}" class="patient-button">Absenteeism</a></td>
+    {% endfor %}
+  </div>
   
-    
-    <tr>
-      <td colspan="27">No patients found.</td>
-    </tr>
-      -->
-
-  <!-- </div> -->
-  
-
-
-
-
-
-  <!-- <script>
-    // Dynamically apply styles to the patient.html elements
-    const patientContainer = document.querySelector('.patient-container');
-    patientContainer.style.maxWidth = '800px';
-    patientContainer.style.margin = '0 auto';
-    patientContainer.style.padding = '20px';
-
-    const patientTitle = document.querySelector('.patient-title');
-    patientTitle.style.textAlign = 'center';
-
-    const patientButtons = document.querySelectorAll('.add-patient-button');
-    patientButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '8px 16px';
-      button.style.backgroundColor = '#4CAF50';
-      button.style.color = 'white';
-      button.style.textDecoration = 'none';
-      button.style.borderRadius = '4px';
-    });
-
-    const patientDetailsTable = document.querySelector('table');
-    patientDetailsTable.style.width = '100%';
-    patientDetailsTable.style.borderCollapse = 'collapse';
-    patientDetailsTable.style.marginBottom = '20px';
-
-    const tableHeaders = patientDetailsTable.querySelectorAll('th');
-    tableHeaders.forEach(header => {
-      header.style.padding = '8px';
-      header.style.textAlign = 'left';
-      header.style.borderBottom = '1px solid #ddd';
-      header.style.backgroundColor = '#f2f2f2';
-    });
-
-    const tableRows = patientDetailsTable.querySelectorAll('td');
-    tableRows.forEach(row => {
-      row.style.padding = '8px';
-      row.style.textAlign = 'left';
-      row.style.borderBottom = '1px solid #ddd';
-    });
-
-    const patientActionButtons = patientDetailsTable.querySelectorAll('.patient-button');
-    patientActionButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
-      button.style.backgroundColor = '#2196F3';
-      button.style.color = 'white';
-      button.style.textDecoration = 'none';
-     borderRadius = '4px';
-    });
-
-    // Add click event listener to table rows
-    const rows = patientDetailsTable.querySelectorAll('tbody tr');
-    rows.forEach(row => {
-      row.addEventListener('click', () => {
-        row.classList.toggle('selected');
-      });
-    });
-  </script> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     function show(event){
       event.preventDefault();
       const th = event.target.closest('th');
-      const links = th.querySelector('.more_info');
-      links.style.display = (links.style.display === 'none') ? 'block' : 'none';
+      var links = th.querySelector('.more_info');
+      links.style.display = (links.style.display == 'none') ? 'block' : 'none';
+
     }
     </script>
 

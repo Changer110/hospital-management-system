@@ -1,79 +1,56 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>Prescription Information</title>
-  <link rel="stylesheet" href="static/css/prescription.css">
+  <!-- <link rel="stylesheet" href="static/css/prescription.css"> -->
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
 </head>
 <body>
-  <div class="prescription-container">
-    <h1 class="prescription-title">Prescription Information</h1>
+  <nav>
+    <a href="{% url 'patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'doctor' %}">Doctors</a>
+    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
+  </nav>
 
-    <div class="button-container">
-        <a href="{% url 'add_prescription' record %}" class="add-prescription-button">Add prescription</a>
-        <a href="{% url 'back_to_medical_record' record %}" class="back-to-medical-record-button">Back to Medical Record</a>
-    </div>
+  <h1 style="text-align: center;">Prescription Information</h1>
 
-    <ul class="prescription-details">
-      <table>
-        <thead>
+  <div class="info_action">
+    <a href="{% url 'add_prescription' record %}" class="green_link">Add</a>
+    <a href="{% url 'back_to_medical_record' record %}" class="green_link">Medical Record</a>
+  </div>
+
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
           <th>Drug Name</th>
           <th>Dosage</th>
-          <th></th>
-          <th></th>
-        </thead>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for prescription in prescriptions %}
-        <tbody>
+        <tr>
           <td>{{ prescription.drug_name.name }}</td>
           <td>{{ prescription.dosage }}</td>
-          <td><a href="{% url 'delete_prescription' prescription.pk %}">Delete</a></td>
-          <td><a href="{% url 'change_prescription' prescription.pk %}">Change</a></td>
-        </tbody>
+          <td>
+            <div>
+              <a href="{% url 'change_prescription' prescription.pk %}" class="blue_link">Change</a>
+              <a href="{% url 'delete_prescription' prescription.pk %}" class="red_link">Delete</a>
+            </div>
+          </td>
+        </tr>
         {% empty %}
-          <tr>
-            <td colspan="4">No prescriptions found.</td>
-          </tr>
-        {% endfor %}
-      </table>
-    </ul>
+        <tr>
+          <td colspan="2">No prescriptions found.</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
   </div>
-  <script>
-    // Style the "Add prescription" button
-    const addPrescriptionButton = document.querySelector('.add-prescription-button');
-    addPrescriptionButton.style.display = 'inline-block';
-    addPrescriptionButton.style.padding = '8px 16px';
-    addPrescriptionButton.style.backgroundColor = '#4CAF50';
-    addPrescriptionButton.style.color = 'white';
-    addPrescriptionButton.style.textDecoration = 'none';
-    addPrescriptionButton.style.borderRadius = '4px';
-  
-    // Style the "Delete" and "Change" buttons
-    const deleteButtons = document.querySelectorAll('.prescription-details a[href*="delete_prescription"]');
-    deleteButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
-      button.style.backgroundColor = '#f44336';
-      button.style.color = 'white';
-      button.style.textDecoration = 'none';
-      button.style.borderRadius = '4px';
-  
-      // Emphasize "Prescription" on the button
-      const buttonInnerHTML = button.innerHTML;
-      button.innerHTML = buttonInnerHTML.replace('prescription', '<strong>prescription</strong>');
-    });
-  
-    const changeButtons = document.querySelectorAll('.prescription-details a[href*="change_prescription"]');
-    changeButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
-      button.style.backgroundColor = '#2196F3';
-      button.style.color = 'white';
-      button.style.textDecoration = 'none';
-      button.style.borderRadius = '4px';
-  
-      // Emphasize "Prescription" on the button
-      const buttonInnerHTML = button.innerHTML;
-      button.innerHTML = buttonInnerHTML.replace('prescription', '<strong>prescription</strong>');
-    });
-  </script>
 </body>
 </html>

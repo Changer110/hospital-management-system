@@ -1,26 +1,27 @@
 
 
-
-from App.models import MedicalRecord
-from django.shortcuts import render, redirect
-from App.models import Patient, Doctor
-from App.models.forms import MedicalRecordForm
-from django.db.models import Sum
-
-from datetime import datetime
-from App.models import Prescription
-
-
-
-
-
-
+from .import_all import *
 
 
 def display_medical_record(request, employee_id):
     if request.session.get('user'):
-        patient = Patient.objects.get(employee_id=employee_id)
+        patient = Patient.objects.get(employee_id = employee_id)
         records = MedicalRecord.objects.filter(patient = employee_id)
+        # try:
+        #     records = MedicalRecord.objects.filter(employee_id = employee_id, pk = int(record))
+        # except:
+        if request.session.get('dates'):
+            try:
+                begin = convert_date(request.session['dates']['begin'])
+                end = convert_date(request.session['dates']['end'])
+                if end >= begin:
+                    records = MedicalRecord.objects.filter(
+                        patient = employee_id,
+                        date__range = (begin, end)
+                    )
+                request.session['dates'] = None
+            except:
+                records = records
         total_price = records.aggregate(total_price=Sum('price'))
         total_price = 0 if not total_price['total_price'] else total_price['total_price']
         context = {'records': records,'patient': patient, 'total_price' : total_price}
@@ -28,18 +29,57 @@ def display_medical_record(request, employee_id):
     return redirect('login')
 
 
+
 def add_medical_record(request, employee_id):
     if request.session.get('user'):
-        patient = Patient.objects.get(employee_id=employee_id)
-        doctors = Doctor.objects.all()
-        context = {'patient': patient, 'doctors': doctors}
         if request.method == 'POST':
             form = MedicalRecordForm(request.POST)
             if form.is_valid():
-                form.save()
-                return redirect('medical_record',employee_id=employee_id)
-        return render(request, 'add_medical_record.html', context)
+                record = form.save(commit=False)
+                record.date = date_time_now()
+                record.save()
+                return redirect('medical_record', employee_id = employee_id)
+            return redirect('add_medical_record', employee_id = employee_id)
+        context = {
+            'action' : 'Add',
+            'record' : employee_id,
+            'sbt' : 'add_medical_record',
+            'doctors': Doctor.objects.all(),
+            'patient': Patient.objects.get(employee_id=employee_id),
+        }
+        return render(request, 'medical_record_form.html', context)
     return redirect('login')
+
+
+
+
+
+def change_medical_record(request, record_id):
+    if request.session.get('user'):
+        try:
+            record = MedicalRecord.objects.get(pk = record_id)
+        except MedicalRecord.DoesNotExist:
+            return redirect('medical_record')
+
+        if request.method == 'POST':
+            form = MedicalRecordForm(request.POST, instance = record)
+            if form.is_valid():
+                form.save()
+                return redirect('medical_record', employee_id = record.patient.employee_id)
+            return redirect('change_medical_record', record_id = record_id)
+        context = {
+            'action' : 'Update',
+            'record' : record_id,
+            'medical_record' : record,
+            'patient': record.patient,
+            'sbt' : 'change_medical_record',
+            'doctors': Doctor.objects.all(),
+        }
+        return render(request, 'medical_record_form.html', context)
+    return redirect('login')
+
+
+
 
 
 def delete_medical_record(request, record_id):
@@ -48,7 +88,7 @@ def delete_medical_record(request, record_id):
             records = MedicalRecord.objects.get(id=record_id)
             patient_id = records.patient.employee_id
         except MedicalRecord.DoesNotExist:
-            return redirect('medical_record')  # Redirect to medical_record page if record doesn't exist
+            return redirect('medical_record') 
 
         if request.method == 'POST':
             records.delete()
@@ -59,45 +99,42 @@ def delete_medical_record(request, record_id):
 
 
 
-def change_medical_record(request, record_id):
-    if request.session.get('user'):
-        try:
-            records = MedicalRecord.objects.get(id=record_id)
-        except MedicalRecord.DoesNotExist:
-            return redirect('medical_record')  # Redirect to medical_record page if record doesn't exist
 
-        if request.method == 'POST':
-            form = MedicalRecordForm(request.POST, instance=records)
-            if form.is_valid():
-                form.save()
-                return redirect('medical_record', employee_id = records.patient.employee_id)
-        else:
-            form = MedicalRecordForm(instance=records)
-
-        return render(request, 'change_medical_record.html', {'form': form, 'record': records})
-    return redirect('login')
 
 
 
 def search_medical_record(request, employee_id):
     if request.session.get('user'):
-        patient = Patient.objects.get(employee_id=employee_id)
         if request.method == 'POST':
-            start_date = request.POST['start_date']
-            end_date = request.POST['end_date']
-            start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
-            end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
-            if end_date >= start_date:
-                records = MedicalRecord.objects.filter(
-                    patient = employee_id,
-                    date__range=(start_date, end_date))
-                total_price = records.aggregate(total_price=Sum('price'))
-                total_price = 0 if not total_price['total_price'] else total_price['total_price']
-                context = {'records': records,'patient': patient, 'total_price' : total_price}
-                return render(request, 'medical_record.html', context)
-                # return redirect('medical_record', employee_id=employee_id)
-        return redirect('medical_record', employee_id=employee_id)
+            try:
+                request.session['dates'] = {
+                    'begin' : request.POST['begin_date'],
+                    'end' : request.POST['end_date']
+                }
+                return redirect('medical_record',employee_id = employee_id)
+            except:
+                pass
+        return redirect('medical_record', employee_id = employee_id)
     return redirect('login')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -108,15 +145,4 @@ def back_to_medical_record(request,record_id):
         total_price = records.first().price
         context = {'records': records,'patient': patient, 'total_price' : total_price}
         return render(request, 'medical_record.html',context)
-    return redirect('login')
-
-
-def show_all_medical_records(request, employee_id):
-    if request.session.get('user'):
-        patient = Patient.objects.get(employee_id=employee_id)
-        records = MedicalRecord.objects.filter(patient=employee_id)
-        total_price = records.aggregate(total_price=Sum('price'))
-        total_price = 0 if not total_price['total_price'] else total_price['total_price']
-        context = {'records': records, 'patient': patient, 'total_price': total_price}
-        return render(request, 'medical_record.html', context)
     return redirect('login')

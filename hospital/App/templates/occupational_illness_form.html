@@ -1,0 +1,42 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Occupational Illness</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Occupational Illness information for {{ patient.employee_name }}</h1>
+    <form method="POST" action="{% url sbt value %}">
+      {% csrf_token %}
+
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+      <label>Date</label>
+      <input type="text" name="date" value="{{occupational_illness.date}}"
+      onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Illness</label>
+      <input type="text" name="sickness" value="{{occupational_illness.sickness}}">
+
+      <label>Tableau</label>
+      <input type="text" name="table" value="{{occupational_illness.table}}">
+
+      <label>Causal Agent</label>
+      <input type="text" name="causal_agent" value="{{occupational_illness.causal_agent}}">
+
+      <label>Job Position</label>
+      <input type="text" name="job" value="{{occupational_illness.job}}">
+
+      <label>Decision/Observation</label>
+      <textarea name="decision">{{occupational_illness.decision}}</textarea>
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  
+  <script src="{% static 'js/functions.js'%}"></script>
+</body>
+</html>

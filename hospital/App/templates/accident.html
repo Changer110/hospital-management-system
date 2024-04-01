@@ -1,92 +1,66 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>Accident Information</title>
-  <link rel="stylesheet" href="static/css/accident.css">
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
 </head>
 <body>
-  <div class="accident-container">
-    <h1 class="accident-title">Accident Information for {{ patient.name }}</h1>
+  <nav>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
+  </nav>
 
-    <div class="button-container">
-      <a href="{% url 'add_accident' patient.employee_id %}" class="add-appointment-button">Add Accident</a>
-      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
-    </div>
+  <h1 style="text-align: center;">Accident Information for {{ patient.employee_name }}</h1>
 
-    <ul class="accident-details">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Causal Material Element</th>
-            <th>Nature of Lesions</th>
-            <th>Position</th>
-            <th>Number of Days Off</th>
-            <th>Partial Permanent Incapacity</th>
-            <th>Observation</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for accident in accidents %}
-          <tr>
-            <td>{{ accident.date }}</td>
-            <td>{{ accident.causal_material_element }}</td>
-            <td>{{ accident.nature_of_lesions }}</td>
-            <td>{{ accident.position }}</td>
-            <td>{{ accident.numb_of_days_off }}</td>
-            <td>{{ accident.partial_permanent_incapacity }}</td>
-            <td>{{ accident.observation }}</td>
-            <td><a href="{% url 'change_accident' accident.id %}">Change</a></td>
-            <td><a href="{% url 'delete_accident' accident.id %}">Delete</a></td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="7">No accidents found.</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </ul>
+  <div class="info_action">
+    <a href="{% url 'add_accident' patient.employee_id %}" class="green_link">Add</a>
+    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link">Patient</a>
   </div>
 
-  <script>
-    // Dynamically apply styles to the accident.html elements
-    const accidentContainer = document.querySelector('.accident-container');
-    accidentContainer.style.maxWidth = '800px';
-    accidentContainer.style.margin = '0 auto';
-    accidentContainer.style.padding = '20px';
-
-    const accidentTitle = document.querySelector('.accident-title');
-    accidentTitle.style.textAlign = 'center';
-
-    const patientInformationButton = document.querySelector('.patient-information-button');
-    patientInformationButton.style.display = 'inline-block';
-    patientInformationButton.style.padding = '8px 16px';
-    patientInformationButton.style.backgroundColor = '#2196F3';
-    patientInformationButton.style.color = 'white';
-    patientInformationButton.style.textDecoration = 'none';
-    patientInformationButton.style.borderRadius = '4px';
-    patientInformationButton.style.marginLeft = '10px';
-
-    const accidentDetailsTable = document.querySelector('table');
-    accidentDetailsTable.style.width = '100%';
-    accidentDetailsTable.style.borderCollapse = 'collapse';
-    accidentDetailsTable.style.marginBottom = '20px';
-
-    const tableHeaders = accidentDetailsTable.querySelectorAll('th');
-    tableHeaders.forEach(header => {
-      header.style.padding = '8px';
-      header.style.textAlign = 'left';
-      header.style.borderBottom = '1px solid #ddd';
-      header.style.backgroundColor = '#f2f2f2';
-    });
-
-    const tableRows = accidentDetailsTable.querySelectorAll('td');
-    tableRows.forEach(row => {
-      row.style.padding = '8px';
-      row.style.textAlign = 'left';
-      row.style.borderBottom = '1px solid #ddd';
-    });
-  </script>
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Causal Material Element</th>
+          <th>Nature of Lesions</th>
+          <th>Position</th>
+          <th>Days Off</th>
+          <th>Partial Permanent Incapacity</th>
+          <th>Observation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for accident in accidents %}
+        <tr>
+          <td>{{ accident.date }}</td>
+          <td>{{ accident.material_causel }}</td>
+          <td>{{ accident.lesions_nature }}</td>
+          <td>{{ accident.position }}</td>
+          <td>{{ accident.days_off }}</td>
+          <td>{{ accident.partial_incapacity }}</td>
+          <td>{{ accident.observation }}</td>
+          <td>
+            <div>
+              <a href="{% url 'update_accident' accident.id %}" class="blue_link">Update</a>
+              <a href="{% url 'delete_accident' accident.id %}" class="red_link">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7">No accidents found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
 </body>
 </html>

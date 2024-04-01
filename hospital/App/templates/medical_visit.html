@@ -3,30 +3,71 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="{% static 'css/medical_visit.css' %}">
+    <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
     <title>Medical visit</title>
   </head>
 
 <body>
   <nav>
-    <a href="{% url 'show_all_patient' %}">Patient</a>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
     <a href="">Appointment</a>
-    <a href="{% url 'show_all_doctors' %}">Doctors</a>
-    <a href="{% url 'show_all_drugs' %}">Drugs</a>
-    <a class="logout" href="{% url 'show_all_drugs' %}">Logout</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
-
-
-  <div class="info_title">
-    <h1 class="background-patient-title">Medical visit for {{ patient.name }}</h1>
-  </div>
+  <h1 style="text-align: center;">Medical visit for {{ patient.name }}</h1>
 
   <div class="info_action">
-    <a href="{% url 'add_medical_visit' patient.employee_id %}" class="add_info">Add</a>
+    <a href="{% url 'add_medical_visit' patient.employee_id %}" class="green_link">Add</a>
+    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link" >Patient</a>
   </div>    
   
-  <div class="medical_visit_container">
+  <div class="data_container">
+    <table>
+      <tr>
+        
+      </tr>
+      <tr>
+        
+      </tr>
+      <tr>
+        
+      </tr>
+      <tr>
+        
+      </tr>
+      <tr>
+        
+      </tr>
+      <tr>
+        
+      </tr>
+      <tr>
+        
+      </tr>
+      <tr>
+        
+      </tr>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {% for visit in visits %}
     <div class="medical_visit">
       <div class="fst_info">
@@ -94,7 +135,7 @@
       </div>
       <div class="info_action">
         <a href="{% url 'download_medical_visit' visit.pk %}">Download</a>
-        <a href="{% url 'change_medical_visit' visit.pk %}">Change</a>
+        <a href="{% url 'download_medical_visit' visit.pk %}">Change</a>
         <a href="{% url 'delete_medical_visit' visit.pk %}">Delete</a>
       </div>
       
@@ -103,6 +144,7 @@
     {% empty %}
       <div>No Medical visit found.</div>
     {% endfor %}
+
   </div>
 
 </body>
