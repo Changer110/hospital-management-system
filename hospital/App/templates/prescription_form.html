@@ -1,0 +1,30 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Prescription</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Prescription</h1>
+    <form method="POST" action="{% url sbt record %}">
+      {% csrf_token %}
+      <input type="hidden" name="medical_record" value="{{ record }}">
+
+      <label>drug name:</label>
+      <select name="drug_name">
+        {% for drug in drugs %}
+          <option value="{{drug.name}}">{{drug.name}}</option>
+        {% endfor %}
+      </select>
+
+      <label for="dosage">dosage:</label>
+      <input type="number" name="dosage" value="{{ prescription.dosage }}">
+      
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+</html>

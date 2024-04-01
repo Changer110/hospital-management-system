@@ -1,0 +1,43 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Appointment</title>
+<<<<<<< Updated upstream
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+=======
+  <link rel="stylesheet" href="{% static 'css/appointment.css' %}">
+>>>>>>> Stashed changes
+</head>
+<body>
+  <div class="form-container">
+    <h1>Add Appointment for {{ patient.name }}</h1>
+    <form method="post" action="{% url 'add_appointment' patient.employee_id %}">
+      {% csrf_token %}
+
+      <input type="hidden" name="patient" value="{{ patient.employee_id }}">
+      
+      <label>Appointment Date:</label>
+      <input type="date" name="appointment_date" value="{{appointment.appointment_date}}">
+
+      <label>Doctor:</label>
+      <select name="doctor">
+        {% for doctor in doctors %}
+          <option value="{{ doctor.doctor_id }}">{{ doctor.name }}</option>
+        {% endfor %}
+      </select>
+
+      <label>Appointment Time:</label>
+      <input type="time" name="appointment_time" value="{{appointment.appointment_time}}">
+
+<<<<<<< Updated upstream
+      <button type="submit">Save</button>
+    </form>
+  </div>
+=======
+    <button  type="submit" >Save</button>
+  </form>
+>>>>>>> Stashed changes
+</body>
+</html>

@@ -1,0 +1,62 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Summons Form Information</title>
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
+</head>
+<body>
+  <nav>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
+    <a class="logout" href="{% url 'logout' %}">Logout</a>
+  </nav>
+  <h1 style="text-align: center;">Summons Information for {{ patient.employee_name }}</h1>
+
+  <div class="info_action">
+    <a href="{% url 'add_summons' patient.employee_id %}" class="green_link">Add</a>
+    <a href="{% url 'display_summons' patient.employee_id %}" class="green_link">All summons</a>
+    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link">Patient</a>
+  </div>
+
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
+          <th>Motif</th>
+          <th>Date of Issue</th>
+          <th>Date of Summons</th>
+          <th>Date of Presentation</th>
+          <th>Observation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for summons in summonses %}
+        <tr>
+          <td>{{ summons.motif }}</td>
+          <td>{{ summons.issue_date }}</td>
+          <td>{{ summons.summons_date }}</td>
+          <td>{{ summons.presentation_date }}</td>
+          <td>{{ summons.observation }}</td>
+          <td>
+            <div>
+              <a href="{% url 'update_summons' summons.id %}" class="blue_link">Update</a> 
+              <a href="{% url 'delete_summons' summons.id %}" class="red_link">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6">No summons forms found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

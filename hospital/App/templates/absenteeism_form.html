@@ -1,0 +1,39 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Absenteeism</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Absenteeism informations for {{ patient.employee_name }}</h1>
+    <form method="POST" action="{% url sbt value %}">
+      {% csrf_token %}
+
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+      <label>Type</label>
+      <input type="text" name="type" value="{{absenteeism.type}}">
+
+      <label>Cause</label>
+      <input type="text" name="cause" value="{{absenteeism.cause}}">
+
+      <label>Beginning</label>
+      <input name="beginning" value="{{absenteeism.beginning}}"
+      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Reprise</label>
+      <input name="reprise" value="{{absenteeism.reprise}}"
+      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Days Off</label>
+      <input type="number" name="days_off" value="{{absenteeism.days_off}}">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  <script src="{% static 'js/functions.js'%}"></script>
+</body>
+</html>

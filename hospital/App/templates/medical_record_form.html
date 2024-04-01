@@ -1,0 +1,52 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Medical Record</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Medical Record for {{ patient.employee_name }}</h1>
+    <form method="POST"  action="{% url sbt record %}">
+      {% csrf_token %}
+
+      <input type="hidden" name="patient" value="{{ patient.employee_id }}">
+
+      <label>Symptoms:</label>
+      <textarea name="symptoms">{{ medical_record.symptoms }}</textarea>
+
+      <label>Diagnosis:</label>
+      <textarea name="diagnosis">{{ medical_record.diagnosis }}</textarea>
+
+      <label>Treatment:</label>
+      <textarea name="treatment">{{ medical_record.treatment }}</textarea>
+
+      <label>Complaints:</label>
+      <textarea name="complaints">{{ medical_record.complaints }}</textarea>
+
+      <label>Constants:</label>
+      <textarea name="constants">{{ medical_record.constants }}</textarea>
+
+      <label>Physical Examination:</label>
+      <textarea name="physical_examination">{{ medical_record.physical_examination }}</textarea>
+
+      <label>Observations:</label>
+      <textarea name="observations">{{ medical_record.observations }}</textarea>
+
+      <label>Doctor:</label>
+      <select name="doctor">
+        {% for doctor in doctors %}
+          <option value="{{doctor.doctor_id}}">{{doctor.name}}</option>
+        {% endfor %}
+      </select>
+
+      <label>Price:</label>
+      <input type="number" name="price" value="{{medical_record.price}}">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</body>
+</html>

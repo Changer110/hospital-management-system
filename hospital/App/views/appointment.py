@@ -1,17 +1,14 @@
-from django.shortcuts import render
-from App.models import Appointment, Patient
 
-def appointment(request, employee_id):
+from .import_all import *
+
+
+def display_appointment(request, employee_id):
     patient = Patient.objects.get(employee_id=employee_id)
     appointments = Appointment.objects.filter(patient=employee_id)
     context = {'appointments': appointments, 'patient': patient}
     return render(request, 'appointment.html', context)
 
 
-
-from django.shortcuts import redirect
-from App.models.forms import AppointmentForm
-from App.models import Doctor
 
 def add_appointment(request, employee_id):
     patient = Patient.objects.get(employee_id=employee_id)
@@ -26,7 +23,6 @@ def add_appointment(request, employee_id):
 
 
 
-
 def delete_appointment(request, appointment_id):
     appointment = Appointment.objects.get(id=appointment_id)
 
@@ -38,7 +34,7 @@ def delete_appointment(request, appointment_id):
     return render(request, 'delete_appointment.html', context)
 
 
-def change_appointment(request, appointment_id):
+def update_appointment(request, appointment_id):
     appointment = Appointment.objects.get(id=appointment_id)
 
     if request.method == 'POST':

@@ -1,0 +1,46 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Background Patient</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Background Patient for  {{ patient.employee_name }}</h1>
+  <form method="POST" action="{% url sbt value %}">
+    {% csrf_token %}
+    <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+
+    <label>Personal Medical:</label>
+    <textarea name="personal_medical">{{background.personal_medical}}</textarea>
+
+    <label>Personal Surgical:</label>
+    <textarea name="personal_surgical">{{background.personal_surgical}}</textarea>
+
+    <label>Professional Medical:</label>
+    <textarea name="proffesional_medical">{{background.proffesional_medical}}</textarea>
+
+    <label>Professional Surgical:</label>
+    <textarea name="proffesional_surgical">{{background.proffesional_surgical}}</textarea>
+
+    <label>Family Medical:</label>
+    <textarea name="family_medical">{{background.family_medical}}</textarea>
+
+    <label>Family Surgical:</label>
+    <textarea name="family_surgical">{{background.family_surgical}}</textarea>
+
+    <label>Social Personal:</label>
+    <textarea name="social_personal">{{background.social_personal}}</textarea>
+
+    <label>Social Family:</label>
+    <textarea name="social_family">{{background.social_family}}</textarea>
+
+    <button type="submit">Save</button>
+  </form>
+  </div>
+  
+</body>
+</html>

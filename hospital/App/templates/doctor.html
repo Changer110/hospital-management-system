@@ -1,159 +1,69 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>Doctor Information</title>
-  <link rel="stylesheet" href="static/css/medical_visit.css">
-  <style>
-    /* Additional CSS code for custom styling */
-    .selected {
-      background-color: #f2f2f2;
-    }
-
-    .add-doctor-button,
-    .add-patient-button,
-    .add-button {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      margin-right: 10px;
-    }
-
-    .delete-button {
-      display: inline-block;
-      padding: 4px 8px;
-      background-color: #f44336;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-
-    .change-button {
-      display: inline-block;
-      padding: 4px 8px;
-      background-color: #2196F3;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
 </head>
 <body>
   <nav>
-    <a href="{% url 'patient' 'all' %}">Patient</a>
-    <a href="{% url 'doctor' %}">Doctors</a>
-    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
-  <div class="doctor-container">
-    <h1 class="doctor-title">Doctor Information</h1>
 
-    <div class="button-container">
-      <a href="{% url 'add_doctor' %}" class="add-doctor-button">Add Doctor</a>
-      <form action="{% url 'search_doctor' %}" style="display: flex; gap:5px" method="POST">
-        {% csrf_token %}
-        <input type="number" name="doctor_id">
-        <input type="submit" value="Search">
-      </form>
-      <a href="{% url 'show_all_doctors' %}" class="add-patient-button">Show all Doctors</a>
-    </div>
+  <h1 style="text-align: center;">Doctors</h1>
+
+  <div class="info_action">
+    <a href="{% url 'add_doctor' 'Add' %}" class="green_link">Add</a>
+    <form action="{% url 'display_doctor' %}" style="display: flex; gap:5px" method="POST">
+      {% csrf_token %}
+      <input type="number" name="doctor_id">
+      <input type="submit" value="Search">
+    </form>
+    <a href="{% url 'display_doctor' %}" class="green_link">All Doctors</a>
   </div>
 
-  <table class="doctor-details">
-    <thead>
-      <tr>
-        <th>Doctor ID</th>
-        <th>Name</th>
-        <th>Specialization</th>
-        <th>Phone Number</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for doctor in doctors %}
-      <tr>
-        <td>{{ doctor.doctor_id }}</td>
-        <td>{{ doctor.name }}</td>
-        <td>{{ doctor.specialization }}</td>
-        <td>{{ doctor.phone_number }}</td>
-        <td>{{ doctor.email }}</td>
-        <td>{{ doctor.address }}</td>
-        <td>
-          <form action="{% url 'delete_doctor' doctor.doctor_id %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="Delete" class="delete-button">
-          </form>
-        </td>
-        <td><a href="{% url 'change_doctor' doctor.doctor_id %}" class="change-button">Change</a></td>
-      </tr>
-      {% empty %}
-      <tr>
-        <td colspan="8">No doctors found.</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <script>
-    // Dynamically apply styles to the doctor.html elements
-    const doctorContainer = document.querySelector('.doctor-container');
-    doctorContainer.style.maxWidth = '800px';
-    doctorContainer.style.margin = '0 auto';
-    doctorContainer.style.padding = '20px';
-
-    const doctorTitle = document.querySelector('.doctor-title');
-    doctorTitle.style.textAlign = 'center';
-
-    const addDoctorButton = document.querySelector('.add-doctor-button');
-    addDoctorButton.style.display = 'inline-block';
-    addDoctorButton.style.padding = '8px 16px';
-    addDoctorButton.style.backgroundColor = '#4CAF50';
-    addDoctorButton.style.color = 'white';
-    addDoctorButton.style.textDecoration = 'none';
-    addDoctorButton.style.borderRadius = '4px';
-
-    const doctorDetailsTable = document.querySelector('.doctor-details');
-    doctorDetailsTable.style.width = '100%';
-    doctorDetailsTable.style.borderCollapse = 'collapse';
-    doctorDetailsTable.style.marginBottom = '20px';
-
-    const tableHeaders = doctorDetailsTable.querySelectorAll('th');
-    tableHeaders.forEach(header => {
-      header.style.padding = '8px';
-      header.style.textAlign = 'left';
-      header.style.borderBottom = '1pxsolid #ddd';
-    });
-
-    const tableCells = doctorDetailsTable.querySelectorAll('td');
-    tableCells.forEach(cell => {
-      cell.style.padding = '8px';
-      cell.style.borderBottom = '1px solid #ddd';
-    });
-
-    const deleteButtons = document.querySelectorAll('.delete-button');
-    deleteButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
-      button.style.backgroundColor = '#f44336';
-      button.style.color = 'white';
-      button.style.textDecoration = 'none';
-      button.style.borderRadius = '4px';
-    });
-
-    const changeButtons = document.querySelectorAll('.change-button');
-    changeButtons.forEach(button => {
-      button.style.display = 'inline-block';
-      button.style.padding = '4px 8px';
-      button.style.backgroundColor = '#2196F3';
-      button.style.color = 'white';
-      button.style.textDecoration = 'none';
-      button.style.borderRadius = '4px';
-    });
-  </script>
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
+          <th>Doctor ID</th>
+          <th>Name</th>
+          <th>Specialization</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for doctor in doctors %}
+        <tr>
+          <td>{{ doctor.doctor_id }}</td>
+          <td>{{ doctor.name }}</td>
+          <td>{{ doctor.specialization }}</td>
+          <td>{{ doctor.phone_number }}</td>
+          <td>{{ doctor.email }}</td>
+          <td>{{ doctor.address }}</td>
+          <td>
+            <div>
+              <a href="" class="green_link">Appointment</a>
+              <a href="{% url 'update_doctor' doctor.doctor_id %}" class="blue_link">Update</a>
+              <a href="{% url 'delete_doctor' doctor.doctor_id %}" class="red_link">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="8">No doctors found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>

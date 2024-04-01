@@ -1,127 +1,40 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Summons Form Information</title>
-  <link rel="stylesheet" href="static/css/summons_form.css">
+  <title>{{action}} Summons information</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
 <body>
-  <div class="summons-form-container">
-    <h1 class="summons-form-title">Summons Form Information for {{ patient.name }}</h1>
+  <div class="form-container">
+    <h1>{{action}} Summons information for {{ patient.employee_name }}</h1>
+    <form method="POST" action="{% url sbt value %}">
+      {% csrf_token %}
 
-    <div class="button-container">
-      <a href="{% url 'add_summons_form' patient.employee_id %}" class="add-summons-form-button">Add Summons Form</a>
-      <a href="{% url 'patient_information' patient.employee_id %}" class="patient-information-button">Patient Information</a>
-    </div>
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
-    <ul class="summons-form-details">
-      <table>
-        <thead>
-          <tr>
-            <th>Motif</th>
-            <th>Date of Issue</th>
-            <th>Date of Summons</th>
-            <th>Date of Presentation</th>
-            <th>Observation</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for summons_form in summons_forms %}
-          <tr>
-            <td>{{ summons_form.motif }}</td>
-            <td>{{ summons_form.date_of_issue }}</td>
-            <td>{{ summons_form.date_of_summons }}</td>
-            <td>{{ summons_form.date_de_presentation }}</td>
-            <td>{{ summons_form.observation }}</td>
-            <td><a href="{% url 'change_summons_form' summons_form.id %}" class="change-button">Change</a></td> 
-            <td><a href="{% url 'delete_summons_form' summons_form.id %}" class="delete-button">Delete</a></td>
-            <td><a href="{% url 'download_summons_form' summons_form.id %}" class="download-button">Download</a></td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="6">No summons forms found.</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </ul>
+      <label>Motif:</label>
+      <input type="text" name="motif" value="{{summons.motif}}">
+
+      <label>Date of Issue:</label>
+      <input name="issue_date" value="{{summons.issue_date}}"
+      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Date of Summons:</label>
+      <input name="summons_date" value="{{summons.summons_date}}"
+      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Date of Presentation:</label>
+      <input name="presentation_date" value="{{summons.presentation_date}}"
+      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Observation:</label>
+      <input type="text" name="observation" value="{{summons.observation}}">
+
+      <button type="submit">Save</button>
+    </form>
   </div>
-
-  <script>
-    // Dynamically apply styles to the summons_form.html elements
-    const summonsFormContainer = document.querySelector('.summons-form-container');
-    summonsFormContainer.style.maxWidth = '800px';
-    summonsFormContainer.style.margin = '0 auto';
-    summonsFormContainer.style.padding = '20px';
-
-    const summonsFormTitle = document.querySelector('.summons-form-title');
-    summonsFormTitle.style.textAlign = 'center';
-
-    const addSummonsFormButton = document.querySelector('.add-summons-form-button');
-    addSummonsFormButton.style.display = 'inline-block';
-    addSummonsFormButton.style.padding = '8px 16px';
-    addSummonsFormButton.style.backgroundColor = '#4CAF50';
-    addSummonsFormButton.style.color = 'white';
-    addSummonsFormButton.style.textDecoration = 'none';
-    addSummonsFormButton.style.borderRadius = '4px';
-
-    const patientInformationButton = document.querySelector('.patient-information-button');
-    patientInformationButton.style.display = 'inline-block';
-    patientInformationButton.style.padding = '8px 16px';
-    patientInformationButton.style.backgroundColor = '#2196F3';
-    patientInformationButton.style.color = 'white';
-    patientInformationButton.style.textDecoration = 'none';
-    patientInformationButton.style.borderRadius = '4px';
-    patientInformationButton.style.marginLeft = '10px';
-
-    const summonsFormDetailsTable = document.querySelector('table');
-    summonsFormDetailsTable.style.width = '100%';
-    summonsFormDetailsTable.style.borderCollapse = 'collapse';
-    summonsFormDetailsTable.style.marginBottom = '20px';
-
-    const tableHeaders = summonsFormDetailsTable.querySelectorAll('th');
-    tableHeaders.forEach(header => {
-      header.style.padding = '8px';
-      header.style.textAlign = 'left';
-      header.style.borderBottom = '1px solid #ddd';
-      header.style.backgroundColor = '#f2f2f2';
-    });
-
-    const tableRows = summonsFormDetailsTable.querySelectorAll('td');
-    tableRows.forEach(row => {
-      row.style.padding = '8px';
-      row.style.textAlign = 'left';
-      row.style.borderBottom = '1px solid #ddd';
-    });
-
-    // Style the Change, Delete, and Download buttons
-    const changeButton = document.querySelectorAll('.change-button');
-    changeButton.forEach(button => {
-      button.style.backgroundColor = 'blue';
-      button.style.color = 'white';
-      button.style.padding = '6px 12px';
-    });
-
-    const deleteButton = document.querySelectorAll('.delete-button');
-    deleteButton.forEach(button => {
-      button.style.backgroundColor = 'red';
-      button.style.color = 'white';
-      button.style.padding = '6px 12px';
-    });
-
-    const downloadButton = document.querySelectorAll('.download-button');
-    downloadButton.forEach(button => {
-      button.style.backgroundColor = 'red';
-      button.style.color = 'white';
-      button.style.padding = '6px 12px';
-    });
-
-    // Add click event listener to table rows
-    const rows = summonsFormDetailsTable.querySelectorAll('tbody tr');
-    rows.forEach(row => {
-      row.addEventListener('click', () => {
-        row.classList.toggle('selected');
-      });
-    });
-  </script>
+  <script src="{% static 'js/functions.js'%}"></script>
 </body>
 </html>

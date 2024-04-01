@@ -16,7 +16,7 @@ def user_login(request):
             login(request, user)
             request.session['user'] = user.pk
             request.session['role'] = user.role
-            return redirect('patient', employee_id = 'all')
+            return redirect('display_patient', employee_id = 'all')
         return redirect(page)
     return render(request, 'login.html')
 

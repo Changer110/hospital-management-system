@@ -1,55 +1,52 @@
-from django.shortcuts import render,redirect
-from App.models import OccupationalIllness, Patient
 
-
+from .import_all import *
 
 
 def display_occupational_illness(request, employee_id):
     if request.session.get('user'):
-        patient = Patient.objects.get(employee_id=employee_id)
-        occupational_illnesses = OccupationalIllness.objects.filter(employee_id=employee_id)
-        context = {'occupational_illnesses': occupational_illnesses, 'patient': patient}
+        context = {
+            'patient': Patient.objects.get(employee_id=employee_id),
+            'occupational_illnesses': OccupationalIllness.objects.filter(employee_id = employee_id),
+        }
         return render(request, 'occupational_illness.html', context)
     return redirect('login')
 
-from App.models.forms import OccupationalIllnessForm
 
 def add_occupational_illness(request, employee_id):
     if request.session.get('user'):
-        patient = Patient.objects.get(employee_id=employee_id)
-        context = {'patient': patient}
-        
         if request.method == 'POST':
             form = OccupationalIllnessForm(request.POST)
-            
             if form.is_valid():
-                occupational_illness = form.save(commit=False)
-                occupational_illness.patient = patient
-                occupational_illness.save()
-                return redirect('occupational_illness', employee_id=employee_id)
-        
-        else:
-            form = OccupationalIllnessForm()
-        
-        context['form'] = form
-        return render(request, 'add_occupational_illness.html', context)
+                form.save()
+                return redirect('display_occupational_illness', employee_id = employee_id)
+            return redirect('add_occupational_illness', employee_id = employee_id)
+        context = {
+            'action' : 'Add',
+            'value' : employee_id,
+            'sbt' : 'add_occupational_illness',
+            'patient': Patient.objects.get(employee_id = employee_id)
+            }
+        return render(request, 'occupational_illness_form.html', context)
     return redirect('login')
 
 
-def change_occupational_illness(request, occupational_illness_id):
+def update_occupational_illness(request, occupational_illness_id):
     if request.session.get('user'):
-        occupational_illness = OccupationalIllness.objects.get(id=occupational_illness_id) 
-
+        occupational_illness = OccupationalIllness.objects.get(id = occupational_illness_id) 
         if request.method == 'POST':
             form = OccupationalIllnessForm(request.POST, instance=occupational_illness)
             if form.is_valid():
                 form.save()
-                return redirect('occupational_illness', employee_id=occupational_illness.employee_id.employee_id)
-        else:
-            form = OccupationalIllnessForm(instance=occupational_illness)
-
-        context = {'form': form, 'occupational_illness': occupational_illness}
-        return render(request, 'change_occupational_illness.html', context)
+                return redirect('display_occupational_illness', employee_id = occupational_illness.employee_id.employee_id)
+            return redirect('update_occupational_illness', occupational_illness_id = occupational_illness_id)
+        context = {
+            'action' : 'Update',
+            'value' : occupational_illness_id,
+            'sbt' : 'update_occupational_illness',
+            'patient': occupational_illness.employee_id,
+            'occupational_illness' : occupational_illness
+            }
+        return render(request, 'occupational_illness_form.html', context)
     return redirect('login')
 
 

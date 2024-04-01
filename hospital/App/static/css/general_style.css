@@ -1,0 +1,162 @@
+
+html {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 99%;
+    height: 98%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+nav {
+    margin: 5px auto;
+    display: flex;
+    align-items: center;
+    gap: 2%;
+    width: 98%;
+}
+nav a{
+    color: #fff;
+    background-color: #6c9bcf;
+    padding: 5px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+nav .logout{
+    margin-left: auto;
+    background-color: #f44336;
+}
+
+
+.info_title{
+    margin: 0 auto;
+    text-align: center;
+    width: 98%;
+}
+.info_action{
+    margin: 7px auto;
+    width: 95%;
+    gap: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+th a,
+.info_action a{
+    /* background-color: #4CAF50; */
+    color: #031406;
+    padding: 3px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.blue_link{
+    background-color: #2196f3;
+}
+.red_link{
+    background-color: #f44336;
+}
+.green_link{
+    background-color: #4CAF50;
+}
+
+
+/* ================================================ */
+
+/* 
+.medical_visit_container{
+    margin: 0 auto;
+    overflow: auto;
+    width: 98%;
+    height: 77%;
+    background-color: #ddd;
+}
+
+.medical_visit{
+    display: grid;
+    align-items: center;
+}
+
+.medical_visit .fst_info{
+    margin-left: auto;
+
+}
+
+.medical_visit .snd_info{
+    display: grid;
+}
+.medical_visit .snd_info h3{
+    text-align: center;
+}
+
+.medical_visit .snd_info > div{
+    margin-right: auto;
+    display: flex;
+}
+
+.medical_visit .trd_info label{
+    display: flex;
+    gap: 5%;
+}
+
+.medical_visit .fth_info{
+    display: grid;
+} */
+/* ========================================== */
+
+
+
+.data_container{
+    width: 100%;
+    overflow: auto;
+    height: 71%;
+}
+
+.data_container table{
+    margin: 0 auto 20px;
+    width: 90%;
+    border-collapse: collapse;
+}
+
+.patient_table td{
+    height: 30px;
+}
+
+.other_table th{
+    padding : 10px;
+    text-align : center;
+    border-bottom : 1px solid #ddd;
+    background-color : #f5f5f5;
+}
+.other_table td{
+    padding : 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.other_table td div{
+    display: flex; 
+    gap:6px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.other_table td div a{
+    color: #fff;
+    padding: 2px 4px;
+    border: none;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.other_table .selected {
+    background-color: #f0f0f0;
+}

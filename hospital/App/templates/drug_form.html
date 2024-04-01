@@ -1,0 +1,51 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Drug</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} Drug</h1>
+    <form method="POST" action="{% url sbt value %}">
+      {% csrf_token %}
+      <label>Name</label>
+      <input type="text" name="name" value="{{drug.name}}">
+
+      <label>Drug Type</label>
+      <select name="drug_type">
+        <option value="Tablet">Tablet</option>
+        <option value="Capsule">Capsule</option>
+        <option value="Liquid">Liquid</option>
+        <option value="Injection">Injection</option>
+        <option value="Cream">Cream</option>
+        <option value="Spray">Spray</option>
+      </select>
+
+      <label>Quantity</label>
+      <input type="number" name="quantity" value="{{drug.quantity}}">
+
+      <label>Expiry Date</label>
+      <input type="text" name="expiry_date" value="{{drug.expiry_date}}"
+      onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Dosage Issued</label>
+      <input type="number" name="dosage_issued" value="{{drug.dosage_issued}}">
+
+      <label>Price</label>
+      <input type="number" name="price" value="{{drug.price}}">
+
+      <label>Price/Drug</label>
+      <input type="number" name="price_per_drug" value="{{drug.price_per_drug}}">
+
+      <label>Imported From</label>
+      <input type="text" name="imported_from" value="{{drug.imported_from}}">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  <script src="{% static 'js/functions.js'%}"></script>
+</body>
+</html>

@@ -12,7 +12,7 @@ class Drugs(models.Model):
     )
 
     name = models.CharField(max_length=100, unique=True)
-    drug_type = models.CharField(max_length=20, choices=DRUG_TYPES,default='Tablet')
+    drug_type = models.CharField(max_length=20, choices=DRUG_TYPES)
     quantity = models.PositiveIntegerField()
     expiry_date = models.DateField()
     dosage_issued = models.PositiveIntegerField(default=0)

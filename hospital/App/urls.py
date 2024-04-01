@@ -6,75 +6,66 @@ from App.views import *
 
 urlpatterns = [
     path('', index),
-    path('login', user_login, name='login'),
-    path('logout/', user_logout, name='logout'), 
+    path('Hospital-system-management/login', user_login, name='login'),
+    path('logout', user_logout, name='logout'), 
     path('dashboard' , dashboard),
     
+    
     # DOCTORS URLS
-    path('doctor' , display_doctors, name='doctor'),
-    path('search_doctor/', search_doctor, name='search_doctor'),
-    path('show_all_doctors/', show_all_doctors, name='show_all_doctors'),
-    path('add_doctor', add_doctor, name='add_doctor'),
-    path('delete_doctor/<int:doctor_id>/', delete_doctor, name='delete_doctor'),
-    path('change_doctor/<int:doctor_id>', change_doctor, name='change_doctor'),
-    # path('doctor_list', doctor_list, name='doctor_list'),
+    path('Display/doctor', display_doctor, name='display_doctor'),
+    path('<str:doctor_id>/doctor', add_doctor, name='add_doctor'),
+    path('Update/doctor/<int:doctor_id>', update_doctor, name='update_doctor'),
+    path('Delete/doctor/<int:doctor_id>', delete_doctor, name='delete_doctor'),
     
     
     # PATIENTS URLS
-    path('patient/<str:employee_id>/' , display_patient, name='patient'),
-    path('add_patient', add_patient, name='add_patient'),
-    path('search_patient', search_patient, name='search_patient'),
-    path('delete_patient/<int:employee_id>/', delete_patient, name='delete_patient'),
-    path('change_patient/<int:employee_id>', update_patient, name='change_patient'),
+    path('Display/patient/<str:employee_id>' , display_patient, name='display_patient'),
+    path('<str:employee_id>/patient', add_patient, name='add_patient'),
     path('download_patient/<int:employee_id>', download_patient, name='download_patient'),
-    path('patient_information/<int:employee_id>', patient_information, name='patient_information'),
-    
+    path('Delete/patient/<int:employee_id>', delete_patient, name='delete_patient'),
+    path('Update/patient/<int:employee_id>', update_patient, name='update_patient'),
     
     
     # DRUGS URLS
-    path('drugs' , display_drugs, name='drugs'),
-    path('search_drug/', search_drug, name='search_drug'),
-    path('show_drugs/', show_all_drugs, name='show_all_drugs'),
-    path('add_drug', add_drug, name='add_drug'),
-    path('delete-drug/<int:drug_id>', delete_drug, name='delete_drug'),
-    path('change_drug/<int:drug_id>', change_drug, name='change_drug'),
+    path('Display/drug' , display_drug, name='display_drug'),
+    path('<str:drug_id>/drug', add_drug, name='add_drug'),
     path('download_drug/', download_drugs, name='download_drug'),
+    path('Update/drug/<int:drug_id>', update_drug, name='update_drug'),
+    path('Delete/drug/<int:drug_id>', delete_drug, name='delete_drug'),
     
     
     # MEDICAL RECORDS URLS
-    path('medicalrecord/<int:employee_id>/' ,display_medical_record,name='medical_record' ),
+    path('Display/medical-record/<int:employee_id>' ,display_medical_record,name='display_medical_record'),
     path('search_medical_record/<int:employee_id>' ,search_medical_record, name='search_medical_record'),
-    path('back_to_medical_record/<int:record_id>/', back_to_medical_record, name='back_to_medical_record'),
-    path('add_medical_record/<int:employee_id>/', add_medical_record, name='add_medical_record'),
-    path('medical_records/<int:employee_id>/', show_all_medical_records, name='show_all_medical_records'),    
-    path('medical-record/delete/<int:record_id>/', delete_medical_record, name='delete_medical_record'),
-    path('medical-record/change/<int:record_id>/', change_medical_record, name='change_medical_record'),
-    path('download-medical-record/<int:record_id>/', download_medical_record, name='download_medical_record'),
-    
-    # path('download_medical_record/<records>/', download_all, name='download_medical_record'),
+    path('back_to_medical_record/<int:record_id>', back_to_medical_record, name='back_to_medical_record'),
+    path('Add/medical-record/<int:employee_id>', add_medical_record, name='add_medical_record'),
+    path('download-medical-record/<int:record_id>/', download_medical_record, name='download_medical_record'), 
+    path('Delete/medical-record/<int:record_id>', delete_medical_record, name='delete_medical_record'),
+    path('Update/medical-record/<int:record_id>', change_medical_record, name='update_medical_record'),
     
     
     # APPOINTMENT URLS
-    path('appointment/<int:employee_id>/' , appointment , name='appointment'),
-    path('add_appointment/<int:employee_id>/', add_appointment, name='add_appointment'),
-    path('appointment/delete/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
-    path('appointment/change/<int:appointment_id>/',change_appointment, name='change_appointment'),
+    path('Display/appointment/<int:employee_id>/' , display_appointment , name='display_appointment'),
+    path('Add/appointment/<int:employee_id>/', add_appointment, name='add_appointment'),
+    path('Update/appointment/update/<int:appointment_id>/',update_appointment, name='update_appointment'),
+    path('Delete/appointment/delete/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
     
     
     # PRESCRIPTIONS URLS
-    path('prescription/<int:medical_record_id>/', display_prescription, name='prescription'),
-    path('add_prescription/<int:medical_record_id>/', add_prescription, name='add_prescription'),
-    path('change-prescription/<int:prescription_id>/', change_prescription, name='change_prescription'),
-    path('delete-prescription/<int:prescription_id>/', delete_prescription, name='delete_prescription'),
+    path('Display/prescription/<int:medical_record_id>/', display_prescription, name='display_prescription'),
+    path('Add/prescription/<int:medical_record_id>/', add_prescription, name='add_prescription'),
     path('download_prescription/<int:prescription_id>/', download_prescription, name='download_prescription'),
+    path('Update/prescription/<int:prescription_id>/', change_prescription, name='update_prescription'),
+    path('Delete/prescription/<int:prescription_id>/', delete_prescription, name='delete_prescription'),
     
     
     # VACCINATION URLS
-    path('vaccination/<int:medical_record_id>/', vaccination, name='vaccination'),
-    path('add_vaccination/<int:medical_record_id>', add_vaccination, name='add_vaccination'),
-    path('vaccination/delete/<int:vaccination_id>/', delete_vaccination, name='delete_vaccination'),
-    path('vaccination/change/<int:vaccination_id>/', change_vaccination, name='change_vaccination'),
+    path('Display/vaccination/<int:medical_record_id>/', display_vaccination, name='display_vaccination'),
+    path('Add/vaccination/<int:medical_record_id>', add_vaccination, name='add_vaccination'),
     path('vaccination/download/<int:vaccination_id>/', download_vaccination, name='download_vaccination'),
+    path('Update/vaccination/<int:vaccination_id>/', change_vaccination, name='change_vaccination'),
+    path('Delete/vaccination/<int:vaccination_id>/', delete_vaccination, name='delete_vaccination'),
+    
     
     
     
@@ -86,71 +77,66 @@ urlpatterns = [
     
     
     # PREVIOUS POST URLS
-    path('previous_post/<int:employee_id>/', previous_post, name='previous_post'),
-    path('add-previous-post/<int:employee_id>/', add_previous_post, name='add_previous_post'),
-    path('previous_post/change/<int:previous_post_id>/', change_previous_post, name='change_previous_post'),
-    path('previous_post/delete/<int:previous_post_id>/', delete_previous_post, name='delete_previous_post'),
+    path('Display/<int:employee_id>/display/previous_post', display_previous_post, name='display_previous_post'),
+    path('Add/<int:employee_id>/add/previous_post', add_previous_post, name='add_previous_post'),
     path('previous_post/download/<int:previous_post_id>/', download_previous_post, name='download_previous_post'),
+    path('Update/previous_post/<int:previous_post_id>', update_previous_post, name='update_previous_post'),
+    path('Delete/previous_post/<int:previous_post_id>', delete_previous_post, name='delete_previous_post'),
     
     
     
     # ACCIDENT URLS
-    path('accident/<int:employee_id>/', accident, name='accident'),
-    path('add_accident/<int:employee_id>/', add_accident, name='add_accident'),
-    path('accident/change/<int:accident_id>/', change_accident, name='change_accident'),
-    path('accident/delete/<int:accident_id>/', delete_accident, name='delete_accident'),
+    path('Display/<int:employee_id>/display/accident', display_accident, name='display_accident'),
+    path('Add/<int:employee_id>/add/accident', add_accident, name='add_accident'),
     path('accident/download/<int:accident_id>/', download_accident, name='download_accident'),
+    path('Update/accident/<int:accident_id>', update_accident, name='update_accident'),
+    path('Delete/accident/<int:accident_id>', delete_accident, name='delete_accident'),
     
     
     # OCCUPATIONAL ILLNESS URLS
-    path('occupational_illness/<int:employee_id>/', display_occupational_illness, name='occupational_illness'),
-    path('add-occupational-illness/<int:employee_id>/', add_occupational_illness, name='add_occupational_illness'),
-    path('occupational_illness/delete/<int:occupational_illness_id>/',delete_occupational_illness, name='delete_occupational_illness'),
-    path('occupational_illness/change/<int:occupational_illness_id>/',change_occupational_illness, name='change_occupational_illness'),
+    path('Display/occupational-illness/<int:employee_id>', display_occupational_illness, name='display_occupational_illness'),
+    path('Add/occupational-illness/<int:employee_id>', add_occupational_illness, name='add_occupational_illness'),
     path('occupational_illness/download/<int:occupational_illness_id>/',download_occupational_illness, name='download_occupational_illness'),
+    path('Update/occupational-illness/<int:occupational_illness_id>',update_occupational_illness, name='update_occupational_illness'),
+    path('Delete/occupational-illness/<int:occupational_illness_id>',delete_occupational_illness, name='delete_occupational_illness'),
     
     
     # BACKGROUND PATIENT URLS
-    path('background_patient/<int:employee_id>/', display_background_patient, name='background_patient'),
-    path('background_patient/add/<int:employee_id>/', add_background_patient, name='add_background_patient'),
-    path('change_background_patient/<int:background_patient_id>/', change_background_patient, name='change_background_patient'),
-    path('delete_background_patient/<int:background_patient_id>/',delete_background_patient, name='delete_background_patient'),
+    path('Display/background/<int:employee_id>', display_background, name='display_background'),
+    path('Add/background/<int:employee_id>', add_background, name='add_background'),
     path('download_background_patient/<int:background_patient_id>/', download_background_patient, name='download_background_patient'),
-
-
-
-
-    # path('delete_background_patient/<int:background_patient_id>/',delete_background_patient, name='delete_background_patient'), 
+    path('Update/background/<int:background_id>', update_background, name='update_background'),
+    path('Delete_background/<int:background_id>',delete_background, name='delete_background'), 
     
     
-    # SUMMONS FORM URLS
-    path('summons_form/<int:employee_id>/', display_summons_form, name='summons_form'), 
-    path('add_summons_form/<int:employee_id>/', add_summons_form, name='add_summons_form'),
-    path('change_summons_form/<int:summons_form_id>/', change_summons_form, name='change_summons_form'),
-    path('delete_summons_form/<int:summons_form_id>/', delete_summons_form, name='delete_summons_form'),
+    # SUMMONS URLS
+    path('Display/summons/<int:employee_id>', display_summons, name='display_summons'),
+    path('Add/summons/<int:employee_id>', add_summons, name='add_summons'),
     path('download_summons_form/<int:summons_form_id>/', download_summons_form, name='download_summons_form'),
+    path('Update/summons/<int:summons_id>', update_summons, name='update_summons'),
+    path('Delete/summons/<int:summons_id>', delete_summons, name='delete_summons'),
     
     
     # CURRENT POST URLS
-    path('current_post/<int:employee_id>/', display_current_post, name='current_post'),
-    path('add_current_post/<int:employee_id>/', add_current_post, name='add_current_post'),
-    path('update_current_post/<int:current_post_id>/', update_current_post, name='update_current_post'),
-    path('delete_current_post/<int:current_post_id>/', delete_current_post, name='delete_current_post'),
+    path('Display/current-post/<int:employee_id>', display_current_post, name='display_current_post'),
+    path('Add/current-post/<int:employee_id>', add_current_post, name='add_current_post'),
     path('download_current_post/<int:current_post_id>/', download_current_post, name='download_current_post'),
+    path('Update/current-post/<int:current_post_id>', update_current_post, name='update_current_post'),
+    path('Delete/current-post/<int:current_post_id>', delete_current_post, name='delete_current_post'),
     
     
     # MEDICAL VISIT URLS
-    path('medical_visit/<int:employee_id>/', show_medical_visit, name='medical_visit'),
-    path('add_medical_visit/<int:employee_id>/', add_medical_visit, name='add_medical_visit'),
-    path('download_medical_visit/<int:visit_id>/', download_medical_visit, name='download_medical_visit'),
-    path('change_medical_visit/<int:visit_id>/', change_medical_visit, name='change_medical_visit'),
-    path('medical_visit/delete/<int:visit_id>/', delete_medical_visit, name='delete_medical_visit'),
+    path('Display/medical_visit/<int:employee_id>', show_medical_visit, name='display_medical_visit'),
+    path('Add/medical_visit/<int:employee_id>', add_medical_visit, name='add_medical_visit'),
+    path('Download/medical_visit/<int:visit_id>', download_medical_visit, name='download_medical_visit'),
+    path('Update/medical_visit/<int:visit_id>', change_medical_visit, name='update_medical_visit'),
+    path('Delete/medical_visit/<int:visit_id>', delete_medical_visit, name='delete_medical_visit'),
     
     
     # ABSENTEEISM URLS
-    path('absenteeism/<int:employee_id>/',absenteeism, name='absenteeism'),
-    path('add_absenteeism/<int:employee_id>/',add_absenteeism, name='add_absenteeism'),
-    path('change_absenteeism/<int:absenteeism_id>/',change_absenteeism, name='change_absenteeism'),
-    path('absenteeism/delete/<int:absenteeism_id>/', delete_absenteeism, name='delete_absenteeism'),
+    path('Display/absenteeism/<int:employee_id>',display_absenteeism, name='display_absenteeism'),
+    path('Add/absenteeism/<int:employee_id>',add_absenteeism, name='add_absenteeism'),
     path('absenteeism/download/<int:absenteeism_id>/', download_absenteeism, name='download_absenteeism'),
+    path('Update/absenteeism/<int:absenteeism_id>',update_absenteeism, name='update_absenteeism'),
+    path('Delete/absenteeism/<int:absenteeism_id>', delete_absenteeism, name='delete_absenteeism'),
 ]

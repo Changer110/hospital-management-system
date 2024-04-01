@@ -15,18 +15,13 @@ from .prescription import *
 from .current_post import *
 
 
-
-
-from .delete_drug import *
-from .change_drug import *
-from .change_doctor import *
-from .delete_doctor import *
 from .vaccination import *
 
 from .enterprise import *
 from .previous_post import *
-from .accident_sheet import *
+from .accident import *
 from .occupational_illness import *
-from .background_patient import *
-from .summons_form import *
-from .absenteeism_sheet import *
+from .background import *
+from .summons import *
+from .absenteeism import *
+from .import_all import *

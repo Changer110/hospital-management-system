@@ -1,0 +1,103 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} Patient</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+  <div class="form-container">
+    <h1>Change information</h1>
+    <form method="POST" action="{% url sbt employee %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label>Employee picture</label>
+      <input class="input_file" type="file" onchange="getfile(event)" name="picture">
+      <img src="/static/img/{{patient.picture}}" id="picfile" alt="">
+
+      <label>Employee ID</label>
+      <input type="number" name="employee_id" step="1" value="{{patient.employee_id}}">
+
+      <label>Enterprise:</label>
+      <select  name="enterprise_ID">
+        {% for enterprise in enterprises %}
+          <option value="{{enterprise.enterprise_ID}}">{{enterprise.name}}</option>
+        {% endfor %}
+      </select>
+      
+      <label>Name</label>
+      <input value="{{patient.employee_name}}" type="text" name="employee_name">
+
+      <label>Date of Birth</label>
+      <input value="{{patient.birth_date}}" name="birth_date"
+        type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Place of Birth</label>
+      <input value="{{patient.birth_place}}" type="text" name="birth_place">
+
+      <label>Nationality</label>
+      <input value="{{patient.nationality}}" type="text" id="nationality" name="nationality">
+
+      <label>Age</label>
+      <input value="{{patient.age}}" type="number" id="age" name="age">
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+
+      <label>Phone Number</label>
+      <input value="{{patient.phone_number}}" type="text" name="phone_number">
+
+      <label>Email</label>
+      <input value="{{patient.email}}" type="email" name="email">
+
+      <label>Address</label>
+      <textarea id="address" name="address">{{patient.address}}</textarea>
+
+      <label>Size</label>
+      <input value="{{patient.size}}" type="text"  name="size">
+
+      <label>Blood Group</label>
+      <input value="{{patient.blood_group}}" type="text" name="blood_group">
+
+      <label>Marital Status</label>
+      <select name="marital_status">
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+        <option value="Divorced">Divorced</option>
+        <option value="Widow (sphinster)">Widow or sphinster</option>
+      </select>
+
+      <label>Number of Dependent Children</label>
+      <input value="{{patient.dependent_children}}" type="number" name="dependent_children">
+
+      <label>Affiliation with INSS</label>
+      <input value="{{patient.affiliation_with_inss}}" type="text" name="affiliation_with_inss">
+
+      <label>Emergency Contact</label>
+      <input value="{{patient.emergency_contact}}" type="text" name="emergency_contact">
+
+      <label>Hiring Date</label>
+      <input value="{{patient.hiring_date}}" name="hiring_date"
+        type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Departure Date</label>
+      <input value="{{patient.departure_date}}" name="departure_date"
+        type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+
+      <label>Reason for Leaving</label>
+      <input value="{{patient.leaving_reason}}" type="text" name="leaving_reason">
+
+      <label>Qualification</label>
+      <input value="{{patient.qualification}}" type="text" name="qualification">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <script src="{% static 'js/functions.js'%}"></script>
+
+</body>
+</html>

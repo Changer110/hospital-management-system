@@ -4,139 +4,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Drugs</title>
-  <link rel="stylesheet" href="{% static 'css/medical_visit.css' %}">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    h1 {
-      color: #333;
-      text-align: center;
-    }
-    table{
-      width : 100%;
-      border-collapse: collapse;
-    }
-    table th{
-      padding : 10px;
-      text-align : center;
-      border-bottom : 1px solid #ddd;
-      background-color : #f5f5f5;
-      
-    }
-    table td{
-      padding : 10px;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .add-button {
-      display: inline-block;
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-bottom: 20px;
-    }
-
-    .add-patient-button {
-      display: inline-block;
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-bottom: 20px;
-      margin-left: 10px;
-    }
-
-    .delete-button {
-      background-color: #f44336;
-      color: #fff;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .change-button {
-      background-color: #2196f3;
-      color: #fff;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .selected {
-      background-color: #f0f0f0;
-    }
-  </style>
+  <title>Drug</title>
+  <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
 </head>
 
 <body>
   <nav>
-    <a href="{% url 'patient' 'all' %}">Patient</a>
-    <a href="{% url 'doctor' %}">Doctors</a>
-    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
+    <a href="">Appointment</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
-  <h1>Drug List</h1>
-  <a href="{% url 'add_drug' %}" class="add-button">Add Drug</a>
-  <form action="{% url 'search_drug' %}" style="display: flex; gap: 5px" method="POST">
-    {% csrf_token %}
-    <input type="name" name="drug_name">
-    <input type="submit" value="Search">
-  </form>
-  <a href="{% url 'show_all_drugs' %}" class="add-button">Show all Drugs</a>
-  <a href="{% url 'download_drug' %}" class="add-button">Download all Drugs</a>
-  <table id="drug-table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Quantity</th>
-        <th>Expiry Date</th>
-        <th>Dosage Issued</th>
-        <th>Price</th>
-        <th>Price Per Drug</th>
-        <th>Imported From</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for drug in drugs %}
-      <tr>
-        <td>{{ drug.name }}</td>
-        <td>{{ drug.drug_type }}</td>
-        <td>{{ drug.quantity }}</td>
-        <td>{{ drug.expiry_date }}</td>
-        <td>{{ drug.dosage_issued }}</td>
-        <td>{{ drug.price }}</td>
-        <td>{{ drug.price_per_drug }}</td>
-        <td>{{ drug.imported_from }}</td>
-        <td>
-          <a href="{% url 'change_drug' drug.id %}" class="change-button">Change</a>
-          <form action="{% url 'delete_drug' drug.id %}" method="POST" style="display: inline;">
-            {% csrf_token %}
-            <input type="submit" value="Delete" class="delete-button">
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+
+  <h1 style="text-align: center;">Drug List</h1>
+
+  <div class="info_action">
+    <a href="{% url 'add_drug' 'Add' %}" class="green_link">Add</a>
+    <form action="{% url 'display_drug' %}" style="display: flex; gap: 5px" method="POST">
+      {% csrf_token %}
+      <input type="name" name="drug_name">
+      <input type="submit" value="Search">
+    </form>
+    <a href="{% url 'display_drug' %}" class="green_link">View all</a>
+  </div>
+
+  <div class="data_container">
+    <table class="other_table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Quantity</th>
+          <th>Expiry Date</th>
+          <th>Dosage Issued</th>
+          <th>Price</th>
+          <th>Price Per Drug</th>
+          <th>Imported From</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for drug in drugs %}
+        <tr>
+          <td>{{ drug.name }}</td>
+          <td>{{ drug.drug_type }}</td>
+          <td>{{ drug.quantity }}</td>
+          <td>{{ drug.expiry_date }}</td>
+          <td>{{ drug.dosage_issued }}</td>
+          <td>{{ drug.price }}</td>
+          <td>{{ drug.price_per_drug }}</td>
+          <td>{{ drug.imported_from }}</td>
+          <td>
+            <div>
+              <a href="{% url 'update_drug' drug.id %}" class="green_link">Download</a>
+              <a href="{% url 'update_drug' drug.id %}" class="blue_link">Update</a>
+              <a href="{% url 'delete_drug' drug.id %}" class="red_link" >Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
 
-
-
-
-  <script>
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const drugTable = document.querySelector('#drug-table');
+      const drugTable = document.querySelector('.other_table');
       const drugTableRows = drugTable.querySelectorAll('tbody tr');
       drugTableRows.forEach(row => {
         row.addEventListener('click', () => {
@@ -144,7 +79,7 @@
         });
       });
     });
-  </script>
+  </script> -->
 </body>
 
 </html>
