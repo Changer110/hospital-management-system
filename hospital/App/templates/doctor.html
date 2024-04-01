@@ -51,7 +51,9 @@
           <td>{{ doctor.address }}</td>
           <td>
             <div>
-              <a href="{% url 'update_doctor' doctor.doctor_id %}" class="blue_link">Appointment</a>
+              <a href="" class="green_link">Appointment</a>
+              <a href="{% url 'update_doctor' doctor.doctor_id %}" class="blue_link">Update</a>
+              <a href="{% url 'delete_doctor' doctor.doctor_id %}" class="red_link">Delete</a>
             </div>
           </td>
         </tr>
