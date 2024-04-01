@@ -1,12 +1,15 @@
-from django.shortcuts import render,redirect
-from App.models import  Vaccination, MedicalRecord
-from App.models.forms import VaccinationForm
+
+from .import_all import *
 
 
 def display_vaccination(request, medical_record_id):
     if request.session.get('user'):
+        record = MedicalRecord.objects.get(pk = medical_record_id)
         vaccinations = Vaccination.objects.filter(medical_record=medical_record_id)
-        context = {'vaccinations': vaccinations, 'record': medical_record_id}
+        context = {
+            'patient' : record.patient,
+            'vaccinations': vaccinations,
+            'record': medical_record_id}
         return render(request, 'vaccination.html', context)
     return redirect('login')
 
@@ -30,23 +33,8 @@ def add_vaccination(request, medical_record_id):
 
 
 
-def delete_vaccination(request, vaccination_id):
-    if request.session.get('user'):
-        try:
-            vaccination = Vaccination.objects.get(id=vaccination_id)
-        except Vaccination.DoesNotExist:
-            return redirect('vaccination', medical_record_id=vaccination.medical_record_id)
-        
-        if request.method == 'POST':
-            vaccination.delete()
-            return redirect('vaccination', medical_record_id=vaccination.medical_record_id)
-        
-        context = {'vaccination': vaccination}
-        return render(request, 'delete_vaccination.html', context)
-    return redirect('login')
 
-
-def change_vaccination(request, vaccination_id):
+def update_vaccination(request, vaccination_id):
     if request.session.get('user'):
         try:
             vaccination = Vaccination.objects.get(id=vaccination_id)
@@ -64,6 +52,25 @@ def change_vaccination(request, vaccination_id):
         context = {'form': form, 'vaccination': vaccination}
         return render(request, 'change_vaccination.html', context)
     return redirect('login')
+
+
+def delete_vaccination(request, vaccination_id):
+    if request.session.get('user'):
+        try:
+            vaccination = Vaccination.objects.get(id=vaccination_id)
+        except Vaccination.DoesNotExist:
+            return redirect('vaccination', medical_record_id=vaccination.medical_record_id)
+        
+        if request.method == 'POST':
+            vaccination.delete()
+            return redirect('vaccination', medical_record_id=vaccination.medical_record_id)
+        
+        context = {'vaccination': vaccination}
+        return render(request, 'delete_vaccination.html', context)
+    return redirect('login')
+
+
+
 
 
 

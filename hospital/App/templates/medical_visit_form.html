@@ -1,79 +1,82 @@
 
-<!-- add_background_patient.html -->
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Medical visit</title>
-  <link rel="stylesheet" href="static/css/background_patient.css">
+  <title>{{action}} Medical visit</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
 <body>
-  <h1>Add a medical visit for  {{ patient.name }}</h1>
-  <form method="post" action="{% url 'add_medical_visit' patient.employee_id %}">
-    {% csrf_token %}
-    <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+  <div class="form-container">
+    <h1>{{action}} a medical visit for  {{ patient.employee_name }}</h1>
+    <form method="POST" action="{% url sbt value %}">
+      {% csrf_token %}
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
-    <label for="hospital_visit">hospital visit : </label>
-    <input type="text" name="hospital_visit" id="hospital_visit">
+      <label for="hospital_visit">hospital visit : </label>
+      <input type="text" name="hospital_visit" id="hospital_visit">
 
-    <label for="plaintes">plaintes : </label>
-    <input type="text" name="plaintes" id="plaintes">
+      <label for="plaintes">plaintes : </label>
+      <input type="text" name="plaintes" id="plaintes">
 
-    <label for="mensuration_kg">Weights :</label>
-    <input type="number" step="any" name="mensuration_kg" id="mensuration_kg">
+      <label for="mensuration_kg">Weights :</label>
+      <input type="number" step="any" name="mensuration_kg" id="mensuration_kg">
 
-    <label for="mensuration_size">Size : </label>
-    <input type="number" step="any" name="mensuration_size" id="mensuration_size">
+      <label for="mensuration_size">Size : </label>
+      <input type="number" step="any" name="mensuration_size" id="mensuration_size">
 
-    <label for="mensuration_TA">TA :</label>
-    <input type="number" step="any" name="mensuration_TA" id="mensuration_TA">
+      <label for="mensuration_TA">TA :</label>
+      <input type="number" step="any" name="mensuration_TA" id="mensuration_TA">
 
-    <label for="mensuration_PIT">PIT :</label>
-    <input type="number" step="any" name="mensuration_PIT" id="mensuration_PIT">
+      <label for="mensuration_PIT">PIT :</label>
+      <input type="number" step="any" name="mensuration_PIT" id="mensuration_PIT">
 
-    <label for="mensuration_PTE">PTE :</label>
-    <input type="number" step="any" name="mensuration_PTE" id="mensuration_PTE">
+      <label for="mensuration_PTE">PTE :</label>
+      <input type="number" step="any" name="mensuration_PTE" id="mensuration_PTE">
 
-    <label for="mensuration_PA">PA :</label>
-    <input type="number" step="any" name="mensuration_PA" id="mensuration_PA">
+      <label for="mensuration_PA">PA :</label>
+      <input type="number" step="any" name="mensuration_PA" id="mensuration_PA">
 
-    <label for="mensuration_Pouls">Pouls :</label>
-    <input type="number" step="any" name="mensuration_Pouls" id="mensuration_Pouls">
+      <label for="mensuration_Pouls">Pouls :</label>
+      <input type="number" step="any" name="mensuration_Pouls" id="mensuration_Pouls">
 
-    <label for="mensuration_AV_OD">AV OD :</label>
-    <input type="number" step="any" name="mensuration_AV_OD" id="mensuration_AV_OD">
+      <label for="mensuration_AV_OD">AV OD :</label>
+      <input type="number" step="any" name="mensuration_AV_OD" id="mensuration_AV_OD">
 
-    <label for="mensuration_OG">OG :</label>
-    <input type="number" step="any" name="mensuration_OG" id="mensuration_OG">
+      <label for="mensuration_OG">OG :</label>
+      <input type="number" step="any" name="mensuration_OG" id="mensuration_OG">
 
-    <label for="biology">Biology :</label>
-    <textarea name="biology" id="biology"></textarea>
+      <label for="biology">Biology :</label>
+      <textarea name="biology" id="biology"></textarea>
 
-    <label for="electrocardiogram">Electrocardiogram :</label>
-    <textarea name="electrocardiogram" id="electrocardiogram"></textarea>
+      <label for="electrocardiogram">Electrocardiogram :</label>
+      <textarea name="electrocardiogram" id="electrocardiogram"></textarea>
 
-    <label for="audiometry">Audiometry :</label>
-    <textarea name="audiometry" id="audiometry"></textarea>
+      <label for="audiometry">Audiometry :</label>
+      <textarea name="audiometry" id="audiometry"></textarea>
 
-    <label for="spirometry">Spirometry :</label>
-    <textarea name="spirometry" id="spirometry"></textarea>
+      <label for="spirometry">Spirometry :</label>
+      <textarea name="spirometry" id="spirometry"></textarea>
 
-    <label for="RX_pulmonery">RX pulmonery :</label>
-    <textarea name="RX_pulmonery" id="RX_pulmonery"></textarea>
+      <label for="RX_pulmonery">RX pulmonery :</label>
+      <textarea name="RX_pulmonery" id="RX_pulmonery"></textarea>
 
-    <label for="what_to_do">What to do :</label>
-    <textarea name="what_to_do" id="what_to_do"></textarea>
+      <label for="what_to_do">What to do :</label>
+      <textarea name="what_to_do" id="what_to_do"></textarea>
 
-    <label for="aptitude">Aptitude :</label>
-    <textarea name="aptitude" id="aptitude"></textarea>
+      <label for="aptitude">Aptitude :</label>
+      <textarea name="aptitude" id="aptitude"></textarea>
 
-    <label for="doctor">Doctor : </label>
-    <select id="doctor"  name="doctor">
-      {% for doctor in doctors %}
-        <option value="{{doctor.doctor_id}}">{{doctor.name}}</option>
-      {% endfor %}
-    </select>
+      <label for="doctor">Doctor : </label>
+      <select id="doctor"  name="doctor">
+        {% for doctor in doctors %}
+          <option value="{{doctor.doctor_id}}">{{doctor.name}}</option>
+        {% endfor %}
+      </select>
 
-    <button type="submit">Register</button>
-  </form>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+  
 </body>
 </html>

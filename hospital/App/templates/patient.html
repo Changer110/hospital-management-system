@@ -121,7 +121,7 @@
         <td>{{ patient.qualification }}</td>
       </tr>
       <tr>
-
+        <th><a href="{% url 'download_patient' patient.employee_id %}" class="blue_link">Download</a></th>
         <th><a href="{% url 'update_patient' patient.employee_id %}" class="blue_link">Update</a></th>
         <th><a href="{% url 'delete_patient' patient.employee_id %}" class="red_link">Delete</a></th>
         <th><a href="{% url 'display_medical_record' patient.employee_id %}" class="green_link">Medical record</a></th>

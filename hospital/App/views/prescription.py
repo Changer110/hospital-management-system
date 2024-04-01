@@ -1,6 +1,5 @@
-from django.shortcuts import render,redirect
-from App.models import  Prescription, MedicalRecord, Drugs
-from App.models.forms import PrescriptionForm
+
+from .import_all import *
 
 
 def display_prescription(request, medical_record_id):
@@ -22,7 +21,7 @@ def add_prescription(request, medical_record_id):
                 drug.dosage_issued = drug.dosage_issued + int(request.POST['dosage'])
                 drug.quantity = drug.quantity - int(request.POST['dosage'])
                 drug.save()
-                return redirect('prescription', medical_record_id = medical_record_id)
+                return redirect('display_prescription', medical_record_id = medical_record_id)
             return redirect('')
         context = {
             'action' : 'Add',
@@ -77,8 +76,6 @@ def delete_prescription(request, prescription_id):
 
 
 
-from django.http import HttpResponse
-from reportlab.pdfgen import canvas
 
 def download_prescription(request, prescription_id):
     if request.session.get('user'):
@@ -87,14 +84,14 @@ def download_prescription(request, prescription_id):
         
         # Create the PDF file
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=prescription_{patient}.pdf'
+        response['Content-Disposition'] = f'attachment; filename=prescription_{patient.employee_name}.pdf'
         
         # Generate the PDF content using reportlab
         p = canvas.Canvas(response)
         p.setFont("Helvetica", 12)
         
         # Write prescription information in PDF
-        p.drawString(100, 700, f"Prescription Information for {patient}")
+        p.drawString(100, 700, f"Prescription Information for {patient.employee_name}")
         p.drawString(100, 675, "------------------------------------")
         p.drawString(100, 650, f"Drug Name: {prescription.drug_name}")
         p.drawString(100, 625, f"Dosage: {prescription.dosage}")

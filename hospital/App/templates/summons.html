@@ -44,6 +44,7 @@
           <td>{{ summons.observation }}</td>
           <td>
             <div>
+              <a href="{% url 'download_summons' summons.id %}" class="green_link">Download</a> 
               <a href="{% url 'update_summons' summons.id %}" class="blue_link">Update</a> 
               <a href="{% url 'delete_summons' summons.id %}" class="red_link">Delete</a>
             </div>

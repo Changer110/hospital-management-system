@@ -24,7 +24,7 @@
   </div>    
   
   <div class="data_container">
-    <table>
+    <!-- <table>
       <tr>
         
       </tr>
@@ -49,22 +49,7 @@
       <tr>
         
       </tr>
-    </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </table> -->
 
 
 
@@ -131,12 +116,12 @@
 
       <div class="6th_info">
         <h3>IV - Aptitude : {{visit.aptitude}}</h3>
-        <label for="">Doctor : <span>{{visit.aptitude}}</span></label>
+        <label>Doctor : <span>{{visit.aptitude}}</span></label>
       </div>
       <div class="info_action">
-        <a href="{% url 'download_medical_visit' visit.pk %}">Download</a>
-        <a href="{% url 'download_medical_visit' visit.pk %}">Change</a>
-        <a href="{% url 'delete_medical_visit' visit.pk %}">Delete</a>
+        <a href="{% url 'download_medical_visit' visit.pk %}" class="green_link">Download</a>
+        <a href="{% url 'download_medical_visit' visit.pk %}" class="blue_link">Update</a>
+        <a href="{% url 'delete_medical_visit' visit.pk %}" class="red_link">Delete</a>
       </div>
       
       <h3 style="text-align: center;">................. .................. .......................... .................................. .....................................</h3>

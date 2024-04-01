@@ -82,15 +82,15 @@ def download_occupational_illness(request, occupational_illness_id):
         p.setFont("Helvetica-Bold", 16)
 
         # Write the heading with employee name
-        employee_name = occupational_illness.employee_id.name
+        employee_name = occupational_illness.employee_id.employee_name
         p.drawString(50, 750, f"Occupational Illness Information for {employee_name}")
 
         p.setFont("Helvetica", 12)
 
         # Write the OccupationalIllness information to the PDF
         p.drawString(50, 720, f"Date: {occupational_illness.date}")
-        p.drawString(50, 700, f"Maladie: {occupational_illness.maladie}")
-        p.drawString(50, 680, f"Tableau: {occupational_illness.tableau}")
+        p.drawString(50, 700, f"Maladie: {occupational_illness.sickness}")
+        p.drawString(50, 680, f"Tableau: {occupational_illness.table}")
         p.drawString(50, 660, f"Causal Agent: {occupational_illness.causal_agent}")
         p.drawString(50, 640, f"Job: {occupational_illness.job}")
         p.drawString(50, 620, f"Decision: {occupational_illness.decision}")

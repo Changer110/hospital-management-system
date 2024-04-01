@@ -74,3 +74,26 @@ def delete_absenteeism(request, absenteeism_id):
         context = {'absenteeism': absenteeism}
         return render(request, 'delete_absenteeism.html', context)
     return redirect('login')
+
+
+def download_absenteeism(request, absenteeism_id):
+    if request.session.get('user'):
+        absenteeism = Absenteeism.objects.get(id=absenteeism_id)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="absenteeism.pdf"'
+        p = canvas.Canvas(response)
+        p.setFont("Helvetica-Bold", 16)
+        employee_name = absenteeism.employee_id.employee_name
+        p.drawString(50, 750, f"Absenteeism Information for {employee_name}")
+        p.setFont("Helvetica", 12)
+        p.drawString(50, 720, f"Type: {absenteeism.type}")
+        p.drawString(50, 700, f"Cause: {absenteeism.cause}")
+        p.drawString(50, 680, f"Beginning: {absenteeism.beginning}")
+        p.drawString(50, 660, f"Reprise: {absenteeism.reprise}")
+        p.drawString(50, 640, f"Days Off: {absenteeism.days_off}")
+
+        p.showPage()
+        p.save()
+
+        return response
+    return redirect('login')

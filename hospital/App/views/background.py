@@ -67,4 +67,32 @@ def delete_background(request, background_patient_id):
 
         context = {'background_patient': background_patient}
         return render(request, 'delete_background.html', context)
-    return redirect('login')       
+    return redirect('login')
+
+
+
+def download_background(request, background_id):
+    if request.session.get('user'):
+        background_patient = Background.objects.get(id=background_id)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="background_patient.pdf"'
+        p = canvas.Canvas(response)
+        p.setFont("Helvetica-Bold", 16)
+        employee_name = background_patient.employee_id.employee_name
+        p.drawString(50, 750, f"Background Information for {employee_name}")
+
+        p.setFont("Helvetica", 12)
+        p.drawString(50, 720, f"Personal Medical: {background_patient.personal_medical}")
+        p.drawString(50, 700, f"Personal Surgical: {background_patient.personal_surgical}")
+        p.drawString(50, 680, f"Professional Medical: {background_patient.proffesional_medical}")
+        p.drawString(50, 660, f"Professional Surgical: {background_patient.proffesional_surgical}")
+        p.drawString(50, 640, f"Family Medical: {background_patient.family_medical}")
+        p.drawString(50, 620, f"Family Surgical: {background_patient.family_surgical}")
+        p.drawString(50, 600, f"Social Personal: {background_patient.social_personal}")
+        p.drawString(50, 580, f"Social Family: {background_patient.social_family}")
+
+        p.showPage()
+        p.save()
+
+        return response
+    return redirect('login') 

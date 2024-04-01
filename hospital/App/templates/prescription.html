@@ -8,10 +8,10 @@
 </head>
 <body>
   <nav>
-    <a href="{% url 'patient' 'all' %}">Patients</a>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
     <a href="">Appointment</a>
-    <a href="{% url 'doctor' %}">Doctors</a>
-    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
@@ -38,7 +38,8 @@
           <td>{{ prescription.dosage }}</td>
           <td>
             <div>
-              <a href="{% url 'change_prescription' prescription.pk %}" class="blue_link">Change</a>
+              <a href="{% url 'download_prescription' prescription.pk %}" class="green_link">Download</a>
+              <a href="{% url 'update_prescription' prescription.pk %}" class="blue_link">Update</a>
               <a href="{% url 'delete_prescription' prescription.pk %}" class="red_link">Delete</a>
             </div>
           </td>

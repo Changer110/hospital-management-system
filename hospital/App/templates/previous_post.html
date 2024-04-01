@@ -42,6 +42,7 @@
           <td>{{ previous_post.nuisance_factors }}</td>
           <td>
             <div>
+              <a href="{% url 'download_previous_post' previous_post.id %}" class="green_link">Download</a>
               <a href="{% url 'update_previous_post' previous_post.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_previous_post' previous_post.id %}" class="red_link">Delete</a>
             </div>

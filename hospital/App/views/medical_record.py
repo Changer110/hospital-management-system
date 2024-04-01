@@ -39,7 +39,7 @@ def add_medical_record(request, employee_id):
                 record = form.save(commit=False)
                 record.date = date_time_now()
                 record.save()
-                return redirect('medical_record', employee_id = employee_id)
+                return redirect('display_medical_record', employee_id = employee_id)
             return redirect('add_medical_record', employee_id = employee_id)
         context = {
             'action' : 'Add',
@@ -112,10 +112,10 @@ def search_medical_record(request, employee_id):
                     'begin' : request.POST['begin_date'],
                     'end' : request.POST['end_date']
                 }
-                return redirect('medical_record',employee_id = employee_id)
+                return redirect('display_medical_record',employee_id = employee_id)
             except:
                 pass
-        return redirect('medical_record', employee_id = employee_id)
+        return redirect('display_medical_record', employee_id = employee_id)
     return redirect('login')
 
 
@@ -166,20 +166,15 @@ def download_medical_record(request, record_id):
             
             response = HttpResponse(content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename="medical_record.pdf"'
-
-            buffer = BytesIO()
-            p = canvas.Canvas(buffer, pagesize=settings.DEFAULT_PAGE_SIZE)
+            p = canvas.Canvas(response)
             p.setFont("Helvetica", 12)
             
-            p.drawString(100, 700, f"Name: {medical_record.patient.name}")
+            p.drawString(100, 700, f"Name: {medical_record.patient.employee_name}")
             p.drawString(100, 680, f"Date: {medical_record.date}")
             p.drawString(100, 660, f"Price: {medical_record.price}")
 
             p.showPage()
             p.save()
-            pdf = buffer.getvalue()
-            buffer.close()
-            response.write(pdf)
 
             return response
         except MedicalRecord.DoesNotExist:

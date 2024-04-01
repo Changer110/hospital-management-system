@@ -21,26 +21,34 @@ def add_current_post(request, employee_id):
         form = CurrentPostForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('current_post', employee_id = employee_id)
-    context = {'patient' : Patient.objects.get(employee_id = employee_id)}
-    return render(request, 'add_current_post.html', context)
+            return redirect('display_current_post', employee_id = employee_id)
+    context = {
+        'action' : 'Add',
+        'sbt' : 'add_current_post',
+        'value' : employee_id,
+        'patient' : Patient.objects.get(employee_id = employee_id)
+    }
+    return render(request, 'current_post_form.html', context)
 
 
 
 def update_current_post(request, current_post_id):
     if request.session.get('user'):
         current_post = CurrentPost.objects.get(id=current_post_id)
-
         if request.method == 'POST':
             form = CurrentPostForm(request.POST, instance=current_post)
             if form.is_valid():
                 form.save()
-                return redirect('current_post', employee_id=current_post.employee_id.employee_id )
-        else:
-            form = CurrentPostForm(instance=current_post)
-
-        context = {'form': form, 'current_post': current_post}
-        return render(request, 'update_current_post.html', context)
+                return redirect('display_current_post', employee_id=current_post.employee_id.employee_id)
+            return redirect('update_current_post', current_post_id = current_post_id)
+        context = {
+            'action' : 'Update',
+            'sbt' : 'update_current_post',
+            'value' : current_post_id,
+            'current_post' : current_post,
+            'patient' : current_post.employee_id
+        }
+        return render(request, 'current_post_form.html', context)
     return redirect('login')
 
 

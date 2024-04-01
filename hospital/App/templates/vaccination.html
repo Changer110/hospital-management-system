@@ -8,14 +8,14 @@
 </head>
 <body>
   <nav>
-    <a href="{% url 'patient' 'all' %}">Patients</a>
+    <a href="{% url 'display_patient' 'all' %}">Patients</a>
     <a href="">Appointment</a>
-    <a href="{% url 'doctor' %}">Doctors</a>
-    <a href="{% url 'show_all_drugs' %}">Drugs</a>
+    <a href="{% url 'display_doctor' %}">Doctors</a>
+    <a href="{% url 'display_drug' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
-  <h1 style="text-align: center;">Vaccination Information</h1>
+  <h1 style="text-align: center;">Vaccination Information for {{patient.employee_name}}</h1>
 
   <div class="info_action">
       <a href="{% url 'add_vaccination' record %}" class="green_link">Add</a>
@@ -44,9 +44,9 @@
           <td>{{ vaccination.dose }}</td>
           <td>
             <div>
-              <a href="{% url 'download_vaccination' vaccination.pk %}" class="delete-button">Download</a>
-              <a href="{% url 'delete_vaccination' vaccination.pk %}">Delete</a>
-              <a href="{% url 'change_vaccination' vaccination.pk %}">Change</a>
+              <a href="{% url 'download_vaccination' vaccination.pk %}" class="green_link">Download</a>
+              <a href="{% url 'update_vaccination' vaccination.pk %}" class="blue_link">Update</a>
+              <a href="{% url 'delete_vaccination' vaccination.pk %}" class="red_link">Delete</a>
             </div>
           </td>
         </tr>

@@ -92,7 +92,7 @@ def download_previous_post(request, previous_post_id):
     p.setFont("Helvetica-Bold", 16)
 
     # Write the heading with employee name
-    employee_name = previous_post.employee_id.name
+    employee_name = previous_post.employee_id.employee_name
     p.drawString(50, 750, f"Previous Post Information for {employee_name}")
 
     p.setFont("Helvetica", 12)

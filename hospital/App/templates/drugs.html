@@ -27,6 +27,7 @@
       <input type="submit" value="Search">
     </form>
     <a href="{% url 'display_drug' %}" class="green_link">View all</a>
+    <a href="{% url 'download_drug'%}" class="green_link">Download all</a>
   </div>
 
   <div class="data_container">
@@ -57,7 +58,7 @@
           <td>{{ drug.imported_from }}</td>
           <td>
             <div>
-              <a href="{% url 'update_drug' drug.id %}" class="green_link">Download</a>
+              <!-- <a href="{% url 'download_drug'%}" class="green_link">Download</a> -->
               <a href="{% url 'update_drug' drug.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_drug' drug.id %}" class="red_link" >Delete</a>
             </div>

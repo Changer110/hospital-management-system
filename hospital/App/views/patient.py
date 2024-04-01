@@ -113,11 +113,11 @@ def download_patient(request, employee_id):
         row_height = 20
         data = [
             f"Employee ID: {patient.employee_id}",
-            f"Name: {patient.name}",
-            f"Patient Creation Date: {patient.patient_creation_date}",
-            f"Enterprise Name: {patient.enterprise_name.enterprise_ID}",
-            f"Date of Birth: {patient.date_of_birth}",
-            f"Place of Birth: {patient.place_of_birth}",
+            f"Name: {patient.employee_name}",
+            f"Patient Creation Date: {patient.creation_date}",
+            f"Enterprise Name: {patient.enterprise_ID.name}",
+            f"Date of Birth: {patient.birth_date}",
+            f"Place of Birth: {patient.birth_date}",
             f"Nationality: {patient.nationality}",
             f"Age: {patient.age}",
             f"Gender: {patient.gender}",
@@ -127,12 +127,12 @@ def download_patient(request, employee_id):
             f"Size: {patient.size}",
             f"Blood Group: {patient.blood_group}",
             f"Marital Status: {patient.marital_status}",
-            f"Number of Dependent Children: {patient.num_dependent_children}",
+            f"Number of Dependent Children: {patient.dependent_children}",
             f"Affiliation with INSS: {patient.affiliation_with_inss}",
             f"Emergency Contact: {patient.emergency_contact}",
             f"Hiring Date: {patient.hiring_date}",
             f"Departure Date: {patient.departure_date}",
-            f"Reason for Leaving: {patient.reason_for_leaving}",
+            f"Reason for Leaving: {patient.leaving_reason}",
             f"Qualification: {patient.qualification}",
             # Add more fields as needed
         ]

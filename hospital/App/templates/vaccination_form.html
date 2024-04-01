@@ -1,34 +1,38 @@
+
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Vaccination</title>
-  <link rel="stylesheet" href="static/css/add_vaccination.css">
+  <title>{{action}} Vaccination</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
 <body>
-  <div class="add-vaccination-container">
-    <h1 class="add-vaccination-title">Add Vaccination</h1>
-    <form method="post">
+  <div class="form-container">
+    <h1>{{action}} Vaccination information</h1>
+    <form method="POST" action="{% url sbt value %}">
       {% csrf_token %}
       
       <input type="hidden" name="medical_record" value="{{ record }}">
       
-      <label for="date">Date:</label>
-      <input type="date" name="date" id="date">
+      <label>Date</label>
+      <input type="text" name="date" value="{{vaccination.date}}"
+      onblur="show_date(event)" onfocus="insert_date(event)">
       
-      <label for="vaccine">Vaccine:</label>
-      <input type="text" name="vaccine" id="vaccine">
+      <label>Vaccine</label>
+      <input type="text" name="vaccine" value="{{vaccination.vaccine}}">
       
-      <label for="lot">Lot:</label>
-      <input type="text" name="lot" id="lot">
+      <label>Lot</label>
+      <input type="text" name="lot" value="{{vaccination.lot}}">
       
-      <label for="type">Type:</label>
-      <input type="text" name="type" id="type">
+      <label>Type</label>
+      <input type="text" name="type" value="{{vaccination.type}}">
       
-      <label for="dose">Dose:</label>
-      <input type="number" name="dose" id="dose">
+      <label>Dose</label>
+      <input type="number" name="dose" value="{{vaccination.dose}}">
       
-      <input type="submit" value="Save" class="save-button">
+      <button type="submit">Save</button>
     </form>
   </div>
+  <script src="{% static 'js/functions.js'%}"></script>
 </body>
 </html>

@@ -63,7 +63,7 @@ urlpatterns = [
     path('Display/vaccination/<int:medical_record_id>/', display_vaccination, name='display_vaccination'),
     path('Add/vaccination/<int:medical_record_id>', add_vaccination, name='add_vaccination'),
     path('vaccination/download/<int:vaccination_id>/', download_vaccination, name='download_vaccination'),
-    path('Update/vaccination/<int:vaccination_id>/', change_vaccination, name='change_vaccination'),
+    path('Update/vaccination/<int:vaccination_id>/', update_vaccination, name='update_vaccination'),
     path('Delete/vaccination/<int:vaccination_id>/', delete_vaccination, name='delete_vaccination'),
     
     
@@ -101,10 +101,10 @@ urlpatterns = [
     path('Delete/occupational-illness/<int:occupational_illness_id>',delete_occupational_illness, name='delete_occupational_illness'),
     
     
-    # BACKGROUND PATIENT URLS
+    # BACKGROUND URLS
     path('Display/background/<int:employee_id>', display_background, name='display_background'),
     path('Add/background/<int:employee_id>', add_background, name='add_background'),
-    path('download_background_patient/<int:background_patient_id>/', download_background_patient, name='download_background_patient'),
+    path('download_background/<int:background_id>/', download_background, name='download_background'),
     path('Update/background/<int:background_id>', update_background, name='update_background'),
     path('Delete_background/<int:background_id>',delete_background, name='delete_background'), 
     
@@ -112,7 +112,7 @@ urlpatterns = [
     # SUMMONS URLS
     path('Display/summons/<int:employee_id>', display_summons, name='display_summons'),
     path('Add/summons/<int:employee_id>', add_summons, name='add_summons'),
-    path('download_summons_form/<int:summons_form_id>/', download_summons_form, name='download_summons_form'),
+    path('download_summons/<int:summons_id>/', download_summons, name='download_summons'),
     path('Update/summons/<int:summons_id>', update_summons, name='update_summons'),
     path('Delete/summons/<int:summons_id>', delete_summons, name='delete_summons'),
     
@@ -129,7 +129,7 @@ urlpatterns = [
     path('Display/medical_visit/<int:employee_id>', show_medical_visit, name='display_medical_visit'),
     path('Add/medical_visit/<int:employee_id>', add_medical_visit, name='add_medical_visit'),
     path('Download/medical_visit/<int:visit_id>', download_medical_visit, name='download_medical_visit'),
-    path('Update/medical_visit/<int:visit_id>', change_medical_visit, name='update_medical_visit'),
+    path('Update/medical_visit/<int:visit_id>', update_medical_visit, name='update_medical_visit'),
     path('Delete/medical_visit/<int:visit_id>', delete_medical_visit, name='delete_medical_visit'),
     
     

@@ -1,45 +1,51 @@
 
-<!-- add_background_patient.html -->
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Background Patient</title>
-  <link rel="stylesheet" href="static/css/background_patient.css">
+  <title>{{action}} current post</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
 <body>
-  <h1>Add current post for  {{ patient.name }}</h1>
-  <form method="post" action="{% url 'add_current_post' patient.employee_id %}">
-    {% csrf_token %}
-    <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
+  <div class="form-container">
+    <h1>{{action}} current post information for {{ patient.employee_name }}</h1>
+    <form method="POST" action="{% url sbt value %}">
+      {% csrf_token %}
+      <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
-    <label for="begin_date">begin_date :</label>
-    <input type="date" name="begin_date" id="begin_date">
+      <label>begin_date</label>
+      <input type="text" name="begin_date" value="{{current_post.begin_date}}"
+       onblur="show_date(event)" onfocus="insert_date(event)">
 
-    <label for="end_date">end_date :</label>
-    <input type="date" name="end_date" id="end_date">
+      <label for="end_date">end_date :</label>
+      <input type="text" name="end_date" value="{{current_post.end_date}}"
+      onblur="show_date(event)" onfocus="insert_date(event)">
 
-    <label for="post">Post :</label>
-    <input type="text" name="post" id="post">
+      <label>Post</label>
+      <input value="{{current_post.post}}" type="text" name="post">
 
-    <label for="tasks">Tasks :</label>
-    <textarea name="tasks" id="tasks"></textarea>
+      <label>Tasks</label>
+      <textarea name="tasks">{{current_post.tasks}}</textarea>
 
-    <label for="work_rate">Work rate :</label>
-    <textarea name="work_rate" id="work_rate"></textarea>
+      <label>Work rate</label>
+      <textarea name="work_rate">{{current_post.work_rate}}</textarea>
 
-    <label for="nusance_factors">Nusance factors :</label>
-    <textarea name="nusance_factors" id="nusance_factors"></textarea>
+      <label>Nusance factors</label>
+      <textarea name="nusance_factors">{{current_post.nusance_factors}}</textarea>
 
-    <label for="metrology_date">Metrology Date :</label>
-    <input type="date" name="metrology_date" id="metrology_date">
+      <label>Metrology Date</label>
+      <input value="{{current_post.metrology_date}}" type="text" name="metrology_date"
+      onblur="show_date(event)" onfocus="insert_date(event)">
 
-    <label for="metrology_type">Metrology type :</label>
-    <input type="text" name="metrology_type" id="metrology_type">
+      <label>Metrology type</label>
+      <input value="{{current_post.metrology_type}}" type="text" name="metrology_type">
 
-    <label for="metrology_R">metrology R :</label>
-    <textarea  name="metrology_R" id="metrology_R"></textarea>
+      <label>metrology R</label>
+      <textarea  name="metrology_R">{{current_post.metrology_R}}</textarea>
 
-    <input type="submit" value="Add Background Patient">
-  </form>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  <script src="{% static 'js/functions.js'%}"></script>
 </body>
 </html>

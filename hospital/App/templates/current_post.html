@@ -15,7 +15,7 @@
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
-  <h1 style="text-align: center;">Current post for {{ patient.name }}</h1>
+  <h1 style="text-align: center;">Current post for {{ patient.employee_name }}</h1>
 
   <div class="info_action">
     <a href="{% url 'add_current_post' patient.employee_id %}" class="green_link">Add</a>
@@ -52,7 +52,7 @@
           <td>{{ post.metrology_R }}</td>
           <td>
             <div>
-              <a href="{% url 'download_current_post' post.id %}" class="delete-button">Download</a>
+              <a href="{% url 'download_current_post' post.id %}" class="green_link">Download</a>
               <a href="{% url 'update_current_post' post.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_current_post' post.id %}" class="red_link">Delete</a>
             </div>

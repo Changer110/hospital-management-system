@@ -48,7 +48,7 @@
           <td>{{ accident.observation }}</td>
           <td>
             <div>
-              <a href="{% url 'download_accident' accident.id %}" class="download-button">Download</a>
+              <a href="{% url 'download_accident' accident.id %}" class="green_link">Download</a>
               <a href="{% url 'update_accident' accident.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_accident' accident.id %}" class="red_link">Delete</a>
             </div>

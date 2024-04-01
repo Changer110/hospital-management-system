@@ -50,7 +50,8 @@
           <td>{{ background.social_family }}</td>
           <td>
             <div>
-              <a href="{% url 'update_background' background.id %}" class="blue_link">Change</a>
+              <a href="{% url 'download_background' background.id %}" class="green_link">Download</a>
+              <a href="{% url 'update_background' background.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_background' background.id %}" class="red_link">Delete</a>
             </div>
           </td>

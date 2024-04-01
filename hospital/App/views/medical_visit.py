@@ -33,7 +33,7 @@ def add_medical_visit(request, employee_id):
             if form.is_valid():
                 form.save()
                 return redirect('medical_visit', employee_id=employee_id)
-        return render(request, 'add_medical_visit.html', context)
+        return render(request, 'medical_visit_form.html', context)
     return redirect('login')
 
 
@@ -108,7 +108,7 @@ def download_medical_visit(request, visit_id):
 
 
 
-def change_medical_visit(request,visit_id):
+def update_medical_visit(request,visit_id):
     if request.session.get('user'):
         try:
             medical_visit = MedicalVisit.objects.get(id=visit_id)
@@ -122,7 +122,7 @@ def change_medical_visit(request,visit_id):
         else:
             form = medicalVisitForm(instance=medical_visit)
 
-        return render(request, 'change_medical_visit.html', {'form': form, 'medical_visit': medical_visit})
+        return render(request, 'medical_visit_form.html', {'form': form, 'medical_visit': medical_visit})
     return redirect('login')
 
 
