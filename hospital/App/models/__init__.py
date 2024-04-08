@@ -19,3 +19,4 @@ from .medical_visit import *
 from .previous_post import *
 from .summons import *
 
+from .schedule import *

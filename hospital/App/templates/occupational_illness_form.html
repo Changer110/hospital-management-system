@@ -15,8 +15,8 @@
       <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
       <label>Date</label>
-      <input type="text" name="date" value="{{occupational_illness.date}}"
-      onblur="show_date(event)" onfocus="insert_date(event)">
+      <input type="text" name="date" id="date" value="{{occupational_illness.date}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Illness</label>
       <input type="text" name="sickness" value="{{occupational_illness.sickness}}">

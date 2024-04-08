@@ -75,8 +75,6 @@ def delete_previous_post(request, previous_post_id):
     return redirect('login')
 
 
-from django.http import HttpResponse
-from reportlab.pdfgen import canvas
 
 
 def download_previous_post(request, previous_post_id):

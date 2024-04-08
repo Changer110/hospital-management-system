@@ -7,12 +7,15 @@ def display_patient(request, employee_id):
     if request.session.get('user'):
         if request.method == 'POST':
             employee_id = request.POST.get('employee_id')
+            employee_id = employee_id if employee_id else 'all'
             return redirect('display_patient', employee_id = employee_id)
         try:
-            patients = Patient.objects.filter(employee_id = int(employee_id))
+            patients = Patient.objects.filter(employee_id = employee_id)
+            code = "code "+employee_id
         except:
             patients = Patient.objects.all()
-        context = {'patients': patients}
+            code = "list"
+        context = {'patients': patients, 'code' : code}
         return render(request, 'patient.html', context)
     return redirect('login')
 
@@ -36,7 +39,7 @@ def add_patient(request, employee_id):
                 return redirect('display_patient', employee_id = patient.employee_id)
         context = {
             'action' : 'Add',
-            'sbt' : 'add_patient', 
+            'sbt' : 'add_patient',
             'employee' : employee_id,
             'enterprises': Enterprise.objects.all()
         }

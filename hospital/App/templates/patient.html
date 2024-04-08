@@ -27,7 +27,7 @@
 <body>
   <nav>
     <a href="{% url 'display_patient' 'all' %}">Patients</a>
-    <a href="">Appointment</a>
+    <a href="{% url 'display_appointment' 2 %}">Appointment</a>
     <a href="{% url 'display_doctor' %}">Doctors</a>
     <a href="{% url 'display_drug' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
@@ -35,12 +35,12 @@
 
 
 
-  <h1 style="text-align: center;">Patient list</h1>
+  <h1 style="text-align: center;">Patient {{code}}</h1>
 
   <div class="info_action">
     <a href="{% url 'add_patient' 'Add' %}" class="green_link">Add</a>
     <a href="{% url 'display_patient' 'all' %}" class="blue_link">Show all</a>
-    <form method="POST" action="{% url 'display_patient' 'id' %}" style="display: flex; gap: 5px" >
+    <form action="{% url 'display_patient' 'all' %}" style="display: flex; gap: 5px" method="POST">
       {% csrf_token %}
       <input type="number" name="employee_id">
       <input type="submit" value="Search">

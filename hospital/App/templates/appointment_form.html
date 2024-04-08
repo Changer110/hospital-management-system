@@ -3,32 +3,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Appointment</title>
+  <title>{{action}} Appointment</title>
   <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
 <body>
   <div class="form-container">
-    <h1>Add Appointment for {{ patient.name }}</h1>
-    <form method="post" action="{% url 'add_appointment' patient.employee_id %}">
+    <h1>{{action}} Appointment information</h1>
+    <form method="POST" action="{% url sbt value %}">
       {% csrf_token %}
 
-      <input type="hidden" name="patient" value="{{ patient.employee_id }}">
-      
-      <label>Appointment Date:</label>
-      <input type="date" name="appointment_date" value="{{appointment.appointment_date}}">
+      <label>Patient</label>
+      <select name="patient">
+        {% for patient in patients %}
+          <option value="{{ patient.employee_id }}">{{ patient.employee_name }}</option>
+        {% endfor %}
+      </select>
 
-      <label>Doctor:</label>
+      <label>Doctor</label>
       <select name="doctor">
+        <!-- <option value=""></option> -->
         {% for doctor in doctors %}
           <option value="{{ doctor.doctor_id }}">{{ doctor.name }}</option>
         {% endfor %}
       </select>
 
-      <label>Appointment Time:</label>
-      <input type="time" name="appointment_time" value="{{appointment.appointment_time}}">
+      <label>Appointment Date</label>
+      <input type="text" name="date" id="date" value="{{appointment.date}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
+
+      <label>Appointment Time</label>
+      <input type="text" name="time" id="time" value="{{appointment.time}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <button type="submit">Save</button>
     </form>
   </div>
+
+  <script src="{% static 'js/functions.js'%}"></script>
 </body>
 </html>

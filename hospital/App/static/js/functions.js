@@ -12,15 +12,15 @@ function getfile(event) {
     reader.readAsDataURL(imageFile);
 }
 
-function show_date(event){
+function show_datetime(event){
   var input = event.target.closest('input');
   input.type = 'text';
-  var new_date = input.value;
-  input.value = (new_date.trim() !== '') ? new_date : old_value;
+  var new_value = input.value;
+  input.value = (new_value.trim() !== '') ? new_value : old_value;
 }
 
-function insert_date(event){
+function insert_datetime(event){
   var input = event.target.closest('input');
   old_value = input.value;
-  input.type = 'date';
+  input.type = (input.id === 'date') ? 'date' : 'time';
 }

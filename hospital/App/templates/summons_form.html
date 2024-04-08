@@ -18,16 +18,16 @@
       <input type="text" name="motif" value="{{summons.motif}}">
 
       <label>Date of Issue</label>
-      <input name="issue_date" value="{{summons.issue_date}}"
-      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <input name="issue_date" id="date" value="{{summons.issue_date}}"
+      type="text" onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Date of Summons</label>
-      <input name="summons_date" value="{{summons.summons_date}}"
-      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <input name="summons_date" id="date" value="{{summons.summons_date}}"
+      type="text" onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Date of Presentation</label>
-      <input name="presentation_date" value="{{summons.presentation_date}}"
-      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <input name="presentation_date" id="date" value="{{summons.presentation_date}}"
+      type="text" onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Observation</label>
       <input type="text" name="observation" value="{{summons.observation}}">

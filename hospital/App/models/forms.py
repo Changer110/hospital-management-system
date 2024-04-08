@@ -116,4 +116,10 @@ class medicalVisitForm(forms.ModelForm):
 class AbsenteeismForm(forms.ModelForm):
     class Meta:
         model = Absenteeism
-        fields = '__all__'        
+        fields = '__all__'
+
+
+class ScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = '__all__'

@@ -1,0 +1,46 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{action}} schedule</title>
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+
+</head>
+<body>
+  <div class="form-container">
+    <h1>{{action}} schedule information</h1>
+    <form method="POST" action="{% url sbt value %}" >
+      {% csrf_token %}
+      <input type="hidden" name="doctor" value="{{doctor.doctor_id}}">
+
+      <label>Day</label>
+      <select name="day">
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+        <option value="Sunday">Sunday</option>
+      </select>
+
+      <label>From</label>
+      <input type="text" id="time" name="from_time" value="{{schedule.from_time}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
+
+      <label>To</label>
+      <input type="text" id="time" name="to_time" value="{{schedule.to_time}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
+
+      <label>Patient limit</label>
+      <input type="number" name="patient_limit" value="{{schedule.patient_limit}}">
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <script src="{% static 'js/functions.js'%}"></script>
+</body>
+</html>

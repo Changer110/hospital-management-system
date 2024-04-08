@@ -15,8 +15,8 @@
       <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
       <label>Date:</label>
-      <input type="text"  name="date" value="{{ accident.date }}"
-      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <input type="text"  name="date" id="date" value="{{ accident.date }}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Causal Material Element</label>
       <input type="text" name="material_causel" value="{{accident.material_causel}}">
@@ -30,7 +30,6 @@
       <label>Number of Days Off:</label>
       <input type="number" name="days_off" value="{{accident.days_off}}">
 
-      <!-- <input type="text" name="partial_incapacity" value="{{accident.partial_incapacity}}"> -->
       <label>Partial Permanent Incapacity:</label>
       <select name="partial_incapacity">
         <option value="Not">Not</option>

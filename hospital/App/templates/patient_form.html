@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="form-container">
-    <h1>Change information</h1>
+    <h1>{{action}} patient information</h1>
     <form method="POST" action="{% url sbt employee %}" enctype="multipart/form-data">
       {% csrf_token %}
       <label>Employee picture</label>
@@ -18,7 +18,7 @@
       <label>Employee ID</label>
       <input type="number" name="employee_id" step="1" value="{{patient.employee_id}}">
 
-      <label>Enterprise:</label>
+      <label>Enterprise</label>
       <select  name="enterprise_ID">
         {% for enterprise in enterprises %}
           <option value="{{enterprise.enterprise_ID}}">{{enterprise.name}}</option>
@@ -29,8 +29,8 @@
       <input value="{{patient.employee_name}}" type="text" name="employee_name">
 
       <label>Date of Birth</label>
-      <input value="{{patient.birth_date}}" name="birth_date"
-        type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <input value="{{patient.birth_date}}" name="birth_date" id="date"
+      type="text" onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Place of Birth</label>
       <input value="{{patient.birth_place}}" type="text" name="birth_place">
@@ -80,12 +80,12 @@
       <input value="{{patient.emergency_contact}}" type="text" name="emergency_contact">
 
       <label>Hiring Date</label>
-      <input value="{{patient.hiring_date}}" name="hiring_date"
-        type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <input value="{{patient.hiring_date}}" name="hiring_date" id="date"
+        type="text" onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Departure Date</label>
-      <input value="{{patient.departure_date}}" name="departure_date"
-        type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <input value="{{patient.departure_date}}" name="departure_date" id="date"
+        type="text" onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Reason for Leaving</label>
       <input value="{{patient.leaving_reason}}" type="text" name="leaving_reason">
