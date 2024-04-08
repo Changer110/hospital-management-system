@@ -66,14 +66,14 @@ def change_medical_record(request, record_id):
             form = MedicalRecordForm(request.POST, instance = record)
             if form.is_valid():
                 form.save()
-                return redirect('medical_record', employee_id = record.patient.employee_id)
-            return redirect('change_medical_record', record_id = record_id)
+                return redirect('display_medical_record', employee_id = record.patient.employee_id)
+            return redirect('update_medical_record', record_id = record_id)
         context = {
             'action' : 'Update',
             'record' : record_id,
             'medical_record' : record,
             'patient': record.patient,
-            'sbt' : 'change_medical_record',
+            'sbt' : 'update_medical_record',
             'doctors': Doctor.objects.all(),
         }
         return render(request, 'medical_record_form.html', context)
@@ -93,7 +93,7 @@ def delete_medical_record(request, record_id):
 
         if request.method == 'POST':
             records.delete()
-            return redirect('medical_record', employee_id=patient_id)
+            return redirect('display_medical_record', employee_id=patient_id)
 
         return render(request, 'delete_medical_record.html', {'record': records})
     return redirect('login')

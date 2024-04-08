@@ -14,61 +14,61 @@
       <input type="hidden" name="employee_id" value="{{ patient.employee_id }}">
 
       <label for="hospital_visit">hospital visit : </label>
-      <input type="text" name="hospital_visit" id="hospital_visit">
+      <input type="text" name="hospital_visit" id="hospital_visit" value="{{ visit.hospital_visit }}">
 
       <label for="plaintes">plaintes : </label>
-      <input type="text" name="plaintes" id="plaintes">
+      <input type="text" name="plaintes" id="plaintes" value="{{ visit.plaintes }}">
 
       <label for="mensuration_kg">Weights :</label>
-      <input type="number" step="any" name="mensuration_kg" id="mensuration_kg">
+      <input type="number" step="any" name="mensuration_kg" id="mensuration_kg" value="{{ visit.mensuration_kg }}">
 
       <label for="mensuration_size">Size : </label>
-      <input type="number" step="any" name="mensuration_size" id="mensuration_size">
+      <input type="number" step="any" name="mensuration_size" id="mensuration_size" value="{{ visit.mensuration_size }}" >
 
       <label for="mensuration_TA">TA :</label>
-      <input type="number" step="any" name="mensuration_TA" id="mensuration_TA">
+      <input type="number" step="any" name="mensuration_TA" id="mensuration_TA" value="{{ visit.mensuration_TA }}">
 
       <label for="mensuration_PIT">PIT :</label>
-      <input type="number" step="any" name="mensuration_PIT" id="mensuration_PIT">
+      <input type="number" step="any" name="mensuration_PIT" id="mensuration_PIT" value="{{ visit.mensuration_PIT }}" >
 
       <label for="mensuration_PTE">PTE :</label>
-      <input type="number" step="any" name="mensuration_PTE" id="mensuration_PTE">
+      <input type="number" step="any" name="mensuration_PTE" id="mensuration_PTE" value="{{ visit.mensuration_PTE }}">
 
       <label for="mensuration_PA">PA :</label>
-      <input type="number" step="any" name="mensuration_PA" id="mensuration_PA">
+      <input type="number" step="any" name="mensuration_PA" id="mensuration_PA" value="{{ visit.mensuration_PA }}">
 
       <label for="mensuration_Pouls">Pouls :</label>
-      <input type="number" step="any" name="mensuration_Pouls" id="mensuration_Pouls">
+      <input type="number" step="any" name="mensuration_Pouls" id="mensuration_Pouls" value="{{ visit.mensuration_Pouls }}">
 
       <label for="mensuration_AV_OD">AV OD :</label>
-      <input type="number" step="any" name="mensuration_AV_OD" id="mensuration_AV_OD">
+      <input type="number" step="any" name="mensuration_AV_OD" id="mensuration_AV_OD" value="{{ visit.mensuration_AV_OD }}" >
 
       <label for="mensuration_OG">OG :</label>
-      <input type="number" step="any" name="mensuration_OG" id="mensuration_OG">
+      <input type="number" step="any" name="mensuration_OG" id="mensuration_OG" value="{{ visit.mensuration_OG }}">
 
       <label for="biology">Biology :</label>
-      <textarea name="biology" id="biology"></textarea>
+      <textarea name="biology">{{ visit.biology }}</textarea>
 
       <label for="electrocardiogram">Electrocardiogram :</label>
-      <textarea name="electrocardiogram" id="electrocardiogram"></textarea>
+      <textarea name="electrocardiogram">{{ visit.electrocardiogram }}</textarea>
 
       <label for="audiometry">Audiometry :</label>
-      <textarea name="audiometry" id="audiometry"></textarea>
+      <textarea name="audiometry">{{ visit.audiometry }}</textarea>
 
       <label for="spirometry">Spirometry :</label>
-      <textarea name="spirometry" id="spirometry"></textarea>
+      <textarea name="spirometry">{{ visit.spirometry }}</textarea>
 
       <label for="RX_pulmonery">RX pulmonery :</label>
-      <textarea name="RX_pulmonery" id="RX_pulmonery"></textarea>
+      <textarea name="RX_pulmonery">{{ visit.RX_pulmonery }}</textarea>
 
       <label for="what_to_do">What to do :</label>
-      <textarea name="what_to_do" id="what_to_do"></textarea>
+      <textarea name="what_to_do">{{ visit.what_to_do }}</textarea>
 
       <label for="aptitude">Aptitude :</label>
-      <textarea name="aptitude" id="aptitude"></textarea>
+      <textarea name="aptitude">{{ visit.aptitude }}</textarea>
 
-      <label for="doctor">Doctor : </label>
-      <select id="doctor"  name="doctor">
+      <label>Doctor:</label>
+      <select name="doctor">
         {% for doctor in doctors %}
           <option value="{{doctor.doctor_id}}">{{doctor.name}}</option>
         {% endfor %}

@@ -57,7 +57,7 @@ def delete_occupational_illness(request, occupational_illness_id):
         
         if request.method == 'POST':
             occupational_illness.delete()
-            return redirect('occupational_illness',employee_id=occupational_illness.employee_id.employee_id)
+            return redirect('display_occupational_illness',employee_id=occupational_illness.employee_id.employee_id)
         
         context = {'occupational_illness': occupational_illness}
         return render(request, 'delete_occupational_illness.html', context)

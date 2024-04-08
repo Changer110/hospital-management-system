@@ -9,3 +9,7 @@ class User(AbstractUser):
         ('Doctor','Doctor'),
         ('Nurse','Nurse')]
     role = models.CharField(max_length=10, choices=roles, default = 'Admin', null=False)
+
+    
+    
+    

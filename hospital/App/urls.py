@@ -6,6 +6,7 @@ from App.views import *
 
 urlpatterns = [
     path('', index),
+    path('register/', register, name='register'),
     path('Hospital-system-management/login', user_login, name='login'),
     path('logout', user_logout, name='logout'), 
     path('dashboard' , dashboard),
@@ -55,7 +56,7 @@ urlpatterns = [
     path('Display/prescription/<int:medical_record_id>/', display_prescription, name='display_prescription'),
     path('Add/prescription/<int:medical_record_id>/', add_prescription, name='add_prescription'),
     path('download_prescription/<int:prescription_id>/', download_prescription, name='download_prescription'),
-    path('Update/prescription/<int:prescription_id>/', change_prescription, name='update_prescription'),
+    path('Update/prescription/<int:prescription_id>/', update_prescription, name='update_prescription'),
     path('Delete/prescription/<int:prescription_id>/', delete_prescription, name='delete_prescription'),
     
     
@@ -126,7 +127,7 @@ urlpatterns = [
     
     
     # MEDICAL VISIT URLS
-    path('Display/medical_visit/<int:employee_id>', show_medical_visit, name='display_medical_visit'),
+    path('Display/medical_visit/<int:employee_id>', display_medical_visit, name='display_medical_visit'),
     path('Add/medical_visit/<int:employee_id>', add_medical_visit, name='add_medical_visit'),
     path('Download/medical_visit/<int:visit_id>', download_medical_visit, name='download_medical_visit'),
     path('Update/medical_visit/<int:visit_id>', update_medical_visit, name='update_medical_visit'),

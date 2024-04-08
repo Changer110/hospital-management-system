@@ -57,13 +57,13 @@ def update_background(request, background_id):
   
 
 
-def delete_background(request, background_patient_id):
+def delete_background(request, background_id):
     if request.session.get('user'):
-        background_patient  = Background.objects.get(id=background_patient_id)
+        background_patient  = Background.objects.get(id=background_id)
 
         if request.method == 'POST':
             background_patient.delete()
-            return redirect('background_patient',employee_id=background_patient.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
+            return redirect('display_background',employee_id=background_patient.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
 
         context = {'background_patient': background_patient}
         return render(request, 'delete_background.html', context)

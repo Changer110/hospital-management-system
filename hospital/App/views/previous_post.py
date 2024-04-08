@@ -68,7 +68,7 @@ def delete_previous_post(request, previous_post_id):
         previous_post = PreviousPost.objects.get(id=previous_post_id)
         if request.method == 'POST':
             previous_post.delete()
-            return redirect('previous_post',employee_id=previous_post.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
+            return redirect('display_previous_post',employee_id=previous_post.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
 
         context = {'previous_post': previous_post}
         return render(request, 'delete_previous_post.html', context)

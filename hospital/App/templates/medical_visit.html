@@ -4,6 +4,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/medical_visit.css' %}">
     <title>Medical visit</title>
   </head>
 
@@ -16,122 +17,84 @@
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
-  <h1 style="text-align: center;">Medical visit for {{ patient.name }}</h1>
+  <h1 class="title">Medical visit for {{ patient.employee_name }}</h1>
 
   <div class="info_action">
     <a href="{% url 'add_medical_visit' patient.employee_id %}" class="green_link">Add</a>
-    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link" >Patient</a>
+    <a href="{% url 'display_patient' patient.employee_id %}" class="green_link">Patient</a>
   </div>    
-  
+
   <div class="data_container">
-    <!-- <table>
-      <tr>
-        
-      </tr>
-      <tr>
-        
-      </tr>
-      <tr>
-        
-      </tr>
-      <tr>
-        
-      </tr>
-      <tr>
-        
-      </tr>
-      <tr>
-        
-      </tr>
-      <tr>
-        
-      </tr>
-      <tr>
-        
-      </tr>
-    </table> -->
-
-
-
     {% for visit in visits %}
     <div class="medical_visit">
       <div class="fst_info">
-        <label>Code : <span id="employee_id">{{visit.employee_id.employee_id}}</span></label>
+        <label>Code: <span id="employee_id">{{visit.patient.employee_id}}</span></label>
         <label for=""></label>
       </div>
 
       <div class="snd_info">
-        <h3>Medical Visit ... ... ... ... ... ... ...</h3>
-        <div>
-          <label>Name : <span>{{visit.employee_id.name}}</span></label>
-        </div>
-        
-        <div>
-          <label for="">Sexe : <span>{{visit.employee_id.gender}}</span></label>
-          <label for="">Age : <span>{{visit.employee_id.age}}</span></label>
-        </div>
-        <div>
-          <label for="">Work post : <span>{{visit.employee_id.age}}</span></label>
+        <h3>Medical Visit</h3>
+        <div class="patient_info">
+          <label>Name: <span>{{visit.patient.employee_name}}</span></label>
+          <label>gender: <span>{{visit.patient.gender}}</span></label>
+          <label>Age: <span>{{visit.patient.age}}</span></label>
+          <label>Hospital_visit: <span>{{visit.hospital_visit}}</span></label>
         </div>
       </div>
 
       <div class="trd_info">
         <div><h3>I - Clinic</h3></div>
-        <div><label for="">Plaintes : <span>{{visit.plaintes}}</span></label></div>
-        
-        <div>
-          <label for=""></label>
-          <div>
-            <label for="">Poids : <span>{{visit.mensuration_kg}}</span></label>
-            <label for="">Taille : <span>{{visit.mensuration_size}}</span></label>
-            <label for="">TA : <span>{{visit.mensuration_TA}}</span></label>
-          </div>
-          <div>
-            <label for="">PIT : <span>{{visit.mensuration_PIT}}</span></label>
-            <label for="">PTE : <span>{{visit.mensuration_PTE}}</span></label>
-            <label for="">PA : <span>{{visit.mensuration_PA}}</span></label>
-          </div>
-          <div>
-            <label for="">Pouls : <span>{{visit.mensuration_Pouls}}</span></label>
-            <label for="">AV : <span>{{visit.mensuration_AV_OD}}</span></label>
-            <label for="">OG : <span>{{visit.mensuration_OG}}</span></label>
+        <div class="clinic_info">
+          <label>PLAINTES: <span>{{visit.plaintes}}</span></label>
+          <div class="mensuration_info">
+            <label>Mensuration_kg: <span>{{visit.mensuration_kg}}</span></label>
+            <label>mensuration_size: <span>{{visit.mensuration_size}}</span></label>
+            <label>Mensuration_Ta: <span>{{visit.mensuration_TA}}</span></label>
+            <label>Pouls: <span>{{visit.mensuration_Pouls}}</span></label>
+            <label>Mensuration_PIT: <span>{{visit.mensuration_PIT}}</span></label>
+            <label>mensuration_PTE: <span>{{visit.mensuration_PTE}}</span></label>
+            <label>mensuration_PA: <span>{{visit.mensuration_PA}}</span></label>
+            <label>mensuration_AV_OD: <span>{{visit.mensuration_AV_OD}}</span></label>
+            <label>mensuration_OG: <span>{{visit.mensuration_OG}}</span></label>
           </div>
         </div>
       </div>
 
       <div class="fth_info">
-        <h3>II - Complemantary exams</h3>
-        <label for="">Biology : <span>{{visit.biology}}</span></label>
-        <label for="">Electrocardiogram : <span>{{visit.electrocardiogram}}</span></label>
-        <label for="">Audiometry : <span>{{visit.audiometry}}</span></label>
-        <label for="">Spirometry : <span>{{visit.spirometry}}</span></label>
-        <label for="">Rx pulmonary : <span>{{visit.RX_pulmonery}}</span></label>
+        <h3>II - Complementary Exams</h3>
+        <div class="complementary_exams_info">
+          <label>Biology: <span>{{visit.biology}}</span></label>
+          <label>Electrocardiogram: <span>{{visit.electrocardiogram}}</span></label>
+          <label>Audiometry: <span>{{visit.audiometry}}</span></label>
+          <label>Spirometry: <span>{{visit.spirometry}}</span></label>
+          <label>Rx Pulmonery: <span>{{visit.RX_pulmonery}}</span></label>
+        </div>
       </div>
 
       <div class="5th_info">
         <h3>III - What to do</h3>
-        <label for=""></label>
-        <label for="">Medical records : <span>{{visit.what_to_do}}</span></label>
+        <div class="what_to_do_info">
+          <label>What to do:</label>
+          <p>{{visit.what_to_do}}</p>
+        </div>
       </div>
 
       <div class="6th_info">
-        <h3>IV - Aptitude : {{visit.aptitude}}</h3>
-        <label>Doctor : <span>{{visit.aptitude}}</span></label>
+        <h3>IV - Aptitude: {{visit.aptitude}}</h3>
+        <label>Doctor: <span>{{visit.doctor.name}}</span></label>
       </div>
+
       <div class="info_action">
         <a href="{% url 'download_medical_visit' visit.pk %}" class="green_link">Download</a>
-        <a href="{% url 'download_medical_visit' visit.pk %}" class="blue_link">Update</a>
+        <a href="{% url 'update_medical_visit' visit.pk %}" class="blue_link">Update</a>
         <a href="{% url 'delete_medical_visit' visit.pk %}" class="red_link">Delete</a>
       </div>
-      
-      <h3 style="text-align: center;">................. .................. .......................... .................................. .....................................</h3>
+
+      <h3 class="separator">....................................................</h3>
     </div>
     {% empty %}
       <div>No Medical visit found.</div>
     {% endfor %}
-
   </div>
-
 </body>
 </html>
-

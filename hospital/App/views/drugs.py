@@ -51,7 +51,7 @@ def update_drug(request, drug_id):
             return redirect('update_drug', drug_id = drug_id)
         context = {
             'drug' : drug,
-            'action' : 'Add',
+            'action' : 'update',
             'value' : drug_id,
             'sbt' : 'update_drug',
         }
@@ -64,8 +64,13 @@ def update_drug(request, drug_id):
 def delete_drug(request, drug_id):
     if request.session.get('user'):
         drug = Drugs.objects.get(id = drug_id)
-        drug.delete()
-        # return JsonResponse({'message': 'Drug deleted successfully'})
+        if request.method == 'POST':
+            drug.delete()
+            return redirect('display_drug')
+        context = {
+                'drug': drug
+            }
+        return render(request, 'delete_drug.html', context)
     return redirect('login')
 
 

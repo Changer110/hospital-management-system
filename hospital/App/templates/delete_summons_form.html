@@ -6,9 +6,9 @@
 <body>
     <h1>Delete Summons Form</h1>
 
-    <p>Are you sure you want to delete this summons form?</p>
+    <p>Are you sure you want to delete the summons form (ID: {{ summons.id }})?</p>
 
-    <form method="post" action="{% url 'delete_summons_form' summons_form.id %}">
+    <form method="post">
         {% csrf_token %}
         <button type="submit">Delete</button>
     </form>

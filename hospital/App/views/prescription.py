@@ -26,6 +26,7 @@ def add_prescription(request, medical_record_id):
         context = {
             'action' : 'Add',
             'sbt' : 'add_prescription',
+            'value' : medical_record_id,
             'record' : medical_record_id,
             'drugs' : Drugs.objects.all()
             }
@@ -34,26 +35,22 @@ def add_prescription(request, medical_record_id):
 
 
 
-def change_prescription(request, prescription_id):
+def update_prescription(request, prescription_id):
     if request.session.get('user'):
         prescription = Prescription.objects.get(id = prescription_id)
         if request.method == 'POST':
-            form = PrescriptionForm(request.POST, instance=prescription)
+            form = PrescriptionForm(request.POST, instance = prescription)
             if form.is_valid():
                 form.save()
-                # drug = Drugs.objects.get(name = request.POST['drug_name'])
-                # drug.dosage_issued = drug.dosage_issued + int(request.POST['dosage'])
-                # drug.quantity = drug.quantity - int(request.POST['dosage'])
-                # drug.save()
-                return redirect('prescription', medical_record_id = prescription.medical_record.pk)
-            return redirect('change_prescription', prescription_id = prescription_id)
-            
+                return redirect('display_prescription', medical_record_id = prescription.medical_record.pk)
+            return redirect('update_prescription', prescription_id = prescription_id)
         context = {
             'action' : 'Update',
-            'record' : prescription_id,
-            'sbt' : 'change_prescription',
+            'sbt' : 'update_prescription',
+            'value' : prescription.pk,
+            'record' : prescription.medical_record.pk,
             'drugs' : Drugs.objects.all(),
-            'prescription' : prescription,
+            'prescription' : prescription
             }
         return render(request, 'prescription_form.html', context)
     return redirect('login')
@@ -66,9 +63,9 @@ def delete_prescription(request, prescription_id):
             medical_record_id = prescription.medical_record_id
             if request.method == 'POST':
                 prescription.delete()
-                return redirect('prescription', medical_record_id=medical_record_id)
+                return redirect('display_prescription', medical_record_id=medical_record_id)
         except Prescription.DoesNotExist:
-            return redirect('prescription', medical_record_id=prescription.medical_record_id)
+            return redirect('display_prescription', medical_record_id=prescription.medical_record_id)
         
         context = {'prescription': prescription}
         return render(request, 'delete_prescription.html', context)

@@ -20,7 +20,7 @@ def add_accident(request, employee_id):
             form = AccidentForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('accident', employee_id = employee_id)
+                return redirect('display_accident', employee_id = employee_id)
             return redirect('add_accident', employee_id = employee_id)
         context = {
             'action' : 'Add',
@@ -40,7 +40,7 @@ def update_accident(request, accident_id):
             form = AccidentForm(request.POST, instance=accident)
             if form.is_valid():
                 form.save()
-                return redirect('accident', employee_id = accident.employee_id.employee_id)
+                return redirect('display_accident', employee_id = accident.employee_id.employee_id)
             return redirect('update_accident', accident_id = accident_id)
         context = {
             'action' : 'Update',
@@ -60,7 +60,7 @@ def delete_accident(request, accident_id):
 
         if request.method == 'POST':
             accident.delete()
-            return redirect('accident',employee_id = accident.employee_id.employee_id)
+            return redirect('display_accident',employee_id = accident.employee_id.employee_id)
 
         context = {'accident': accident}
         return render(request, 'delete_accident.html', context)

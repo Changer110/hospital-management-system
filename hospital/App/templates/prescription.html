@@ -39,8 +39,8 @@
           <td>
             <div>
               <a href="{% url 'download_prescription' prescription.pk %}" class="green_link">Download</a>
-              <a href="{% url 'update_prescription' prescription.pk %}" class="blue_link">Update</a>
-              <a href="{% url 'delete_prescription' prescription.pk %}" class="red_link">Delete</a>
+              <a href="{% url 'update_prescription' prescription.id %}" class="blue_link">Update</a>
+              <a href="{% url 'delete_prescription' prescription.id %}" class="red_link">Delete</a>
             </div>
           </td>
         </tr>

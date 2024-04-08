@@ -1,6 +1,18 @@
 
 from django import forms
 from App.models import *
+from django.contrib.auth.forms import UserCreationForm
+from App.models import User
+
+
+class CreateUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields =[
+            'username','email', 'password1' ,'password2'
+        ]
+
+
 
 
 class PatientForm(forms.ModelForm):
@@ -26,7 +38,7 @@ class MedicalRecordForm(forms.ModelForm):
 class PrescriptionForm(forms.ModelForm):
     class Meta:
         model = Prescription
-        fields = '__all__'  
+        fields = '__all__'
 
 
 class DrugForm(forms.ModelForm):

@@ -17,7 +17,7 @@
   <h1 style="text-align: center;">Medical Record Information for {{ patient.employee_name }}</h1>
 
   <div class="info_action">
-    <a href="{%url 'add_medical_record' patient.employee_id %}" class="green_link">Add Record</a>
+    <a href="{%url 'add_medical_record' patient.employee_id %}" class="green_link">Add</a>
     <form method="post" action="{%url 'search_medical_record' patient.employee_id%}" style="display: flex; gap: 7px">
       {% csrf_token %}
       <input style="width: 150px;" name="begin_date" placeholder="Record begin date"
@@ -27,7 +27,7 @@
       <input type="submit" value="Filter" class="filter-button">
     </form>
     <h2>Total price: {{ total_price }}Fbu</h2>
-    <a href="{% url 'display_medical_record' patient.employee_id %}" class="green_link">All Records</a>
+    <a href="{% url 'display_medical_record' patient.employee_id %}" class="green_link">View all</a>
     <a href="{% url 'display_patient' patient.employee_id %}" class="green_link">Patient</a>
   </div>
   

@@ -58,7 +58,6 @@
           <td>{{ drug.imported_from }}</td>
           <td>
             <div>
-              <!-- <a href="{% url 'download_drug'%}" class="green_link">Download</a> -->
               <a href="{% url 'update_drug' drug.id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_drug' drug.id %}" class="red_link" >Delete</a>
             </div>
@@ -68,19 +67,6 @@
       </tbody>
     </table>
   </div>
-
-
-  <!-- <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const drugTable = document.querySelector('.other_table');
-      const drugTableRows = drugTable.querySelectorAll('tbody tr');
-      drugTableRows.forEach(row => {
-        row.addEventListener('click', () => {
-          row.classList.toggle('selected');
-        });
-      });
-    });
-  </script> -->
 </body>
 
 </html>

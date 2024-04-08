@@ -40,7 +40,7 @@
   <div class="info_action">
     <a href="{% url 'add_patient' 'Add' %}" class="green_link">Add</a>
     <a href="{% url 'display_patient' 'all' %}" class="blue_link">Show all</a>
-    <form action="{% url 'display_patient' 'id' %}" style="display: flex; gap: 5px" method="POST">
+    <form method="POST" action="{% url 'display_patient' 'id' %}" style="display: flex; gap: 5px" >
       {% csrf_token %}
       <input type="number" name="employee_id">
       <input type="submit" value="Search">

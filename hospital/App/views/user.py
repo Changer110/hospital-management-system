@@ -4,6 +4,20 @@
 
 from django.shortcuts import render, redirect,reverse
 from django.contrib.auth import authenticate, login, logout
+from .import_all import *
+
+
+
+
+def register(request):
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = CreateUserForm()
+    return render(request, 'register.html', {'registerform': form}) 
 
 
 def user_login(request):

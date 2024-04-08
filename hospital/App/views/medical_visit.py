@@ -14,25 +14,31 @@ from io import BytesIO
 
 
 
-def show_medical_visit(request, employee_id):
+def display_medical_visit(request, employee_id):
     if request.session.get('user'):
         patient = Patient.objects.get(employee_id=employee_id)
         medical_visits = MedicalVisit.objects.filter(employee_id = employee_id)
-        context = {'visits': medical_visits, 'patient': patient}
+        context = {'visits': medical_visits, 'patient': patient,}
         return render(request, 'medical_visit.html', context)
     return redirect('login')
 
 
 def add_medical_visit(request, employee_id):
     if request.session.get('user'):
-        patient = Patient.objects.get(employee_id=employee_id)
-        doctors = Doctor.objects.all()
-        context = {'patient': patient, 'doctors': doctors}
         if request.method == 'POST':
             form = medicalVisitForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('medical_visit', employee_id=employee_id)
+                return redirect('display_medical_visit', employee_id=employee_id)
+            return redirect('add_medical_visit', employee_id = employee_id)
+        context = {
+        'action' : 'Add',
+        'sbt' : 'add_medical_visit',
+        'value' : employee_id,
+        'doctors' : Doctor.objects.all(),
+        'patient' : Patient.objects.get(employee_id = employee_id)
+        
+    }    
         return render(request, 'medical_visit_form.html', context)
     return redirect('login')
 
@@ -52,7 +58,7 @@ def download_medical_visit(request, visit_id):
         values = [
             str(medical_visit.employee_id.employee_id),
             medical_visit.hospital_visit,
-            medical_visit.employee_id.name,
+            medical_visit.employee_id.employee_name,
             medical_visit.employee_id.gender,
             str(medical_visit.employee_id.age),
             medical_visit.plaintes,
@@ -118,11 +124,19 @@ def update_medical_visit(request,visit_id):
             form =medicalVisitForm(request.POST, instance=medical_visit)
             if form.is_valid():
                 form.save()
-                return redirect('medical_visit', employee_id =medical_visit.employee_id.employee_id)
-        else:
-            form = medicalVisitForm(instance=medical_visit)
+                return redirect('display_medical_visit', employee_id =medical_visit.employee_id.employee_id)
+            return redirect('update_medical_visit', visit_id = visit_id)
+        context = {
+            'action' : 'Update',
+            'value' : visit_id,
+            'visit' : medical_visit,
+            'patient': medical_visit.employee_id,
+            'sbt' : 'update_medical_visit',
+            'doctors': Doctor.objects.all(),
+        }
+       
 
-        return render(request, 'medical_visit_form.html', {'form': form, 'medical_visit': medical_visit})
+        return render(request, 'medical_visit_form.html',context)
     return redirect('login')
 
 
@@ -135,7 +149,7 @@ def delete_medical_visit(request, visit_id):
 
         if request.method == 'POST':
             medical_visit.delete()
-            return redirect('medical_visit', employee_id=medical_visit.employee_id.employee_id)  # Replace 'medical_visit' with the appropriate URL pattern name for the medical visit list view
+            return redirect('display_medical_visit', employee_id=medical_visit.employee_id.employee_id)  # Replace 'medical_visit' with the appropriate URL pattern name for the medical visit list view
 
         context = {'medical_visit': medical_visit}
         return render(request, 'delete_medical_visit.html', context)

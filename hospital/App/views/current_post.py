@@ -59,7 +59,7 @@ def delete_current_post(request, current_post_id):
 
         if request.method == 'POST':
             current_post.delete()
-            return redirect('current_post', employee_id=current_post.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
+            return redirect('display_current_post', employee_id=current_post.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
 
         context = {'current_post': current_post}
         return render(request, 'delete_current_post.html', context)
@@ -84,7 +84,7 @@ def download_current_post(request, current_post_id):
         p.setFont("Helvetica-Bold", 16)
 
         # Write the heading with employee name
-        employee_name = current_post.employee_id.name
+        employee_name = current_post.employee_id.employee_name
         p.drawString(50, 750, f"Current Post Information for {employee_name}")
 
         p.setFont("Helvetica", 12)

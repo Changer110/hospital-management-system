@@ -33,7 +33,7 @@ def add_patient(request, employee_id):
                 patient.picture = pic.name
                 patient.creation_date = date_time_now()
                 patient.save()
-                return redirect('patient', employee_id = patient.employee_id)
+                return redirect('display_patient', employee_id = patient.employee_id)
         context = {
             'action' : 'Add',
             'sbt' : 'add_patient', 
@@ -51,7 +51,7 @@ def delete_patient(request, employee_id):
         patient = Patient.objects.get(employee_id=employee_id)
         if request.method == 'POST':
             patient.delete()
-            return redirect('patient', employee_id = 'all')
+            return redirect('display_patient', employee_id = 'all')
         return render(request, 'delete_patient.html', {'patient': patient})
     return redirect('login')
 
@@ -73,13 +73,13 @@ def update_patient(request, employee_id):
                 patient = form.save(commit=False)
                 patient.picture = pic.name if pic else db_patient.picture
                 patient.save()
-                return redirect('patient', employee_id = patient.employee_id)
-            return redirect('change_patient', employee_id = db_patient.employee_id)
+                return redirect('display_patient', employee_id = patient.employee_id)
+            return redirect('update_patient', employee_id = db_patient.employee_id)
         context = {
             'action' : 'Update',
             'patient' : db_patient,
             'employee' : employee_id,
-            'sbt' : 'change_patient',
+            'sbt' : 'update_patient',
             'enterprises' : Enterprise.objects.all(),            
             }
         return render(request, 'patient_form.html', context)

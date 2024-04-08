@@ -69,7 +69,7 @@ def delete_absenteeism(request, absenteeism_id):
 
         if request.method == 'POST':
             absenteeism.delete()
-            return redirect('absenteeism' ,employee_id=absenteeism.employee_id.employee_id )  # Replace 'absenteeism_list' with the appropriate URL pattern name for the absenteeism list view
+            return redirect('display_absenteeism' ,employee_id=absenteeism.employee_id.employee_id )  # Replace 'absenteeism_list' with the appropriate URL pattern name for the absenteeism list view
 
         context = {'absenteeism': absenteeism}
         return render(request, 'delete_absenteeism.html', context)

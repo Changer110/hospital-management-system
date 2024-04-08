@@ -63,12 +63,12 @@ def update_summons(request, summons_id):
 
 
 
-def delete_summons(request, summons_form_id):
+def delete_summons(request, summons_id):
     if request.session.get('user'):
-        summons_form = Summons.objects.get(id=summons_form_id)
+        summons_form = Summons.objects.get(id=summons_id)
         if request.method == 'POST':
             summons_form.delete()
-            return redirect('summons_form',employee_id=summons_form.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
+            return redirect('display_summons',employee_id=summons_form.employee_id.employee_id)  # Replace 'previous_post_list' with the appropriate URL pattern name for the previous post list view
 
         context = {'summons_form': summons_form}
         return render(request, 'delete_summons_form.html', context)

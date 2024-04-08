@@ -1,0 +1,82 @@
+/* medical_visit.css */
+
+/* Container Styles */
+.data_container {
+    margin: 20px auto;
+    max-width: 800px;
+  }
+  
+  .medical_visit {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Title Styles */
+  .title {
+    text-align: center;
+  }
+  
+  /* Info Action Styles */
+  .info_action {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .info_action a {
+    margin-right: 10px;
+  }
+  
+  /* Patient Info Styles */
+  .patient_info {
+    margin-top: 10px;
+  }
+  
+  .patient_info label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  /* Clinic Info Styles */
+  .clinic_info {
+    margin-top: 10px;
+  }
+  
+  .clinic_info label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .mensuration_info {
+    margin-top: 10px;
+  }
+  
+  .mensuration_info label {
+    display: block;
+  }
+  
+  /* Complementary Exams Info Styles */
+  .complementary_exams_info {
+    margin-top: 10px;
+  }
+  
+  .complementary_exams_info label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  /* What to Do Info Styles */
+  .what_to_do_info {
+    margin-top: 10px;
+  }
+  
+  .what_to_do_info label {
+    font-weight: bold;
+    display: block;
+  }
+  
+  /* Separator Styles */
+  .separator {
+    text-align: center;
+    margin-top: 20px;
+  }
