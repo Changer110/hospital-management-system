@@ -15,8 +15,8 @@
       <input type="hidden" name="medical_record" value="{{ record }}">
       
       <label>Date</label>
-      <input type="text" name="date" value="{{vaccination.date}}"
-      onblur="show_date(event)" onfocus="insert_date(event)">
+      <input type="text" name="date" id="date" value="{{vaccination.date}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
       
       <label>Vaccine</label>
       <input type="text" name="vaccine" value="{{vaccination.vaccine}}">

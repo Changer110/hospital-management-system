@@ -28,8 +28,8 @@
       <input type="number" name="quantity" value="{{drug.quantity}}">
 
       <label>Expiry Date</label>
-      <input type="text" name="expiry_date" value="{{drug.expiry_date}}"
-      onblur="show_date(event)" onfocus="insert_date(event)">
+      <input type="text" name="expiry_date" value="{{drug.expiry_date}}" id="date"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)">
 
       <label>Dosage Issued</label>
       <input type="number" name="dosage_issued" value="{{drug.dosage_issued}}">

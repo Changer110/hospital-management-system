@@ -1,9 +1,11 @@
 
+
+
 {% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Appointment Information</title>
+  <title>Display Schedule</title>
   <link rel="stylesheet" href="{% static 'css/general_style.css' %}">
 </head>
 <body>
@@ -15,11 +17,11 @@
     <a class="logout" href="{% url 'logout' %}">Logout</a>
   </nav>
 
-  <h1 style="text-align: center;">Appointment Information {{ user }} </h1>
+  <h1 style="text-align: center;">Doctor {{doctor.name}} Schedule</h1>
 
   <div class="info_action">
-    <a href="{% url 'add_appointment' value %}" class="green_link">Add</a>
-    <a href="{% url 'display_patient' value %}" class="green_link">Patient</a>
+    <a href="{% url 'add_schedule' doctor.doctor_id %}" class="green_link">Add</a>
+    <a href="{% url 'display_schedule' doctor.doctor_id %}" class="green_link">View all</a>
     <a href="{% url 'display_doctor' %}" class="green_link">Doctor</a>
   </div>
 
@@ -27,30 +29,30 @@
     <table class="other_table">
       <thead>
         <tr>
-          <th>Doctor</th>
-          <th>Patient</th>
-          <th>Date</th>
-          <th>Time</th>
+          <th>Day</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Patients limit</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {% for appointment in appointments %}
+        {% for schedule in schedules %}
         <tr>
-          <td>{{ appointment.doctor.name }}</td>
-          <td>{{ appointment.patient.employee_name }}</td>
-          <td>{{ appointment.date }}</td>
-          <td>{{ appointment.time }}</td>
+          <td>{{ schedule.day }}</td>
+          <td>{{ schedule.from_time }}</td>
+          <td>{{ schedule.to_time }}</td>
+          <td>{{ schedule.patient_limit }}</td>
           <td>
             <div>
-              <a href="{% url 'update_appointment' appointment.id %}" class="blue_link">Update</a>
-              <a href="{% url 'delete_appointment' appointment.id %}" class="red_link">Delete</a>
+              <a href="{% url 'update_schedule' schedule.id %}" class="blue_link">Update</a>
+              <a href="{% url 'delete_schedule' schedule.id %}" class="red_link">Delete</a>
             </div>
           </td>
         </tr>
         {% empty %}
         <tr>
-          <td colspan="4">No appointments found.</td>
+          <td colspan="2">No schedule found.</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -20,13 +20,13 @@
       <label>Cause</label>
       <input type="text" name="cause" value="{{absenteeism.cause}}">
 
-      <label>Beginning</label>
-      <input name="beginning" value="{{absenteeism.beginning}}"
-      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <label>Beginning date</label>
+      <input type="text" name="beginning" value="{{absenteeism.beginning}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)" id="date">
 
-      <label>Reprise</label>
-      <input name="reprise" value="{{absenteeism.reprise}}"
-      type="text" onblur="show_date(event)" onfocus="insert_date(event)">
+      <label>Reprise date</label>
+      <input type="text" name="reprise" value="{{absenteeism.reprise}}"
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)" id="date">
 
       <label>Days Off</label>
       <input type="number" name="days_off" value="{{absenteeism.days_off}}">

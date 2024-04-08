@@ -45,10 +45,19 @@ urlpatterns = [
     
     
     # APPOINTMENT URLS
-    path('Display/appointment/<int:employee_id>/' , display_appointment , name='display_appointment'),
-    path('Add/appointment/<int:employee_id>/', add_appointment, name='add_appointment'),
+    path('Display/appointment/<str:employee_id>/' , display_appointment , name='display_appointment'),
+    path('Add/appointment/<str:employee_id>/', add_appointment, name='add_appointment'),
     path('Update/appointment/update/<int:appointment_id>/',update_appointment, name='update_appointment'),
     path('Delete/appointment/delete/<int:appointment_id>/', delete_appointment, name='delete_appointment'),
+    
+    
+    
+    # SCHEDULE URLS
+    path('Display/schedule/<int:doctor_id>' , display_schedule, name='display_schedule'),
+    path('Add/schedule/<int:doctor_id>', add_schedule, name='add_schedule'),
+    path('Update/schedule/<int:schedule_id>',update_schedule, name='update_schedule'),
+    path('Delete/schedule/<int:schedule_id>', delete_schedule, name='delete_schedule'),
+    
     
     
     # PRESCRIPTIONS URLS

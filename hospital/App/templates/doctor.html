@@ -9,7 +9,7 @@
 <body>
   <nav>
     <a href="{% url 'display_patient' 'all' %}">Patients</a>
-    <a href="">Appointment</a>
+    <a href="{% url 'display_appointment' 'all' %}">Appointment</a>
     <a href="{% url 'display_doctor' %}">Doctors</a>
     <a href="{% url 'display_drug' %}">Drugs</a>
     <a class="logout" href="{% url 'logout' %}">Logout</a>
@@ -51,7 +51,8 @@
           <td>{{ doctor.address }}</td>
           <td>
             <div>
-              <a href="" class="green_link">Appointment</a>
+              <a href="{% url 'display_schedule' doctor.doctor_id %}" class="green_link">Schedule</a>
+              <a href="{% url 'display_appointment' doctor.doctor_id %}" class="green_link">Appointment</a>
               <a href="{% url 'update_doctor' doctor.doctor_id %}" class="blue_link">Update</a>
               <a href="{% url 'delete_doctor' doctor.doctor_id %}" class="red_link">Delete</a>
             </div>

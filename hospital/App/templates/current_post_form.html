@@ -15,11 +15,11 @@
 
       <label>begin_date</label>
       <input type="text" name="begin_date" value="{{current_post.begin_date}}"
-       onblur="show_date(event)" onfocus="insert_date(event)">
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)" id="date">
 
       <label for="end_date">end_date :</label>
       <input type="text" name="end_date" value="{{current_post.end_date}}"
-      onblur="show_date(event)" onfocus="insert_date(event)">
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)" id="date">
 
       <label>Post</label>
       <input value="{{current_post.post}}" type="text" name="post">
@@ -35,7 +35,7 @@
 
       <label>Metrology Date</label>
       <input value="{{current_post.metrology_date}}" type="text" name="metrology_date"
-      onblur="show_date(event)" onfocus="insert_date(event)">
+      onblur="show_datetime(event)" onfocus="insert_datetime(event)" id="date">
 
       <label>Metrology type</label>
       <input value="{{current_post.metrology_type}}" type="text" name="metrology_type">

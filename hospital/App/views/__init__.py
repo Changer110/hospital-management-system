@@ -9,6 +9,7 @@ from .patient import *
 from .medical_record import *
 from .medical_visit import *
 from .appointment import *
+from .schedule import *
 from .drugs import *
 from .prescription import *
 
